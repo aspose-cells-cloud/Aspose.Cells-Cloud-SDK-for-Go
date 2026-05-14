@@ -4784,6 +4784,134 @@ func (data *AcceptAllRevisionsInRemoteSpreadsheetRequest) CreateRequestData( cli
 	return r,err
 }
 
+type GetSpreadsheetStructureRequest struct {
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+	Spreadsheet string  `json:"spreadsheet,omitempty" xml:"spreadsheet"`
+	 
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *GetSpreadsheetStructureRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/spreadsheet/structure"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"multipart/form-data"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+			
+		if strings.TrimSpace(data.Spreadsheet) != "" { localVarFormParams["@"+ filepath.Base(data.Spreadsheet)] = []string {data.Spreadsheet}} 
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
+type GetStructureInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *GetStructureInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("GET")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/structure"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
 type ProtectSpreadsheetRequest struct {
 	Password string `json:"password,omitempty" xml:"password"`
 	ModifyPassword string `json:"modify_password,omitempty" xml:"modify_password"`
@@ -6179,6 +6307,113 @@ func (data *CodegenSpecRequest) CreateRequestData( client *APIClient) (localVarR
 	return r,err
 }
 
+type TrimCharacterInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	TrimContent string `json:"trim_content,omitempty" xml:"trim_content"`
+	TrimLeading bool `json:"trim_leading,omitempty" xml:"trim_leading"`
+	TrimTrailing bool `json:"trim_trailing,omitempty" xml:"trim_trailing"`
+	TrimSpaceBetweenWordTo1 bool `json:"trim_space_between_word_to1,omitempty" xml:"trim_space_between_word_to1"`
+	TrimNonBreakingSpaces bool `json:"trim_non_breaking_spaces,omitempty" xml:"trim_non_breaking_spaces"`
+	RemoveExtraLineBreaks bool `json:"remove_extra_line_breaks,omitempty" xml:"remove_extra_line_breaks"`
+	RemoveAllLineBreaks bool `json:"remove_all_line_breaks,omitempty" xml:"remove_all_line_breaks"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *TrimCharacterInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/trim"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : trimContent
+    if data.TrimContent != "" {
+        localVarQueryParams.Add("trimContent", parameterToString(data.TrimContent, ""))
+    }
+    // query params : trimLeading
+    if data.TrimLeading {
+        localVarQueryParams.Add("trimLeading", parameterToString(data.TrimLeading, ""))
+    }
+    // query params : trimTrailing
+    if data.TrimTrailing {
+        localVarQueryParams.Add("trimTrailing", parameterToString(data.TrimTrailing, ""))
+    }
+    // query params : trimSpaceBetweenWordTo1
+    if data.TrimSpaceBetweenWordTo1 {
+        localVarQueryParams.Add("trimSpaceBetweenWordTo1", parameterToString(data.TrimSpaceBetweenWordTo1, ""))
+    }
+    // query params : trimNonBreakingSpaces
+    if data.TrimNonBreakingSpaces {
+        localVarQueryParams.Add("trimNonBreakingSpaces", parameterToString(data.TrimNonBreakingSpaces, ""))
+    }
+    // query params : removeExtraLineBreaks
+    if data.RemoveExtraLineBreaks {
+        localVarQueryParams.Add("removeExtraLineBreaks", parameterToString(data.RemoveExtraLineBreaks, ""))
+    }
+    // query params : removeAllLineBreaks
+    if data.RemoveAllLineBreaks {
+        localVarQueryParams.Add("removeAllLineBreaks", parameterToString(data.RemoveAllLineBreaks, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
 type TrimCharacterRequest struct {
 	TrimContent string `json:"trim_content,omitempty" xml:"trim_content"`
 	TrimLeading bool `json:"trim_leading,omitempty" xml:"trim_leading"`
@@ -6379,6 +6614,83 @@ func (data *UpdateWordCaseRequest) CreateRequestData( client *APIClient) (localV
 	return r,err
 }
 
+type UpdateWordCaseInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	WordCaseType string `json:"word_case_type,omitempty" xml:"word_case_type"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *UpdateWordCaseInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/wordcase"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : wordCaseType
+    if data.WordCaseType != "" {
+        localVarQueryParams.Add("wordCaseType", parameterToString(data.WordCaseType, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
 type RemoveCharactersRequest struct {
 	RemoveTextMethod string `json:"remove_text_method,omitempty" xml:"remove_text_method"`
 	CharacterSets string `json:"character_sets,omitempty" xml:"character_sets"`
@@ -6475,6 +6787,98 @@ func (data *RemoveCharactersRequest) CreateRequestData( client *APIClient) (loca
 	}
 			
 		if strings.TrimSpace(data.Spreadsheet) != "" { localVarFormParams["@"+ filepath.Base(data.Spreadsheet)] = []string {data.Spreadsheet}} 
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
+type RemoveCharactersInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	RemoveTextMethod string `json:"remove_text_method,omitempty" xml:"remove_text_method"`
+	CharacterSets string `json:"character_sets,omitempty" xml:"character_sets"`
+	RemoveCustomValue string `json:"remove_custom_value,omitempty" xml:"remove_custom_value"`
+	CaseSensitive bool `json:"case_sensitive,omitempty" xml:"case_sensitive"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *RemoveCharactersInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/remove/characters"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : removeTextMethod
+    if data.RemoveTextMethod != "" {
+        localVarQueryParams.Add("removeTextMethod", parameterToString(data.RemoveTextMethod, ""))
+    }
+    // query params : characterSets
+    if data.CharacterSets != "" {
+        localVarQueryParams.Add("characterSets", parameterToString(data.CharacterSets, ""))
+    }
+    // query params : removeCustomValue
+    if data.RemoveCustomValue != "" {
+        localVarQueryParams.Add("removeCustomValue", parameterToString(data.RemoveCustomValue, ""))
+    }
+    // query params : caseSensitive
+    if data.CaseSensitive {
+        localVarQueryParams.Add("caseSensitive", parameterToString(data.CaseSensitive, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
 	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	return r,err
 }
@@ -6584,6 +6988,103 @@ func (data *RemoveCharactersByPositionRequest) CreateRequestData( client *APICli
 	return r,err
 }
 
+type RemoveCharactersByPositionInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	TheFirstNCharacters int64 `json:"the_first_n_characters,omitempty" xml:"the_first_n_characters"`
+	TheLastNCharacters int64 `json:"the_last_n_characters,omitempty" xml:"the_last_n_characters"`
+	AllCharactersBeforeText string `json:"all_characters_before_text,omitempty" xml:"all_characters_before_text"`
+	AllCharactersAfterText string `json:"all_characters_after_text,omitempty" xml:"all_characters_after_text"`
+	CaseSensitive bool `json:"case_sensitive,omitempty" xml:"case_sensitive"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *RemoveCharactersByPositionInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/remove/characters-by-position"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : theFirstNCharacters
+    if &data.TheFirstNCharacters != nil {
+        localVarQueryParams.Add("theFirstNCharacters", parameterToString(data.TheFirstNCharacters, ""))
+    }
+    // query params : theLastNCharacters
+    if &data.TheLastNCharacters != nil {
+        localVarQueryParams.Add("theLastNCharacters", parameterToString(data.TheLastNCharacters, ""))
+    }
+    // query params : allCharactersBeforeText
+    if data.AllCharactersBeforeText != "" {
+        localVarQueryParams.Add("allCharactersBeforeText", parameterToString(data.AllCharactersBeforeText, ""))
+    }
+    // query params : allCharactersAfterText
+    if data.AllCharactersAfterText != "" {
+        localVarQueryParams.Add("allCharactersAfterText", parameterToString(data.AllCharactersAfterText, ""))
+    }
+    // query params : caseSensitive
+    if data.CaseSensitive {
+        localVarQueryParams.Add("caseSensitive", parameterToString(data.CaseSensitive, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
 type RemoveDuplicateSubstringsRequest struct {
 	Delimiters string `json:"delimiters,omitempty" xml:"delimiters"`
 	TreatConsecutiveDelimitersAsOne bool `json:"treat_consecutive_delimiters_as_one,omitempty" xml:"treat_consecutive_delimiters_as_one"`
@@ -6675,6 +7176,93 @@ func (data *RemoveDuplicateSubstringsRequest) CreateRequestData( client *APIClie
 	}
 			
 		if strings.TrimSpace(data.Spreadsheet) != "" { localVarFormParams["@"+ filepath.Base(data.Spreadsheet)] = []string {data.Spreadsheet}} 
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
+type RemoveDuplicateSubstringsInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	Delimiters string `json:"delimiters,omitempty" xml:"delimiters"`
+	TreatConsecutiveDelimitersAsOne bool `json:"treat_consecutive_delimiters_as_one,omitempty" xml:"treat_consecutive_delimiters_as_one"`
+	CaseSensitive bool `json:"case_sensitive,omitempty" xml:"case_sensitive"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *RemoveDuplicateSubstringsInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/remove/duplicate-substrings"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : delimiters
+    if data.Delimiters != "" {
+        localVarQueryParams.Add("delimiters", parameterToString(data.Delimiters, ""))
+    }
+    // query params : treatConsecutiveDelimitersAsOne
+    if data.TreatConsecutiveDelimitersAsOne {
+        localVarQueryParams.Add("treatConsecutiveDelimitersAsOne", parameterToString(data.TreatConsecutiveDelimitersAsOne, ""))
+    }
+    // query params : caseSensitive
+    if data.CaseSensitive {
+        localVarQueryParams.Add("caseSensitive", parameterToString(data.CaseSensitive, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
 	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	return r,err
 }
@@ -6779,6 +7367,98 @@ func (data *AddTextRequest) CreateRequestData( client *APIClient) (localVarReque
 	return r,err
 }
 
+type AddTextInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	Text string `json:"text,omitempty" xml:"text"`
+	Position string `json:"position,omitempty" xml:"position"`
+	SelectText string `json:"select_text,omitempty" xml:"select_text"`
+	SkipEmptyCells bool `json:"skip_empty_cells,omitempty" xml:"skip_empty_cells"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *AddTextInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/add/text"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : text
+    if data.Text != "" {
+        localVarQueryParams.Add("text", parameterToString(data.Text, ""))
+    }
+    // query params : position
+    if data.Position != "" {
+        localVarQueryParams.Add("position", parameterToString(data.Position, ""))
+    }
+    // query params : selectText
+    if data.SelectText != "" {
+        localVarQueryParams.Add("selectText", parameterToString(data.SelectText, ""))
+    }
+    // query params : skipEmptyCells
+    if data.SkipEmptyCells {
+        localVarQueryParams.Add("skipEmptyCells", parameterToString(data.SkipEmptyCells, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
 type ConvertTextRequest struct {
 	ConvertTextType string `json:"convert_text_type,omitempty" xml:"convert_text_type"`
 	SourceCharacters string `json:"source_characters,omitempty" xml:"source_characters"`
@@ -6870,6 +7550,93 @@ func (data *ConvertTextRequest) CreateRequestData( client *APIClient) (localVarR
 	}
 			
 		if strings.TrimSpace(data.Spreadsheet) != "" { localVarFormParams["@"+ filepath.Base(data.Spreadsheet)] = []string {data.Spreadsheet}} 
+	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	return r,err
+}
+
+type ConvertTextInRemoteSpreadsheetRequest struct {
+    Name string `json:"name,omitempty" xml:"name"`
+    Worksheet string `json:"worksheet,omitempty" xml:"worksheet"`
+    Range_ string `json:"range,omitempty" xml:"range"`
+	ConvertTextType string `json:"convert_text_type,omitempty" xml:"convert_text_type"`
+	SourceCharacters string `json:"source_characters,omitempty" xml:"source_characters"`
+	TargetCharacters string `json:"target_characters,omitempty" xml:"target_characters"`
+	Folder string `json:"folder,omitempty" xml:"folder"`
+	StorageName string `json:"storage_name,omitempty" xml:"storage_name"`
+	Region string `json:"region,omitempty" xml:"region"`
+	Password string `json:"password,omitempty" xml:"password"`
+	
+
+	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
+}
+
+func (data *ConvertTextInRemoteSpreadsheetRequest) CreateRequestData( client *APIClient) (localVarRequest *http.Request, err error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("PUT")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+	)
+
+	// create path and map variables
+	localVarPath := client.cfg.BasePath + "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/convert/text"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", data.Name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", fmt.Sprintf("%v", data.Worksheet), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", fmt.Sprintf("%v", data.Range_), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+    // query params : convertTextType
+    if data.ConvertTextType != "" {
+        localVarQueryParams.Add("convertTextType", parameterToString(data.ConvertTextType, ""))
+    }
+    // query params : sourceCharacters
+    if data.SourceCharacters != "" {
+        localVarQueryParams.Add("sourceCharacters", parameterToString(data.SourceCharacters, ""))
+    }
+    // query params : targetCharacters
+    if data.TargetCharacters != "" {
+        localVarQueryParams.Add("targetCharacters", parameterToString(data.TargetCharacters, ""))
+    }
+    // query params : folder
+    if data.Folder != "" {
+        localVarQueryParams.Add("folder", parameterToString(data.Folder, ""))
+    }
+    // query params : storageName
+    if data.StorageName != "" {
+        localVarQueryParams.Add("storageName", parameterToString(data.StorageName, ""))
+    }
+    // query params : region
+    if data.Region != "" {
+        localVarQueryParams.Add("region", parameterToString(data.Region, ""))
+    }
+    // query params : password
+    if data.Password != "" {
+        localVarQueryParams.Add("password", parameterToString(data.Password, ""))
+    }
+	if data.ExtendQueryParameterMap != nil {
+		for key, value := range data.ExtendQueryParameterMap {
+			localVarQueryParams.Add(key, parameterToString(value, ""))
+		}
+	}
+	localVarHttpContentTypes := []string{"application/json"} 
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
 	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	return r,err
 }

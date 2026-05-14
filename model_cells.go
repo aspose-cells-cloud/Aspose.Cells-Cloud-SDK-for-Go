@@ -310,6 +310,51 @@ type DocxSaveOptions struct {
 }
 
 
+type EbookSaveOptions struct {
+     
+        ExportPageHeaders bool `json:"ExportPageHeaders,omitempty" xml:"ExportPageHeaders"`
+        ExportPageFooters bool `json:"ExportPageFooters,omitempty" xml:"ExportPageFooters"`
+        ExportRowColumnHeadings bool `json:"ExportRowColumnHeadings,omitempty" xml:"ExportRowColumnHeadings"`
+        ShowAllSheets bool `json:"ShowAllSheets,omitempty" xml:"ShowAllSheets"`
+        ImageOptions *ImageOrPrintOptions `json:"ImageOptions,omitempty" xml:"ImageOptions"`
+        SaveAsSingleFile bool `json:"SaveAsSingleFile,omitempty" xml:"SaveAsSingleFile"`
+        ExportHiddenWorksheet bool `json:"ExportHiddenWorksheet,omitempty" xml:"ExportHiddenWorksheet"`
+        ExportGridLines bool `json:"ExportGridLines,omitempty" xml:"ExportGridLines"`
+        PresentationPreference bool `json:"PresentationPreference,omitempty" xml:"PresentationPreference"`
+        CellCssPrefix string `json:"CellCssPrefix,omitempty" xml:"CellCssPrefix"`
+        TableCssId string `json:"TableCssId,omitempty" xml:"TableCssId"`
+        IsFullPathLink bool `json:"IsFullPathLink,omitempty" xml:"IsFullPathLink"`
+        ExportWorksheetCSSSeparately bool `json:"ExportWorksheetCSSSeparately,omitempty" xml:"ExportWorksheetCSSSeparately"`
+        ExportSimilarBorderStyle bool `json:"ExportSimilarBorderStyle,omitempty" xml:"ExportSimilarBorderStyle"`
+        MergeEmptyTdForcely bool `json:"MergeEmptyTdForcely,omitempty" xml:"MergeEmptyTdForcely"`
+        ExportCellCoordinate bool `json:"ExportCellCoordinate,omitempty" xml:"ExportCellCoordinate"`
+        ExportExtraHeadings bool `json:"ExportExtraHeadings,omitempty" xml:"ExportExtraHeadings"`
+        ExportHeadings bool `json:"ExportHeadings,omitempty" xml:"ExportHeadings"`
+        ExportFormula bool `json:"ExportFormula,omitempty" xml:"ExportFormula"`
+        AddTooltipText bool `json:"AddTooltipText,omitempty" xml:"AddTooltipText"`
+        ExportBogusRowData bool `json:"ExportBogusRowData,omitempty" xml:"ExportBogusRowData"`
+        ExcludeUnusedStyles bool `json:"ExcludeUnusedStyles,omitempty" xml:"ExcludeUnusedStyles"`
+        ExportDocumentProperties bool `json:"ExportDocumentProperties,omitempty" xml:"ExportDocumentProperties"`
+        ExportWorksheetProperties bool `json:"ExportWorksheetProperties,omitempty" xml:"ExportWorksheetProperties"`
+        ExportWorkbookProperties bool `json:"ExportWorkbookProperties,omitempty" xml:"ExportWorkbookProperties"`
+        ExportFrameScriptsAndProperties bool `json:"ExportFrameScriptsAndProperties,omitempty" xml:"ExportFrameScriptsAndProperties"`
+        AttachedFilesDirectory string `json:"AttachedFilesDirectory,omitempty" xml:"AttachedFilesDirectory"`
+        AttachedFilesUrlPrefix string `json:"AttachedFilesUrlPrefix,omitempty" xml:"AttachedFilesUrlPrefix"`
+        Encoding string `json:"Encoding,omitempty" xml:"Encoding"`
+        ExportActiveWorksheetOnly bool `json:"ExportActiveWorksheetOnly,omitempty" xml:"ExportActiveWorksheetOnly"`
+        ExportChartImageFormat string `json:"ExportChartImageFormat,omitempty" xml:"ExportChartImageFormat"`
+        ExportImagesAsBase64 bool `json:"ExportImagesAsBase64,omitempty" xml:"ExportImagesAsBase64"`
+        HiddenColDisplayType string `json:"HiddenColDisplayType,omitempty" xml:"HiddenColDisplayType"`
+        HiddenRowDisplayType string `json:"HiddenRowDisplayType,omitempty" xml:"HiddenRowDisplayType"`
+        HtmlCrossStringType string `json:"HtmlCrossStringType,omitempty" xml:"HtmlCrossStringType"`
+        IsExpImageToTempDir bool `json:"IsExpImageToTempDir,omitempty" xml:"IsExpImageToTempDir"`
+        PageTitle string `json:"PageTitle,omitempty" xml:"PageTitle"`
+        ParseHtmlTagInCell bool `json:"ParseHtmlTagInCell,omitempty" xml:"ParseHtmlTagInCell"`
+        CellNameAttribute string `json:"CellNameAttribute,omitempty" xml:"CellNameAttribute"`
+ 
+}
+
+
 type HtmlSaveOptions struct {
      
         SaveFormat string `json:"SaveFormat,omitempty" xml:"SaveFormat"`
