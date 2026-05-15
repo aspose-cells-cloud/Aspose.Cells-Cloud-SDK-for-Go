@@ -123,7 +123,8 @@ func main() {
 	}
 
 	_, httpResponse, err = instance.PutWorksheetChart(&PutWorksheetChartRequest{
-		Name: reportName, Folder: remoteFolder, SheetName: reportSheetName,
+		Name: reportName, Folder: remoteFolder, SheetName: reportSheetName, ChartType: "Pie", IsVertical: true,
+		Title:        "Aspose Chart",
 		UpperLeftRow: 5, UpperLeftColumn: 3, LowerRightColumn: 9, LowerRightRow: 15, Area: sheetName + "!A1:B5"})
 	if err != nil {
 		fmt.Print(err)
