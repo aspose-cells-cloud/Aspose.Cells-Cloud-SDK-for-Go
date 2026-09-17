@@ -7,19 +7,24 @@ import (
 
 	"asposecellscloud"
 	"asposecellscloud/datasource"
-	"asposecellscloud/internal/testutil"
 	"asposecellscloud/searcher"
+	"asposecellscloud/internal/testutil"
 )
 
-const searchBody = `{"TextItems":[{"Filename":"a.xlsx","Worksheet":"Sheet1","Position":"Cell:E35","Content":"margin"}]}`
-
+// TestSearch tests the v4.0 Search function for local files.
+// This is the equivalent of the v3.0 SearchSpreadsheetContent for local files.
 func TestSearch(t *testing.T) {
-	client, capture := testutil.NewServer(t, searchBody)
+	respBody := `{"TextItems":[{"Filename":"a.xlsx","Worksheet":"Sheet1","Position":"Cell:E35","Content":"margin"}]}`
+	client, capture := testutil.NewServer(t, respBody)
 
-	items, err := searcher.Search(context.Background(), client, datasource.BytesSource([]byte("x")), "Sheet1", "margin")
+	items, err := searcher.Search(context.Background(), client,
+		datasource.BytesSource([]byte("source-xlsx")),
+		"Sheet1",
+		"margin")
 	if err != nil {
 		t.Fatalf("searcher.Search failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/search/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/search/content", c.Method, c.Path)
@@ -30,8 +35,8 @@ func TestSearch(t *testing.T) {
 	if got := c.Query.Get("worksheet"); got != "Sheet1" {
 		t.Errorf("worksheet = %q, want Sheet1", got)
 	}
-	if got := string(c.Files["Spreadsheet"]); got != "x" {
-		t.Errorf("Spreadsheet part = %q, want x", got)
+	if got := string(c.Files["Spreadsheet"]); got != "source-xlsx" {
+		t.Errorf("Spreadsheet part = %q, want source-xlsx", got)
 	}
 	if len(items) != 1 {
 		t.Fatalf("got %d items, want 1", len(items))
@@ -41,14 +46,21 @@ func TestSearch(t *testing.T) {
 	}
 }
 
+// TestReplace tests the v4.0 Replace function for local files.
+// This is the equivalent of the v3.0 ReplaceSpreadsheetContent for local files.
 func TestReplace(t *testing.T) {
 	client, capture := testutil.NewServer(t, "replaced")
 	sink := &datasource.BytesSink{}
 
-	err := searcher.Replace(context.Background(), client, datasource.BytesSource([]byte("x")), sink, "old", "new")
+	err := searcher.Replace(context.Background(), client,
+		datasource.BytesSource([]byte("source-xlsx")),
+		sink,
+		"old",
+		"new")
 	if err != nil {
 		t.Fatalf("searcher.Replace failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/replace/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/replace/content", c.Method, c.Path)
@@ -64,14 +76,18 @@ func TestReplace(t *testing.T) {
 	}
 }
 
+// TestSearchWorksheet tests the v4.0 SearchWorksheet function for cloud files.
+// This is the equivalent of the v3.0 SearchContentInRemoteWorksheet for cloud files.
 func TestSearchWorksheet(t *testing.T) {
-	client, capture := testutil.NewServer(t, searchBody)
+	respBody := `{"TextItems":[{"Filename":"a.xlsx","Worksheet":"Sheet1","Position":"Cell:E35","Content":"margin"}]}`
+	client, capture := testutil.NewServer(t, respBody)
 	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx", Folder: "TestData/In", StorageName: "s3"}
 
 	items, err := searcher.SearchWorksheet(context.Background(), client, wf, "Sheet1", "margin")
 	if err != nil {
 		t.Fatalf("searcher.SearchWorksheet failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/Book1.xlsx/worksheets/Sheet1/search/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/Book1.xlsx/worksheets/Sheet1/search/content", c.Method, c.Path)
@@ -87,14 +103,18 @@ func TestSearchWorksheet(t *testing.T) {
 	}
 }
 
+// TestSearchRange tests the v4.0 SearchRange function for cloud file ranges.
+// This is the equivalent of the v3.0 SearchContentInRemoteRange for cloud file ranges.
 func TestSearchRange(t *testing.T) {
-	client, capture := testutil.NewServer(t, searchBody)
+	respBody := `{"TextItems":[{"Filename":"a.xlsx","Worksheet":"Sheet1","Position":"Cell:E35","Content":"margin"}]}`
+	client, capture := testutil.NewServer(t, respBody)
 	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx"}
 
 	items, err := searcher.SearchRange(context.Background(), client, wf, "Sheet1", "E35:F40", "margin")
 	if err != nil {
 		t.Fatalf("searcher.SearchRange failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/Book1.xlsx/worksheets/Sheet1/ranges/E35:F40/search/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/Book1.xlsx/worksheets/Sheet1/ranges/E35:F40/search/content", c.Method, c.Path)
@@ -104,13 +124,17 @@ func TestSearchRange(t *testing.T) {
 	}
 }
 
+// TestReplaceWorkbook tests the v4.0 ReplaceWorkbook function for cloud files.
+// This is the equivalent of the v3.0 ReplaceContentInRemoteSpreadsheet for cloud files.
 func TestReplaceWorkbook(t *testing.T) {
 	client, capture := testutil.NewServer(t, "ok")
 	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx", StorageName: "s3"}
 
-	if err := searcher.ReplaceWorkbook(context.Background(), client, wf, "old", "new"); err != nil {
+	err := searcher.ReplaceWorkbook(context.Background(), client, wf, "old", "new")
+	if err != nil {
 		t.Fatalf("searcher.ReplaceWorkbook failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/Book1.xlsx/replace/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/Book1.xlsx/replace/content", c.Method, c.Path)
@@ -126,67 +150,95 @@ func TestReplaceWorkbook(t *testing.T) {
 	}
 }
 
+// TestReplaceWorksheet tests the v4.0 ReplaceWorksheet function for cloud file worksheets.
+// This is the equivalent of the v3.0 ReplaceContentInRemoteWorksheet for cloud file worksheets.
 func TestReplaceWorksheet(t *testing.T) {
 	client, capture := testutil.NewServer(t, "ok")
 	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx"}
 
-	if err := searcher.ReplaceWorksheet(context.Background(), client, wf, "Sheet1", "old", "new"); err != nil {
+	err := searcher.ReplaceWorksheet(context.Background(), client, wf, "Sheet1", "old", "new")
+	if err != nil {
 		t.Fatalf("searcher.ReplaceWorksheet failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/Book1.xlsx/worksheets/Sheet1/replace/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/Book1.xlsx/worksheets/Sheet1/replace/content", c.Method, c.Path)
 	}
 }
 
+// TestReplaceRange tests the v4.0 ReplaceRange function for cloud file ranges.
+// This is the equivalent of the v3.0 ReplaceContentInRemoteRange for cloud file ranges.
 func TestReplaceRange(t *testing.T) {
 	client, capture := testutil.NewServer(t, "ok")
 	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx"}
 
-	if err := searcher.ReplaceRange(context.Background(), client, wf, "Sheet1", "E35:F40", "old", "new"); err != nil {
+	err := searcher.ReplaceRange(context.Background(), client, wf, "Sheet1", "E35:F40", "old", "new")
+	if err != nil {
 		t.Fatalf("searcher.ReplaceRange failed: %v", err)
 	}
+
 	c := capture()
 	if c.Method != "PUT" || c.Path != "/v4.0/cells/Book1.xlsx/worksheets/Sheet1/ranges/E35:F40/replace/content" {
 		t.Errorf("request = %s %s, want PUT /v4.0/cells/Book1.xlsx/worksheets/Sheet1/ranges/E35:F40/replace/content", c.Method, c.Path)
 	}
 }
 
-func TestSearcherValidation(t *testing.T) {
+// TestSearcher_Validation tests validation of searcher parameters.
+func TestSearcher_Validation(t *testing.T) {
 	client, _ := testutil.NewServer(t, "")
 	ctx := context.Background()
 	src := datasource.BytesSource([]byte("x"))
 	sink := &datasource.BytesSink{}
 	wf := &asposecellscloud.WorkbookRef{Name: "B.xlsx"}
 
-	if _, err := searcher.Search(ctx, client, nil, "S", "t"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.Search nil source: got %v, want ErrInvalidParam", err)
+	type testFunc func() error
+	tests := []struct {
+		name string
+		fn   testFunc
+	}{
+		{"Search nil source", func() error {
+			_, err := searcher.Search(ctx, client, nil, "S", "t")
+			return err
+		}},
+		{"Search empty worksheet", func() error {
+			_, err := searcher.Search(ctx, client, src, "", "t")
+			return err
+		}},
+		{"Search empty text", func() error {
+			_, err := searcher.Search(ctx, client, src, "S", "")
+			return err
+		}},
+		{"Replace nil source", func() error {
+			return searcher.Replace(ctx, client, nil, sink, "a", "b")
+		}},
+		{"Replace nil sink", func() error {
+			return searcher.Replace(ctx, client, src, nil, "a", "b")
+		}},
+		{"SearchWorksheet nil wf", func() error {
+			_, err := searcher.SearchWorksheet(ctx, client, nil, "S", "t")
+			return err
+		}},
+		{"SearchRange empty cellArea", func() error {
+			_, err := searcher.SearchRange(ctx, client, wf, "S", "", "t")
+			return err
+		}},
+		{"ReplaceWorkbook empty old", func() error {
+			return searcher.ReplaceWorkbook(ctx, client, wf, "", "new")
+		}},
+		{"ReplaceWorksheet empty worksheet", func() error {
+			return searcher.ReplaceWorksheet(ctx, client, wf, "", "a", "b")
+		}},
+		{"ReplaceRange empty cellArea", func() error {
+			return searcher.ReplaceRange(ctx, client, wf, "S", "", "a", "b")
+		}},
 	}
-	if _, err := searcher.Search(ctx, client, src, "", "t"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.Search empty worksheet: got %v, want ErrInvalidParam", err)
-	}
-	if _, err := searcher.Search(ctx, client, src, "S", ""); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.Search empty text: got %v, want ErrInvalidParam", err)
-	}
-	if err := searcher.Replace(ctx, client, nil, sink, "a", "b"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.Replace nil source: got %v, want ErrInvalidParam", err)
-	}
-	if err := searcher.Replace(ctx, client, src, nil, "a", "b"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.Replace nil sink: got %v, want ErrInvalidParam", err)
-	}
-	if _, err := searcher.SearchWorksheet(ctx, client, nil, "S", "t"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.SearchWorksheet nil wf: got %v, want ErrInvalidParam", err)
-	}
-	if _, err := searcher.SearchRange(ctx, client, wf, "S", "", "t"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.SearchRange empty cellArea: got %v, want ErrInvalidParam", err)
-	}
-	if err := searcher.ReplaceWorkbook(ctx, client, wf, "", "new"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.ReplaceWorkbook empty old value: got %v, want ErrInvalidParam", err)
-	}
-	if err := searcher.ReplaceWorksheet(ctx, client, wf, "", "a", "b"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.ReplaceWorksheet empty worksheet: got %v, want ErrInvalidParam", err)
-	}
-	if err := searcher.ReplaceRange(ctx, client, wf, "S", "", "a", "b"); !errors.Is(err, asposecellscloud.ErrInvalidParam) {
-		t.Errorf("searcher.ReplaceRange empty cellArea: got %v, want ErrInvalidParam", err)
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if !errors.Is(tt.fn(), asposecellscloud.ErrInvalidParam) {
+				t.Errorf("expected ErrInvalidParam")
+			}
+		})
 	}
 }
