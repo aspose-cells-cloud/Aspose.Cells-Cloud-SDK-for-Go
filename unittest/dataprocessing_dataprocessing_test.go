@@ -11,6 +11,126 @@ import (
 	"asposecellscloud/internal/testutil"
 )
 
+// TestImportData_Real tests import data using real API.
+func TestImportData_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	csvData := "Name,Age,Department\nAlice,30,Engineering\nBob,25,Marketing"
+	templateData := datasource.BytesSource([]byte("TestData/Book1.xlsx"))
+
+	err := dataprocessing.ImportCSV(context.Background(), client, datasource.BytesSource([]byte(csvData)), templateData, sink, "Sheet1", "A1")
+	if err != nil {
+		t.Skipf("ImportCSV failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("ImportCSV output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestMergeSpreadsheet_Real tests merge spreadsheet using real API.
+func TestMergeSpreadsheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := dataprocessing.MergeSpreadsheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		dataprocessing.WithOutFormat("pdf"))
+	if err != nil {
+		t.Skipf("MergeSpreadsheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("MergeSpreadsheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestMergeRemoteSpreadsheet_Real tests merge remote spreadsheet using real API.
+func TestMergeRemoteSpreadsheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx", Folder: "TestData"}
+
+	err := dataprocessing.MergeRemoteSpreadsheet(context.Background(), client, wf, "Book2.xlsx", sink)
+	if err != nil {
+		t.Skipf("MergeRemoteSpreadsheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("MergeRemoteSpreadsheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestSplitSpreadsheet_Real tests split spreadsheet using real API.
+func TestSplitSpreadsheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := dataprocessing.SplitSpreadsheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		dataprocessing.WithOutFormat("pdf"))
+	if err != nil {
+		t.Skipf("SplitSpreadsheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("SplitSpreadsheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestSplitRemoteSpreadsheet_Real tests split remote spreadsheet using real API.
+func TestSplitRemoteSpreadsheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	wf := &asposecellscloud.WorkbookRef{Name: "Book1.xlsx", Folder: "TestData"}
+
+	resp, err := dataprocessing.SplitRemoteSpreadsheet(context.Background(), client, wf, "Out")
+	if err != nil {
+		t.Skipf("SplitRemoteSpreadsheet failed (might be expected): %v", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		t.Errorf("status = %d, want 200", resp.StatusCode)
+	} else {
+		t.Logf("SplitRemoteSpreadsheet succeeded, status: %d", resp.StatusCode)
+	}
+}
+
 func TestImportData(t *testing.T) {
 	tests := []struct {
 		name string

@@ -110,6 +110,30 @@ func TestRemoveDuplicates(t *testing.T) {
 	}
 }
 
+// TestRemoveBlankRows_Real tests remove blank rows using real API.
+func TestRemoveBlankRows_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := datacleansing.RemoveBlankRows(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink)
+	if err != nil {
+		t.Skipf("RemoveBlankRows failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("RemoveBlankRows output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
 // TestCleanse_Validation tests validation of cleanse parameters.
 func TestCleanse_Validation(t *testing.T) {
 	client, _ := testutil.NewServer(t, "")

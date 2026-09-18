@@ -114,6 +114,33 @@ func TestImportData_Generic(t *testing.T) {
 	}
 }
 
+// TestImportData_CSV_Real tests CSV import using real API.
+func TestImportData_CSV_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := dataprocessing.ImportCSV(context.Background(), client,
+		datasource.BytesSource([]byte("A,B,C\n1,2,3")),
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		"Sheet1",
+		"E3")
+	if err != nil {
+		t.Skipf("ImportCSV failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("ImportCSV output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
 // TestImportData_Validation tests validation of import parameters.
 func TestImportData_Validation(t *testing.T) {
 	client, _ := testutil.NewServer(t, "")

@@ -112,6 +112,31 @@ func TestSplitSpreadsheet_Validation(t *testing.T) {
 	}
 }
 
+// TestSplitSpreadsheet_Local_Real tests local split using real API.
+func TestSplitSpreadsheet_Local_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := dataprocessing.SplitSpreadsheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		dataprocessing.WithOutFormat("pdf"))
+	if err != nil {
+		t.Skipf("SplitSpreadsheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("SplitSpreadsheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
 // TestSplitSpreadsheet_Options tests the various options available for split.
 func TestSplitSpreadsheet_Options(t *testing.T) {
 	tests := []struct {

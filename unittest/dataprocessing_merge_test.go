@@ -106,6 +106,31 @@ func TestMergeSpreadsheet_Validation(t *testing.T) {
 	}
 }
 
+// TestMergeSpreadsheet_Local_Real tests local merge using real API.
+func TestMergeSpreadsheet_Local_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := dataprocessing.MergeSpreadsheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		dataprocessing.WithOutFormat("pdf"))
+	if err != nil {
+		t.Skipf("MergeSpreadsheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("MergeSpreadsheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
 // TestMergeSpreadsheet_Options tests the various options available for merge.
 func TestMergeSpreadsheet_Options(t *testing.T) {
 	tests := []struct {

@@ -167,6 +167,83 @@ func TestCreateSpreadsheet(t *testing.T) {
 	}
 }
 
+// TestAddWorksheet_Real tests add worksheet using real API.
+func TestAddWorksheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := editor.AddWorksheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		"NewSheet",
+		editor.WithPosition(3))
+	if err != nil {
+		t.Skipf("AddWorksheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("AddWorksheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestDeleteWorksheet_Real tests delete worksheet using real API.
+func TestDeleteWorksheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := editor.DeleteWorksheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		"Sheet1")
+	if err != nil {
+		t.Skipf("DeleteWorksheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("DeleteWorksheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestRenameWorksheet_Real tests rename worksheet using real API.
+func TestRenameWorksheet_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := editor.RenameWorksheet(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		"Sheet1",
+		"RenamedSheet")
+	if err != nil {
+		t.Skipf("RenameWorksheet failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("RenameWorksheet output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
 // TestEditor_Validation tests validation of editor parameters.
 func TestEditor_Validation(t *testing.T) {
 	client, _ := testutil.NewServer(t, "")

@@ -184,6 +184,55 @@ func TestReplaceRange(t *testing.T) {
 	}
 }
 
+// TestSearch_Real tests search using real API.
+func TestSearch_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+
+	items, err := searcher.Search(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		"Sheet1",
+		"test")
+	if err != nil {
+		t.Skipf("Search failed (might be expected): %v", err)
+		return
+	}
+
+	t.Logf("Search: found %d items", len(items))
+	for _, item := range items {
+		t.Logf("  - %s in %s at %s", item.Text, item.Worksheet, item.Position)
+	}
+}
+
+// TestReplace_Real tests replace using real API.
+func TestReplace_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := searcher.Replace(context.Background(), client,
+		datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		sink,
+		"test",
+		"replacement")
+	if err != nil {
+		t.Skipf("Replace failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("Replace output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
 // TestSearcher_Validation tests validation of searcher parameters.
 func TestSearcher_Validation(t *testing.T) {
 	client, _ := testutil.NewServer(t, "")

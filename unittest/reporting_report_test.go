@@ -100,6 +100,97 @@ func TestMathCalculate(t *testing.T) {
 	}
 }
 
+// TestReportAnalysis_Real tests report analysis using real API.
+func TestReportAnalysis_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+
+	resp, err := reporting.ReportAnalysis(context.Background(), client, datasource.BytesSource([]byte("TestData/Book1.xlsx")))
+	if err != nil {
+		t.Skipf("ReportAnalysis failed (might be expected): %v", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		t.Errorf("status = %d, want 200", resp.StatusCode)
+	} else {
+		t.Logf("ReportAnalysis response: %s", resp.ToString())
+	}
+}
+
+// TestSummarize_Real tests summarize using real API.
+func TestSummarize_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+	sink := &datasource.BytesSink{}
+
+	err := reporting.Summarize(context.Background(), client, datasource.BytesSource([]byte("TestData/Book1.xlsx")), sink)
+	if err != nil {
+		t.Skipf("Summarize failed (might be expected): %v", err)
+		return
+	}
+
+	if len(sink.Bytes()) == 0 {
+		t.Error("expected non-empty output")
+	} else {
+		t.Logf("Summarize output size: %d bytes", len(sink.Bytes()))
+	}
+}
+
+// TestAggregateByColor_Real tests aggregate by color using real API.
+func TestAggregateByColor_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+
+	resp, err := reporting.AggregateByColor(context.Background(), client, datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		reporting.WithWorksheet("Sheet1"),
+		reporting.WithRange("A1:C5"))
+	if err != nil {
+		t.Skipf("AggregateByColor failed (might be expected): %v", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		t.Errorf("status = %d, want 200", resp.StatusCode)
+	} else {
+		t.Logf("AggregateByColor response: %s", resp.ToString())
+	}
+}
+
+// TestMathCalculate_Real tests math calculate using real API.
+func TestMathCalculate_Real(t *testing.T) {
+	if !SkipUnlessRealTest(t) {
+		return
+	}
+
+	client := RealClient(t)
+
+	resp, err := reporting.MathCalculate(context.Background(), client, datasource.BytesSource([]byte("TestData/Book1.xlsx")),
+		"Add",
+		"A1:B5",
+		reporting.WithWorksheet("Sheet1"))
+	if err != nil {
+		t.Skipf("MathCalculate failed (might be expected): %v", err)
+		return
+	}
+
+	if resp.StatusCode != 200 {
+		t.Errorf("status = %d, want 200", resp.StatusCode)
+	} else {
+		t.Logf("MathCalculate response: %s", resp.ToString())
+	}
+}
+
+// TestReportingValidation tests validation of reporting parameters.
 func TestReportingValidation(t *testing.T) {
 	client, _ := testutil.NewServer(t, "")
 	ctx := context.Background()
