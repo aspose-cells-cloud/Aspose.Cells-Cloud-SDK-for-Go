@@ -46,6 +46,17 @@ func WithColorPosition(p string) Option {
 	return WithCommonParameter("colorPosition", p)
 }
 
+// WithSheetName scopes an AI analysis/calculation to a worksheet by name.
+func WithSheetName(s string) Option {
+	return WithCommonParameter("sheetName", s)
+}
+
+// WithNewColumnName names the category column produced by
+// CategorizeSpreadsheet.
+func WithNewColumnName(n string) Option {
+	return WithCommonParameter("newColumnName", n)
+}
+
 // WithPassword sets the workbook open password.
 func WithPassword(p string) Option {
 	return WithCommonParameter("password", p)

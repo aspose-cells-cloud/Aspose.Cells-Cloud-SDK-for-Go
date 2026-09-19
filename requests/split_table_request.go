@@ -127,7 +127,7 @@ func (request *SplitTableRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *SplitTableRequest) GetPath() string {
-	localVarPath := "/cells/split/table"
+	localVarPath := "/v4.0/cells/split/table"
 	return localVarPath
 }
 

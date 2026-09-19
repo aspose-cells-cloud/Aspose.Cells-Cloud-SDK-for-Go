@@ -85,7 +85,7 @@ func (request *MoveFolderRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *MoveFolderRequest) GetPath() string {
-	localVarPath := "/cells/storage/folder/move/{srcPath}"
+	localVarPath := "/v4.0/cells/storage/folder/move/{srcPath}"
 	localVarPath = strings.Replace(localVarPath, "{"+"srcPath"+"}", url.PathEscape(fmt.Sprintf("%v", request.srcPath)), -1)
 	return localVarPath
 }

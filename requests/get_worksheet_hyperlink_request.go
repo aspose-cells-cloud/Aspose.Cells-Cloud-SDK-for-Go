@@ -87,7 +87,7 @@ func (request *GetWorksheetHyperlinkRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *GetWorksheetHyperlinkRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/hyperlinks/{hyperlinkIndex}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/hyperlinks/{hyperlinkIndex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"hyperlinkIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.hyperlinkIndex)), -1)

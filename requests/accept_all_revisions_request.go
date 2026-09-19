@@ -101,7 +101,7 @@ func (request *AcceptAllRevisionsRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *AcceptAllRevisionsRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/accept-all-revisions"
+	localVarPath := "/v4.0/cells/spreadsheet/accept-all-revisions"
 	return localVarPath
 }
 

@@ -113,7 +113,7 @@ func (request *FlipDataRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *FlipDataRequest) GetPath() string {
-	localVarPath := "/cells/flip"
+	localVarPath := "/v4.0/cells/flip"
 	return localVarPath
 }
 

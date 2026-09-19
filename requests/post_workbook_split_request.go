@@ -111,7 +111,7 @@ func (request *PostWorkbookSplitRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *PostWorkbookSplitRequest) GetPath() string {
-	localVarPath := "/cells/{name}/split"
+	localVarPath := "/v3.0/cells/{name}/split"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

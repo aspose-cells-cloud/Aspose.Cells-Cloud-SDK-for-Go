@@ -127,7 +127,7 @@ func (request *ConvertTableToImageRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *ConvertTableToImageRequest) GetPath() string {
-	localVarPath := "/cells/convert/table/image"
+	localVarPath := "/v4.0/cells/convert/table/image"
 	return localVarPath
 }
 

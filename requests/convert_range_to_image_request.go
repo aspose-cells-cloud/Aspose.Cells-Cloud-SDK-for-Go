@@ -131,7 +131,7 @@ func (request *ConvertRangeToImageRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *ConvertRangeToImageRequest) GetPath() string {
-	localVarPath := "/cells/convert/range/image"
+	localVarPath := "/v4.0/cells/convert/range/image"
 	return localVarPath
 }
 

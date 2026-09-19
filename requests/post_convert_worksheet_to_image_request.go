@@ -76,7 +76,7 @@ func (request *PostConvertWorksheetToImageRequest) GetHeaderParameters() map[str
 }
 
 func (request *PostConvertWorksheetToImageRequest) GetPath() string {
-	localVarPath := "/cells/convertWorksheetToImage"
+	localVarPath := "/v3.0/cells/convertWorksheetToImage"
 	return localVarPath
 }
 

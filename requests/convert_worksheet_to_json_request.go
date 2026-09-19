@@ -115,7 +115,7 @@ func (request *ConvertWorksheetToJsonRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *ConvertWorksheetToJsonRequest) GetPath() string {
-	localVarPath := "/cells/convert/worksheet/json"
+	localVarPath := "/v4.0/cells/convert/worksheet/json"
 	return localVarPath
 }
 

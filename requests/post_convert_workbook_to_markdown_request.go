@@ -97,7 +97,7 @@ func (request *PostConvertWorkbookToMarkdownRequest) GetHeaderParameters() map[s
 }
 
 func (request *PostConvertWorkbookToMarkdownRequest) GetPath() string {
-	localVarPath := "/cells/convert/markdown"
+	localVarPath := "/v3.0/cells/convert/markdown"
 	return localVarPath
 }
 

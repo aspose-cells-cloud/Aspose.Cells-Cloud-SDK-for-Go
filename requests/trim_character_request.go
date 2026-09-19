@@ -133,7 +133,7 @@ func (request *TrimCharacterRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *TrimCharacterRequest) GetPath() string {
-	localVarPath := "/cells/content/trim"
+	localVarPath := "/v4.0/cells/content/trim"
 	return localVarPath
 }
 

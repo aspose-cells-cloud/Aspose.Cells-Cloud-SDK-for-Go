@@ -71,7 +71,7 @@ func (request *PostUpdateWordCaseRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *PostUpdateWordCaseRequest) GetPath() string {
-	localVarPath := "/cells/updatewordcase"
+	localVarPath := "/v3.0/cells/updatewordcase"
 	return localVarPath
 }
 

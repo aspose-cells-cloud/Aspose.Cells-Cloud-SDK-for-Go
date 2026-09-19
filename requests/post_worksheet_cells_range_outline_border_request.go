@@ -93,7 +93,7 @@ func (request *PostWorksheetCellsRangeOutlineBorderRequest) GetHeaderParameters(
 }
 
 func (request *PostWorksheetCellsRangeOutlineBorderRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/ranges/outlineBorder"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/ranges/outlineBorder"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

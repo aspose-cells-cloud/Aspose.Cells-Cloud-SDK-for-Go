@@ -121,7 +121,7 @@ func (request *ConvertRangeToCsvRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *ConvertRangeToCsvRequest) GetPath() string {
-	localVarPath := "/cells/convert/range/csv"
+	localVarPath := "/v4.0/cells/convert/range/csv"
 	return localVarPath
 }
 

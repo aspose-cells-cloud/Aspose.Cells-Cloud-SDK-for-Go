@@ -85,7 +85,7 @@ func (request *DeleteHeaderFooterRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *DeleteHeaderFooterRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/pagesetup/clearheaderfooter"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/pagesetup/clearheaderfooter"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

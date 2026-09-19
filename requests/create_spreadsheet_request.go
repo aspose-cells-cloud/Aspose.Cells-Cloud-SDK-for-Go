@@ -86,7 +86,7 @@ func (request *CreateSpreadsheetRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *CreateSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/create"
+	localVarPath := "/v4.0/cells/spreadsheet/create"
 	return localVarPath
 }
 

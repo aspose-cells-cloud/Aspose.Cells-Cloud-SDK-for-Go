@@ -119,7 +119,7 @@ func (request *RemoveCharactersByPositionInRemoteSpreadsheetRequest) GetHeaderPa
 }
 
 func (request *RemoveCharactersByPositionInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/range/{range}/content/remove/characters-by-position"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/remove/characters-by-position"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", url.PathEscape(fmt.Sprintf("%v", request._range)), -1)

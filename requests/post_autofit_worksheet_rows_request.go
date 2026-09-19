@@ -97,7 +97,7 @@ func (request *PostAutofitWorksheetRowsRequest) GetHeaderParameters() map[string
 }
 
 func (request *PostAutofitWorksheetRowsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/autofitrows"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/autofitrows"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

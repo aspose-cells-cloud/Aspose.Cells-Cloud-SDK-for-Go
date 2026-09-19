@@ -109,7 +109,7 @@ func (request *ConvertSpreadsheetToCsvRequest) GetHeaderParameters() map[string]
 }
 
 func (request *ConvertSpreadsheetToCsvRequest) GetPath() string {
-	localVarPath := "/cells/convert/spreadsheet/csv"
+	localVarPath := "/v4.0/cells/convert/spreadsheet/csv"
 	return localVarPath
 }
 

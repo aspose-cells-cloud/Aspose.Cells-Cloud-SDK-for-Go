@@ -79,7 +79,7 @@ func (request *GetWorkbookDefaultStyleRequest) GetHeaderParameters() map[string]
 }
 
 func (request *GetWorkbookDefaultStyleRequest) GetPath() string {
-	localVarPath := "/cells/{name}/defaultstyle"
+	localVarPath := "/v3.0/cells/{name}/defaultstyle"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

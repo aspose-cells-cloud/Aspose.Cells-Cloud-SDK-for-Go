@@ -141,7 +141,7 @@ func (request *ImportCSVDataIntoSpreadsheetRequest) GetHeaderParameters() map[st
 }
 
 func (request *ImportCSVDataIntoSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/import/data/csv"
+	localVarPath := "/v4.0/cells/import/data/csv"
 	return localVarPath
 }
 

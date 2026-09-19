@@ -105,7 +105,7 @@ func (request *UpdateWordCaseInRemoteSpreadsheetRequest) GetHeaderParameters() m
 }
 
 func (request *UpdateWordCaseInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/range/{range}/content/wordcase"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/range/{range}/content/wordcase"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"range"+"}", url.PathEscape(fmt.Sprintf("%v", request._range)), -1)

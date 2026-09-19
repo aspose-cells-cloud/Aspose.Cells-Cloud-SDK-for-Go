@@ -71,7 +71,7 @@ func (request *PostTrimContentRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostTrimContentRequest) GetPath() string {
-	localVarPath := "/cells/trimcontent"
+	localVarPath := "/v3.0/cells/trimcontent"
 	return localVarPath
 }
 

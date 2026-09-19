@@ -2,7 +2,12 @@
 
 ## Overview
 
-The Aspose.Cells Cloud SDK for Go provides 461 API operations across 41 controllers, all accessible through a unified client interface.
+The Aspose.Cells Cloud SDK for Go provides 464 API operations across 43 controllers, all accessible through a unified client interface.
+
+The endpoint tables below list each operation's `Path` as declared in the specification. Every operation
+is served under its own API version — the `APIVersion` the spec gives for that operation (`v3.0` or
+`v4.0`) — so the request the SDK sends is `/{APIVersion}{Path}`: `/v4.0/cells/convert/spreadsheet`,
+`/v3.0/cells/{name}`, and so on. The prefix is part of the generated request path; the client adds none.
 
 ## Client
 

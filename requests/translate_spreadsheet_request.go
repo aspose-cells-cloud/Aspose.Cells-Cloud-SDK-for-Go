@@ -95,7 +95,7 @@ func (request *TranslateSpreadsheetRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *TranslateSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/ai/translate/spreadsheet"
+	localVarPath := "/v4.0/cells/ai/translate/spreadsheet"
 	return localVarPath
 }
 

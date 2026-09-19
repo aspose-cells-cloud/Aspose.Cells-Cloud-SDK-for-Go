@@ -95,7 +95,7 @@ func (request *PostHeaderRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostHeaderRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/pagesetup/header"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/pagesetup/header"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

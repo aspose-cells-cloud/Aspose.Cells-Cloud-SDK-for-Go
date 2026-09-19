@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This SDK is auto-generated from `aspose.cells.cloud.specification.json`, a comprehensive API specification containing 461 operations and 483 data models.
+This SDK is auto-generated from `aspose.cells.cloud.specification.json`, a comprehensive API specification containing 464 operations and 484 data models.
 
 ## Directory Structure
 
@@ -10,9 +10,9 @@ This SDK is auto-generated from `aspose.cells.cloud.specification.json`, a compr
 cells.cloud-sdk-go-dev/
 ├── aspose.cells.cloud.specification.json   # Master API specification
 ├── models/                                  # Generated Go data models
-│   └── *.go                                # One file per struct (483 files)
+│   └── *.go                                # One file per struct (484 files)
 ├── requests/                                # Generated API request wrappers
-│   └── *_request.go                        # One file per operation (457 files)
+│   └── *_request.go                        # One file per operation (460 files)
 ├── integrationtests/                        # Integration test suite
 │   └── *_test.go                           # One file per test group (46 files)
 ├── TestingData/                             # Test configuration (JSON)

@@ -87,7 +87,7 @@ func (request *PostWorkbookSettingsRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *PostWorkbookSettingsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/settings"
+	localVarPath := "/v3.0/cells/{name}/settings"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

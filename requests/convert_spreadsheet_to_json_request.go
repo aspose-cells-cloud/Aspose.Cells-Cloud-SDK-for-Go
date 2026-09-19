@@ -109,7 +109,7 @@ func (request *ConvertSpreadsheetToJsonRequest) GetHeaderParameters() map[string
 }
 
 func (request *ConvertSpreadsheetToJsonRequest) GetPath() string {
-	localVarPath := "/cells/convert/spreadsheet/json"
+	localVarPath := "/v4.0/cells/convert/spreadsheet/json"
 	return localVarPath
 }
 

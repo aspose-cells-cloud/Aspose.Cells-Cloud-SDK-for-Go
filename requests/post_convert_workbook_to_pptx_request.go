@@ -97,7 +97,7 @@ func (request *PostConvertWorkbookToPptxRequest) GetHeaderParameters() map[strin
 }
 
 func (request *PostConvertWorkbookToPptxRequest) GetPath() string {
-	localVarPath := "/cells/convert/pptx"
+	localVarPath := "/v3.0/cells/convert/pptx"
 	return localVarPath
 }
 

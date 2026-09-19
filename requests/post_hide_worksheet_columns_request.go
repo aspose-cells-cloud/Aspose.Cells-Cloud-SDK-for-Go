@@ -89,7 +89,7 @@ func (request *PostHideWorksheetColumnsRequest) GetHeaderParameters() map[string
 }
 
 func (request *PostHideWorksheetColumnsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/columns/hide"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/columns/hide"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

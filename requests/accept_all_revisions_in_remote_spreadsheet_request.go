@@ -99,7 +99,7 @@ func (request *AcceptAllRevisionsInRemoteSpreadsheetRequest) GetHeaderParameters
 }
 
 func (request *AcceptAllRevisionsInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/accept-all-revisions"
+	localVarPath := "/v4.0/cells/{name}/accept-all-revisions"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

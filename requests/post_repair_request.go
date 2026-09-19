@@ -85,7 +85,7 @@ func (request *PostRepairRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostRepairRequest) GetPath() string {
-	localVarPath := "/cells/repair"
+	localVarPath := "/v3.0/cells/repair"
 	return localVarPath
 }
 

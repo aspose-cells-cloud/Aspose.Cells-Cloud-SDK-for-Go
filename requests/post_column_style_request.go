@@ -95,7 +95,7 @@ func (request *PostColumnStyleRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostColumnStyleRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/columns/{columnIndex}/style"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/columns/{columnIndex}/style"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"columnIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.columnIndex)), -1)

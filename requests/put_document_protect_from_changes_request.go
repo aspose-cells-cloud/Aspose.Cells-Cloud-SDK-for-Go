@@ -87,7 +87,7 @@ func (request *PutDocumentProtectFromChangesRequest) GetHeaderParameters() map[s
 }
 
 func (request *PutDocumentProtectFromChangesRequest) GetPath() string {
-	localVarPath := "/cells/{name}/writeProtection"
+	localVarPath := "/v3.0/cells/{name}/writeProtection"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

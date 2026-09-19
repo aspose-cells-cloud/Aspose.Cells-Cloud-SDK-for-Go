@@ -93,7 +93,7 @@ func (request *GetMergedCellsInRemotedWorksheetRequest) GetHeaderParameters() ma
 }
 
 func (request *GetMergedCellsInRemotedWorksheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/mergedcells"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/mergedcells"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	return localVarPath

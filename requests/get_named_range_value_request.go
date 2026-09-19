@@ -85,7 +85,7 @@ func (request *GetNamedRangeValueRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *GetNamedRangeValueRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/ranges/{namerange}/value"
+	localVarPath := "/v3.0/cells/{name}/worksheets/ranges/{namerange}/value"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"namerange"+"}", url.PathEscape(fmt.Sprintf("%v", request.namerange)), -1)
 	return localVarPath

@@ -87,7 +87,7 @@ func (request *PostUpdateWorksheetZoomRequest) GetHeaderParameters() map[string]
 }
 
 func (request *PostUpdateWorksheetZoomRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/zoom"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/zoom"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

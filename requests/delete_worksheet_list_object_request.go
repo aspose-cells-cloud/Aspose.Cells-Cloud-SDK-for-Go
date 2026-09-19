@@ -87,7 +87,7 @@ func (request *DeleteWorksheetListObjectRequest) GetHeaderParameters() map[strin
 }
 
 func (request *DeleteWorksheetListObjectRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/listobjects/{listObjectIndex}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/listobjects/{listObjectIndex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"listObjectIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.listObjectIndex)), -1)

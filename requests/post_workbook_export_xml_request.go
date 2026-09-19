@@ -99,7 +99,7 @@ func (request *PostWorkbookExportXMLRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *PostWorkbookExportXMLRequest) GetPath() string {
-	localVarPath := "/cells/{name}/exportxml"
+	localVarPath := "/v3.0/cells/{name}/exportxml"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

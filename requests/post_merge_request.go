@@ -101,7 +101,7 @@ func (request *PostMergeRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostMergeRequest) GetPath() string {
-	localVarPath := "/cells/merge"
+	localVarPath := "/v3.0/cells/merge"
 	return localVarPath
 }
 

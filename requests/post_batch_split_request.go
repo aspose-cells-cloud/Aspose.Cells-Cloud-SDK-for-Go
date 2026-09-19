@@ -71,7 +71,7 @@ func (request *PostBatchSplitRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostBatchSplitRequest) GetPath() string {
-	localVarPath := "/cells/batch/split"
+	localVarPath := "/v3.0/cells/batch/split"
 	return localVarPath
 }
 

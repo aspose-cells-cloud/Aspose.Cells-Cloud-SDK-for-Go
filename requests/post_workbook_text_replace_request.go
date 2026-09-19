@@ -91,7 +91,7 @@ func (request *PostWorkbookTextReplaceRequest) GetHeaderParameters() map[string]
 }
 
 func (request *PostWorkbookTextReplaceRequest) GetPath() string {
-	localVarPath := "/cells/{name}/replaceText"
+	localVarPath := "/v3.0/cells/{name}/replaceText"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

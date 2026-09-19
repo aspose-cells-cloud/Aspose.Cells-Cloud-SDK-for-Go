@@ -71,7 +71,7 @@ func (request *PostDataFillRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostDataFillRequest) GetPath() string {
-	localVarPath := "/cells/datafill"
+	localVarPath := "/v3.0/cells/datafill"
 	return localVarPath
 }
 

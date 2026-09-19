@@ -102,7 +102,7 @@ func (request *PutWorkbookBackgroundRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *PutWorkbookBackgroundRequest) GetPath() string {
-	localVarPath := "/cells/{name}/background"
+	localVarPath := "/v3.0/cells/{name}/background"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

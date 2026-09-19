@@ -107,7 +107,7 @@ func (request *PostCopyWorksheetRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *PostCopyWorksheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/copy"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/copy"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

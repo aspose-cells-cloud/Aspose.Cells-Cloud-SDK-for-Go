@@ -125,7 +125,7 @@ func (request *ExportTableAsFormatRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *ExportTableAsFormatRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/tables/{tableName}"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/tables/{tableName}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"tableName"+"}", url.PathEscape(fmt.Sprintf("%v", request.tableName)), -1)

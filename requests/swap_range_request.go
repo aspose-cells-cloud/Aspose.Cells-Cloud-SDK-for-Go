@@ -121,7 +121,7 @@ func (request *SwapRangeRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *SwapRangeRequest) GetPath() string {
-	localVarPath := "/cells/swap/range"
+	localVarPath := "/v4.0/cells/swap/range"
 	return localVarPath
 }
 

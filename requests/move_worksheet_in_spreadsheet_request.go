@@ -105,7 +105,7 @@ func (request *MoveWorksheetInSpreadsheetRequest) GetHeaderParameters() map[stri
 }
 
 func (request *MoveWorksheetInSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/move/worksheet"
+	localVarPath := "/v4.0/cells/spreadsheet/move/worksheet"
 	return localVarPath
 }
 

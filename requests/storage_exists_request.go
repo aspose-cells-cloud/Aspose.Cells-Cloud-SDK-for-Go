@@ -70,7 +70,7 @@ func (request *StorageExistsRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *StorageExistsRequest) GetPath() string {
-	localVarPath := "/cells/storage/{storageName}/exist"
+	localVarPath := "/v4.0/cells/storage/{storageName}/exist"
 	localVarPath = strings.Replace(localVarPath, "{"+"storageName"+"}", url.PathEscape(fmt.Sprintf("%v", request.storageName)), -1)
 	return localVarPath
 }

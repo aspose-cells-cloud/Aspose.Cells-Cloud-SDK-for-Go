@@ -91,7 +91,7 @@ func (request *GetWorksheetCellRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *GetWorksheetCellRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/{cellOrMethodName}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/{cellOrMethodName}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cellOrMethodName"+"}", url.PathEscape(fmt.Sprintf("%v", request.cellOrMethodName)), -1)

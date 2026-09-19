@@ -71,7 +71,7 @@ func (request *CheckWorkbookFormulaErrorsRequest) GetHeaderParameters() map[stri
 }
 
 func (request *CheckWorkbookFormulaErrorsRequest) GetPath() string {
-	localVarPath := "/cells/checkformulaerrors"
+	localVarPath := "/v3.0/cells/checkformulaerrors"
 	return localVarPath
 }
 

@@ -93,7 +93,7 @@ func (request *PostImportDataRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostImportDataRequest) GetPath() string {
-	localVarPath := "/cells/{name}/importdata"
+	localVarPath := "/v3.0/cells/{name}/importdata"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

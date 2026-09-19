@@ -116,3 +116,54 @@ func MathCalculate(ctx context.Context, client *asposecellscloud.AsposeCellsClou
 
 	return sdkutil.DoChecked(ctx, client, req)
 }
+
+// CalculateFormula evaluates formula against worksheet of a local spreadsheet
+// and returns the raw response body (the computed result stream). Use
+// WithRegion / WithPassword to pass optional parameters.
+//
+// Uses the v4.0 endpoint PUT /v4.0/cells/calculate/formula.
+func CalculateFormula(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient,
+	src datasource.DataSource, worksheet, formula string, opts ...Option) (*asposecellscloud.RichResponse, error) {
+
+	if src == nil {
+		return nil, fmt.Errorf("%w: source is required", asposecellscloud.ErrInvalidParam)
+	}
+	cfg := &sdkutil.Config{}
+	sdkutil.Apply(cfg, opts)
+
+	data, err := src.ByteData()
+	if err != nil {
+		return nil, err
+	}
+
+	req := requests.NewCalculationFormulaRequest(formula, "", worksheet, cfg.ReqOpts...)
+	req.SetSpreadsheetBytes(data, "Spreadsheet")
+
+	return sdkutil.DoChecked(ctx, client, req)
+}
+
+// CategorizeSpreadsheet uses AI to classify the values of targetColumn into
+// logical groups and returns the resulting spreadsheet as the raw response
+// body. Use WithSheetName to scope the column to a worksheet and
+// WithNewColumnName to name the generated category column.
+//
+// Uses the v4.0 endpoint PUT /v4.0/cells/ai/categorize/spreadsheet.
+func CategorizeSpreadsheet(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient,
+	src datasource.DataSource, targetColumn string, opts ...Option) (*asposecellscloud.RichResponse, error) {
+
+	if src == nil {
+		return nil, fmt.Errorf("%w: source is required", asposecellscloud.ErrInvalidParam)
+	}
+	cfg := &sdkutil.Config{}
+	sdkutil.Apply(cfg, opts)
+
+	data, err := src.ByteData()
+	if err != nil {
+		return nil, err
+	}
+
+	req := requests.NewCategorizeSpreadsheetRequest("", targetColumn, cfg.ReqOpts...)
+	req.SetSpreadsheetBytes(data, "Spreadsheet")
+
+	return sdkutil.DoChecked(ctx, client, req)
+}

@@ -105,7 +105,7 @@ func (request *AggregateCellsByColorRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *AggregateCellsByColorRequest) GetPath() string {
-	localVarPath := "/cells/calculate/aggergate/color"
+	localVarPath := "/v4.0/cells/calculate/aggergate/color"
 	return localVarPath
 }
 

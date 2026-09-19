@@ -113,7 +113,7 @@ func (request *ExportSpreadsheetAsFormatRequest) GetHeaderParameters() map[strin
 }
 
 func (request *ExportSpreadsheetAsFormatRequest) GetPath() string {
-	localVarPath := "/cells/{name}"
+	localVarPath := "/v4.0/cells/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

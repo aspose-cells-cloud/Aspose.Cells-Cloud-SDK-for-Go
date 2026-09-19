@@ -71,7 +71,7 @@ func (request *PostSplitTextRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostSplitTextRequest) GetPath() string {
-	localVarPath := "/cells/splittext"
+	localVarPath := "/v3.0/cells/splittext"
 	return localVarPath
 }
 

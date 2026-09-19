@@ -109,7 +109,7 @@ func (request *ConvertChartToPdfRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *ConvertChartToPdfRequest) GetPath() string {
-	localVarPath := "/cells/convert/chart/pdf"
+	localVarPath := "/v4.0/cells/convert/chart/pdf"
 	return localVarPath
 }
 

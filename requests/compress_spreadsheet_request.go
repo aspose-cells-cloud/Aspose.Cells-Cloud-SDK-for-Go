@@ -99,7 +99,7 @@ func (request *CompressSpreadsheetRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *CompressSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/compress"
+	localVarPath := "/v4.0/cells/spreadsheet/compress"
 	return localVarPath
 }
 

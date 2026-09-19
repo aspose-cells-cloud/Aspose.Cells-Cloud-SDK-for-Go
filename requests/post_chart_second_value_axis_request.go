@@ -95,7 +95,7 @@ func (request *PostChartSecondValueAxisRequest) GetHeaderParameters() map[string
 }
 
 func (request *PostChartSecondValueAxisRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/charts/{chartIndex}/secondvalueaxis"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/charts/{chartIndex}/secondvalueaxis"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"chartIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.chartIndex)), -1)

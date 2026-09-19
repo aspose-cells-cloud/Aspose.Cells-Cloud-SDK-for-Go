@@ -121,7 +121,7 @@ func (request *ConvertRangeToJsonRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *ConvertRangeToJsonRequest) GetPath() string {
-	localVarPath := "/cells/convert/range/json"
+	localVarPath := "/v4.0/cells/convert/range/json"
 	return localVarPath
 }
 

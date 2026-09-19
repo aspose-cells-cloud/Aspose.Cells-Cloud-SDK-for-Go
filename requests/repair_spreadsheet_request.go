@@ -97,7 +97,7 @@ func (request *RepairSpreadsheetRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *RepairSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/repair"
+	localVarPath := "/v4.0/cells/spreadsheet/repair"
 	return localVarPath
 }
 

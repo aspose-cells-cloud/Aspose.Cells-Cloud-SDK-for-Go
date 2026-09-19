@@ -105,7 +105,7 @@ func (request *PostExportRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostExportRequest) GetPath() string {
-	localVarPath := "/cells/export"
+	localVarPath := "/v3.0/cells/export"
 	return localVarPath
 }
 

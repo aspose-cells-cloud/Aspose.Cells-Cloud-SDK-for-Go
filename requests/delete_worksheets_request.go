@@ -85,7 +85,7 @@ func (request *DeleteWorksheetsRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *DeleteWorksheetsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets"
+	localVarPath := "/v3.0/cells/{name}/worksheets"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

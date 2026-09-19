@@ -85,7 +85,7 @@ func (request *PostWorkbooksTextSearchRequest) GetHeaderParameters() map[string]
 }
 
 func (request *PostWorkbooksTextSearchRequest) GetPath() string {
-	localVarPath := "/cells/{name}/findText"
+	localVarPath := "/v3.0/cells/{name}/findText"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

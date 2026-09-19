@@ -86,7 +86,7 @@ func (request *PostUnlockRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostUnlockRequest) GetPath() string {
-	localVarPath := "/cells/unlock"
+	localVarPath := "/v3.0/cells/unlock"
 	return localVarPath
 }
 

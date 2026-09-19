@@ -71,7 +71,7 @@ func (request *PostRemoveCharactersRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *PostRemoveCharactersRequest) GetPath() string {
-	localVarPath := "/cells/removecharacters"
+	localVarPath := "/v3.0/cells/removecharacters"
 	return localVarPath
 }
 

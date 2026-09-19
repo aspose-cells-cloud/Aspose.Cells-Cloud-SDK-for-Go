@@ -71,7 +71,7 @@ func (request *PostRunTaskRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostRunTaskRequest) GetPath() string {
-	localVarPath := "/cells/task/runtask"
+	localVarPath := "/v3.0/cells/task/runtask"
 	return localVarPath
 }
 

@@ -93,7 +93,7 @@ func (request *PostCompressRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostCompressRequest) GetPath() string {
-	localVarPath := "/cells/compress"
+	localVarPath := "/v3.0/cells/compress"
 	return localVarPath
 }
 

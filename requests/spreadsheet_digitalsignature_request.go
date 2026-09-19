@@ -99,7 +99,7 @@ func (request *SpreadsheetDigitalsignatureRequest) GetHeaderParameters() map[str
 }
 
 func (request *SpreadsheetDigitalsignatureRequest) GetPath() string {
-	localVarPath := "/cells/digitalsignature/spreadsheet"
+	localVarPath := "/v4.0/cells/digitalsignature/spreadsheet"
 	return localVarPath
 }
 

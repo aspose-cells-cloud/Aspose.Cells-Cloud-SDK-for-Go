@@ -121,7 +121,7 @@ func (request *ConvertTableToJsonRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *ConvertTableToJsonRequest) GetPath() string {
-	localVarPath := "/cells/convert/table/json"
+	localVarPath := "/v4.0/cells/convert/table/json"
 	return localVarPath
 }
 

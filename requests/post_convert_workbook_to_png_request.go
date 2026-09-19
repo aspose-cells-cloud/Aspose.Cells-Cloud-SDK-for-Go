@@ -93,7 +93,7 @@ func (request *PostConvertWorkbookToPNGRequest) GetHeaderParameters() map[string
 }
 
 func (request *PostConvertWorkbookToPNGRequest) GetPath() string {
-	localVarPath := "/cells/convert/png"
+	localVarPath := "/v3.0/cells/convert/png"
 	return localVarPath
 }
 

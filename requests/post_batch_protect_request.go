@@ -71,7 +71,7 @@ func (request *PostBatchProtectRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *PostBatchProtectRequest) GetPath() string {
-	localVarPath := "/cells/batch/protect"
+	localVarPath := "/v3.0/cells/batch/protect"
 	return localVarPath
 }
 

@@ -97,7 +97,7 @@ func (request *RemoveSpreadsheetBlankRowsRequest) GetHeaderParameters() map[stri
 }
 
 func (request *RemoveSpreadsheetBlankRowsRequest) GetPath() string {
-	localVarPath := "/cells/remove/blank-rows"
+	localVarPath := "/v4.0/cells/remove/blank-rows"
 	return localVarPath
 }
 

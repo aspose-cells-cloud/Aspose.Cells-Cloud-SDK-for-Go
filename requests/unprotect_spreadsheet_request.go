@@ -105,7 +105,7 @@ func (request *UnprotectSpreadsheetRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *UnprotectSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/unprotection/spreadsheet"
+	localVarPath := "/v4.0/cells/unprotection/spreadsheet"
 	return localVarPath
 }
 

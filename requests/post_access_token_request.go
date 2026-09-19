@@ -60,7 +60,7 @@ func (request *PostAccessTokenRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostAccessTokenRequest) GetPath() string {
-	localVarPath := "/cells/connect/token"
+	localVarPath := "/v4.0/cells/connect/token"
 	return localVarPath
 }
 

@@ -91,7 +91,7 @@ func (request *GetWorksheetChartRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *GetWorksheetChartRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/charts/{chartNumber}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/charts/{chartNumber}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"chartNumber"+"}", url.PathEscape(fmt.Sprintf("%v", request.chartNumber)), -1)

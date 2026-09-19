@@ -99,7 +99,7 @@ func (request *ReplaceContentInRemoteSpreadsheetRequest) GetHeaderParameters() m
 }
 
 func (request *ReplaceContentInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/replace/content"
+	localVarPath := "/v4.0/cells/{name}/replace/content"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

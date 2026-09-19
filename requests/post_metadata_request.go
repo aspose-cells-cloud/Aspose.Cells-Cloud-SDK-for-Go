@@ -101,7 +101,7 @@ func (request *PostMetadataRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostMetadataRequest) GetPath() string {
-	localVarPath := "/cells/metadata/update"
+	localVarPath := "/v3.0/cells/metadata/update"
 	return localVarPath
 }
 

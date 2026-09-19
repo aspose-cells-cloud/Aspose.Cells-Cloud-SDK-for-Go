@@ -71,7 +71,7 @@ func (request *PostBatchUnlockRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostBatchUnlockRequest) GetPath() string {
-	localVarPath := "/cells/batch/unlock"
+	localVarPath := "/v3.0/cells/batch/unlock"
 	return localVarPath
 }
 

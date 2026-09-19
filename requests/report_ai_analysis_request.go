@@ -89,7 +89,7 @@ func (request *ReportAIAnalysisRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *ReportAIAnalysisRequest) GetPath() string {
-	localVarPath := "/cells/ai/report/analysis"
+	localVarPath := "/v4.0/cells/ai/report/analysis"
 	return localVarPath
 }
 

@@ -25,7 +25,6 @@ func TestAutoFilterController_GetWorksheetAutoFilter(t *testing.T) {
 		requests.WithCommonParameter("folder", remoteFolder),
 		requests.WithCommonParameter("storageName", ""),
 	)
-
 	_, err := asposecellscloud.DoChecked(ctx, GetBaseTest().Client, request)
 	if err != nil {
 		t.Error(err)

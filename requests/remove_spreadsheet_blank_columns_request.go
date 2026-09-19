@@ -97,7 +97,7 @@ func (request *RemoveSpreadsheetBlankColumnsRequest) GetHeaderParameters() map[s
 }
 
 func (request *RemoveSpreadsheetBlankColumnsRequest) GetPath() string {
-	localVarPath := "/cells/remove/blank-columns"
+	localVarPath := "/v4.0/cells/remove/blank-columns"
 	return localVarPath
 }
 

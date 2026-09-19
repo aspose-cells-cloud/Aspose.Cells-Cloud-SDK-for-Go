@@ -105,7 +105,7 @@ func (request *PostClearContentsRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *PostClearContentsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/clearcontents"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/clearcontents"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

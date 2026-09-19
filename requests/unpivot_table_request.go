@@ -109,7 +109,7 @@ func (request *UnpivotTableRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *UnpivotTableRequest) GetPath() string {
-	localVarPath := "/cells/unpivot/table"
+	localVarPath := "/v4.0/cells/unpivot/table"
 	return localVarPath
 }
 

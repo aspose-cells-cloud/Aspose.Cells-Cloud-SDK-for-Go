@@ -133,7 +133,7 @@ func (request *ImportJSONDataIntoSpreadsheetRequest) GetHeaderParameters() map[s
 }
 
 func (request *ImportJSONDataIntoSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/import/data/json"
+	localVarPath := "/v4.0/cells/import/data/json"
 	return localVarPath
 }
 

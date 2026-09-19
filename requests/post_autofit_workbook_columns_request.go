@@ -87,7 +87,7 @@ func (request *PostAutofitWorkbookColumnsRequest) GetHeaderParameters() map[stri
 }
 
 func (request *PostAutofitWorkbookColumnsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/autofitcolumns"
+	localVarPath := "/v3.0/cells/{name}/autofitcolumns"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

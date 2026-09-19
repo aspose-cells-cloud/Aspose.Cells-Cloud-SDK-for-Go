@@ -71,7 +71,7 @@ func (request *PostBatchConvertRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *PostBatchConvertRequest) GetPath() string {
-	localVarPath := "/cells/batch/convert"
+	localVarPath := "/v3.0/cells/batch/convert"
 	return localVarPath
 }
 

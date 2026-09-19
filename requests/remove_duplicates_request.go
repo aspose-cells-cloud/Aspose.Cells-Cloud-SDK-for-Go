@@ -109,7 +109,7 @@ func (request *RemoveDuplicatesRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *RemoveDuplicatesRequest) GetPath() string {
-	localVarPath := "/cells/remove/duplicates"
+	localVarPath := "/v4.0/cells/remove/duplicates"
 	return localVarPath
 }
 

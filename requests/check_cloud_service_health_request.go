@@ -60,7 +60,7 @@ func (request *CheckCloudServiceHealthRequest) GetHeaderParameters() map[string]
 }
 
 func (request *CheckCloudServiceHealthRequest) GetPath() string {
-	localVarPath := "/cells/status/check"
+	localVarPath := "/v4.0/cells/status/check"
 	return localVarPath
 }
 

@@ -121,7 +121,7 @@ func (request *ConvertTableToPdfRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *ConvertTableToPdfRequest) GetPath() string {
-	localVarPath := "/cells/convert/table/pdf"
+	localVarPath := "/v4.0/cells/convert/table/pdf"
 	return localVarPath
 }
 

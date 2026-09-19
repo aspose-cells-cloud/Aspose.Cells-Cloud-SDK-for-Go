@@ -97,7 +97,7 @@ func (request *PostConvertWorkbookToJsonRequest) GetHeaderParameters() map[strin
 }
 
 func (request *PostConvertWorkbookToJsonRequest) GetPath() string {
-	localVarPath := "/cells/convert/json"
+	localVarPath := "/v3.0/cells/convert/json"
 	return localVarPath
 }
 

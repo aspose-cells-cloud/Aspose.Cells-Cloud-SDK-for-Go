@@ -119,7 +119,7 @@ func (request *ConvertTextRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *ConvertTextRequest) GetPath() string {
-	localVarPath := "/cells/content/convert/text"
+	localVarPath := "/v4.0/cells/content/convert/text"
 	return localVarPath
 }
 

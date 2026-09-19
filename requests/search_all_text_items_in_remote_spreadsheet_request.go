@@ -89,7 +89,7 @@ func (request *SearchAllTextItemsInRemoteSpreadsheetRequest) GetHeaderParameters
 }
 
 func (request *SearchAllTextItemsInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/search/content/all-textitems"
+	localVarPath := "/v4.0/cells/{name}/search/content/all-textitems"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

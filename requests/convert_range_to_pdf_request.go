@@ -121,7 +121,7 @@ func (request *ConvertRangeToPdfRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *ConvertRangeToPdfRequest) GetPath() string {
-	localVarPath := "/cells/convert/range/pdf"
+	localVarPath := "/v4.0/cells/convert/range/pdf"
 	return localVarPath
 }
 

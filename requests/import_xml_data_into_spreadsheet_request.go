@@ -133,7 +133,7 @@ func (request *ImportXMLDataIntoSpreadsheetRequest) GetHeaderParameters() map[st
 }
 
 func (request *ImportXMLDataIntoSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/import/data/xml"
+	localVarPath := "/v4.0/cells/import/data/xml"
 	return localVarPath
 }
 

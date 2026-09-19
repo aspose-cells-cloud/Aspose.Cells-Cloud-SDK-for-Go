@@ -105,7 +105,7 @@ func (request *PostReplaceRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostReplaceRequest) GetPath() string {
-	localVarPath := "/cells/replace"
+	localVarPath := "/v3.0/cells/replace"
 	return localVarPath
 }
 

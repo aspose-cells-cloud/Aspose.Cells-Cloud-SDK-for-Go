@@ -89,7 +89,7 @@ func (request *SummarizeSpreadsheetRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *SummarizeSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/ai/summarize/spreadsheet"
+	localVarPath := "/v4.0/cells/ai/summarize/spreadsheet"
 	return localVarPath
 }
 

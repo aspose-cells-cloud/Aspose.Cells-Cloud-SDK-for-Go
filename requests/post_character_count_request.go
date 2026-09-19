@@ -71,7 +71,7 @@ func (request *PostCharacterCountRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *PostCharacterCountRequest) GetPath() string {
-	localVarPath := "/cells/charactercount"
+	localVarPath := "/v3.0/cells/charactercount"
 	return localVarPath
 }
 

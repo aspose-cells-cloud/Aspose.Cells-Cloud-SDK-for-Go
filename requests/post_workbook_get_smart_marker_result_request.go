@@ -91,7 +91,7 @@ func (request *PostWorkbookGetSmartMarkerResultRequest) GetHeaderParameters() ma
 }
 
 func (request *PostWorkbookGetSmartMarkerResultRequest) GetPath() string {
-	localVarPath := "/cells/{name}/smartmarker"
+	localVarPath := "/v3.0/cells/{name}/smartmarker"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

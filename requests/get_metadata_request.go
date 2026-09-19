@@ -93,7 +93,7 @@ func (request *GetMetadataRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetMetadataRequest) GetPath() string {
-	localVarPath := "/cells/metadata/get"
+	localVarPath := "/v3.0/cells/metadata/get"
 	return localVarPath
 }
 

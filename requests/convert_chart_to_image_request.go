@@ -115,7 +115,7 @@ func (request *ConvertChartToImageRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *ConvertChartToImageRequest) GetPath() string {
-	localVarPath := "/cells/convert/chart/image"
+	localVarPath := "/v4.0/cells/convert/chart/image"
 	return localVarPath
 }
 

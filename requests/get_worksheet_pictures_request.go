@@ -85,7 +85,7 @@ func (request *GetWorksheetPicturesRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *GetWorksheetPicturesRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/pictures"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/pictures"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

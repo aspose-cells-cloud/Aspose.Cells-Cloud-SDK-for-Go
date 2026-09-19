@@ -133,7 +133,7 @@ func (request *ExtractTextRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *ExtractTextRequest) GetPath() string {
-	localVarPath := "/cells/content/extract/text"
+	localVarPath := "/v4.0/cells/content/extract/text"
 	return localVarPath
 }
 

@@ -105,7 +105,7 @@ func (request *ReplaceContentInRemoteWorksheetRequest) GetHeaderParameters() map
 }
 
 func (request *ReplaceContentInRemoteWorksheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/replace/content"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/replace/content"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	return localVarPath

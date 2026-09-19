@@ -60,7 +60,7 @@ func (request *GetCellsCloudServiceStatusRequest) GetHeaderParameters() map[stri
 }
 
 func (request *GetCellsCloudServiceStatusRequest) GetPath() string {
-	localVarPath := "/cells/status/check"
+	localVarPath := "/v3.0/cells/status/check"
 	return localVarPath
 }
 

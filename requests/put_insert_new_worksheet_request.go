@@ -97,7 +97,7 @@ func (request *PutInsertNewWorksheetRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *PutInsertNewWorksheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/insert"
+	localVarPath := "/v3.0/cells/{name}/worksheets/insert"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

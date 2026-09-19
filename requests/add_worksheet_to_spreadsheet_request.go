@@ -109,7 +109,7 @@ func (request *AddWorksheetToSpreadsheetRequest) GetHeaderParameters() map[strin
 }
 
 func (request *AddWorksheetToSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/add/worksheet"
+	localVarPath := "/v4.0/cells/spreadsheet/add/worksheet"
 	return localVarPath
 }
 

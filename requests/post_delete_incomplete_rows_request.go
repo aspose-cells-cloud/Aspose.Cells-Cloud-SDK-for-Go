@@ -71,7 +71,7 @@ func (request *PostDeleteIncompleteRowsRequest) GetHeaderParameters() map[string
 }
 
 func (request *PostDeleteIncompleteRowsRequest) GetPath() string {
-	localVarPath := "/cells/deleteincompleterows"
+	localVarPath := "/v3.0/cells/deleteincompleterows"
 	return localVarPath
 }
 

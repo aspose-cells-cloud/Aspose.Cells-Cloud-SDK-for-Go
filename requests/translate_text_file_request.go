@@ -95,7 +95,7 @@ func (request *TranslateTextFileRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *TranslateTextFileRequest) GetPath() string {
-	localVarPath := "/cells/ai/translate/text-file"
+	localVarPath := "/v4.0/cells/ai/translate/text-file"
 	return localVarPath
 }
 

@@ -87,7 +87,7 @@ func (request *DeleteDecryptWorkbookRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *DeleteDecryptWorkbookRequest) GetPath() string {
-	localVarPath := "/cells/{name}/encryption"
+	localVarPath := "/v3.0/cells/{name}/encryption"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

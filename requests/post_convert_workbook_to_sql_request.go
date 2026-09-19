@@ -93,7 +93,7 @@ func (request *PostConvertWorkbookToSQLRequest) GetHeaderParameters() map[string
 }
 
 func (request *PostConvertWorkbookToSQLRequest) GetPath() string {
-	localVarPath := "/cells/convert/sql"
+	localVarPath := "/v3.0/cells/convert/sql"
 	return localVarPath
 }
 

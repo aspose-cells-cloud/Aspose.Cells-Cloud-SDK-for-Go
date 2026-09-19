@@ -89,7 +89,7 @@ func (request *GetSpreadsheetStructureRequest) GetHeaderParameters() map[string]
 }
 
 func (request *GetSpreadsheetStructureRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/structure"
+	localVarPath := "/v4.0/cells/spreadsheet/structure"
 	return localVarPath
 }
 

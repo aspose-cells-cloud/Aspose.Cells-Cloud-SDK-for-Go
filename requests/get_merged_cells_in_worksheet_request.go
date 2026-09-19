@@ -95,7 +95,7 @@ func (request *GetMergedCellsInWorksheetRequest) GetHeaderParameters() map[strin
 }
 
 func (request *GetMergedCellsInWorksheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/mergedcells"
+	localVarPath := "/v4.0/cells/spreadsheet/mergedcells"
 	return localVarPath
 }
 

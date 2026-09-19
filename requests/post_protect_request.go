@@ -93,7 +93,7 @@ func (request *PostProtectRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostProtectRequest) GetPath() string {
-	localVarPath := "/cells/protect"
+	localVarPath := "/v3.0/cells/protect"
 	return localVarPath
 }
 

@@ -109,7 +109,7 @@ func (request *MathCalculateRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *MathCalculateRequest) GetPath() string {
-	localVarPath := "/cells/calculate/math"
+	localVarPath := "/v4.0/cells/calculate/math"
 	return localVarPath
 }
 

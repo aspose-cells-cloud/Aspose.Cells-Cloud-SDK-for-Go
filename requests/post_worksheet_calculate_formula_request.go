@@ -91,7 +91,7 @@ func (request *PostWorksheetCalculateFormulaRequest) GetHeaderParameters() map[s
 }
 
 func (request *PostWorksheetCalculateFormulaRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/calculateformula"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/calculateformula"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

@@ -125,7 +125,7 @@ func (request *RemoveCharactersByPositionRequest) GetHeaderParameters() map[stri
 }
 
 func (request *RemoveCharactersByPositionRequest) GetPath() string {
-	localVarPath := "/cells/content/remove/characters-by-position"
+	localVarPath := "/v4.0/cells/content/remove/characters-by-position"
 	return localVarPath
 }
 

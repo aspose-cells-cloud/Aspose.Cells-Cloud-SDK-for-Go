@@ -243,15 +243,12 @@ func (client *AsposeCellsCloudClient) executeOnce(ctx context.Context, req Reque
 	}
 
 	// 1. Build URL
-	// Generated request paths are versionless (e.g. "/cells/convert/spreadsheet"),
-	// while the live API is versioned under the active version prefix ("v4.0" by
-	// default, same prefix the OAuth token endpoint uses). The v1.1 API is served
-	// without a version prefix.
-	reqPath := req.GetPath()
-	if !strings.HasPrefix(reqPath, "/v") && client.cfg.Version != "v1.1" {
-		reqPath = "/" + client.cfg.Version + reqPath
-	}
-	u, err := url.Parse(client.cfg.BasePath + reqPath)
+	// Generated request paths already carry the API version prefix of the
+	// operation they call (e.g. "/v4.0/cells/convert/spreadsheet",
+	// "/v3.0/cells/Book1.xlsx"), taken from the spec's per-operation APIVersion.
+	// The client adds no version prefix of its own: an operation is always sent
+	// to the version the service declares for it.
+	u, err := url.Parse(client.cfg.BasePath + req.GetPath())
 	if err != nil {
 		return nil, err
 	}

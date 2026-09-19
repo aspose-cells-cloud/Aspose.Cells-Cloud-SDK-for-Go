@@ -87,7 +87,7 @@ func (request *PostEncryptWorkbookRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *PostEncryptWorkbookRequest) GetPath() string {
-	localVarPath := "/cells/{name}/encryption"
+	localVarPath := "/v3.0/cells/{name}/encryption"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

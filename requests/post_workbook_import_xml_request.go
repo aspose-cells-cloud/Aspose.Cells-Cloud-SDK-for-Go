@@ -107,7 +107,7 @@ func (request *PostWorkbookImportXMLRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *PostWorkbookImportXMLRequest) GetPath() string {
-	localVarPath := "/cells/{name}/importxml"
+	localVarPath := "/v3.0/cells/{name}/importxml"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

@@ -89,7 +89,7 @@ func (request *CopyFileRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *CopyFileRequest) GetPath() string {
-	localVarPath := "/cells/storage/file/copy/{srcPath}"
+	localVarPath := "/v4.0/cells/storage/file/copy/{srcPath}"
 	localVarPath = strings.Replace(localVarPath, "{"+"srcPath"+"}", url.PathEscape(fmt.Sprintf("%v", request.srcPath)), -1)
 	return localVarPath
 }

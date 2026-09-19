@@ -87,7 +87,7 @@ func (request *GetStructureInRemoteSpreadsheetRequest) GetHeaderParameters() map
 }
 
 func (request *GetStructureInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/structure"
+	localVarPath := "/v4.0/cells/{name}/structure"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

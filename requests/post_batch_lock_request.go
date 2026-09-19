@@ -71,7 +71,7 @@ func (request *PostBatchLockRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostBatchLockRequest) GetPath() string {
-	localVarPath := "/cells/batch/lock"
+	localVarPath := "/v3.0/cells/batch/lock"
 	return localVarPath
 }
 

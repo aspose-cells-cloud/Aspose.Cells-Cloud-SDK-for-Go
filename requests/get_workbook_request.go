@@ -131,7 +131,7 @@ func (request *GetWorkbookRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetWorkbookRequest) GetPath() string {
-	localVarPath := "/cells/{name}"
+	localVarPath := "/v3.0/cells/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

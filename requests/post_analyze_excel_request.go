@@ -71,7 +71,7 @@ func (request *PostAnalyzeExcelRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *PostAnalyzeExcelRequest) GetPath() string {
-	localVarPath := "/cells/analyze"
+	localVarPath := "/v3.0/cells/analyze"
 	return localVarPath
 }
 

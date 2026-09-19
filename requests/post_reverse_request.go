@@ -103,7 +103,7 @@ func (request *PostReverseRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostReverseRequest) GetPath() string {
-	localVarPath := "/cells/reverse"
+	localVarPath := "/v3.0/cells/reverse"
 	return localVarPath
 }
 

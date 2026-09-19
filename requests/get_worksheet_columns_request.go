@@ -87,7 +87,7 @@ func (request *GetWorksheetColumnsRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *GetWorksheetColumnsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/columns/"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/columns/"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

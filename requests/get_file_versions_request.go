@@ -75,7 +75,7 @@ func (request *GetFileVersionsRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetFileVersionsRequest) GetPath() string {
-	localVarPath := "/cells/storage/version/{path}"
+	localVarPath := "/v4.0/cells/storage/version/{path}"
 	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(fmt.Sprintf("%v", request.path)), -1)
 	return localVarPath
 }

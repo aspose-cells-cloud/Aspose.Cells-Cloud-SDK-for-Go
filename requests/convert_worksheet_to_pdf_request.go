@@ -115,7 +115,7 @@ func (request *ConvertWorksheetToPdfRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *ConvertWorksheetToPdfRequest) GetPath() string {
-	localVarPath := "/cells/convert/worksheet/pdf"
+	localVarPath := "/v4.0/cells/convert/worksheet/pdf"
 	return localVarPath
 }
 

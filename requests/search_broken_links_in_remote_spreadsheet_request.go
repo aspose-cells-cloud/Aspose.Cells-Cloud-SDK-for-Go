@@ -95,7 +95,7 @@ func (request *SearchBrokenLinksInRemoteSpreadsheetRequest) GetHeaderParameters(
 }
 
 func (request *SearchBrokenLinksInRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/search/broken-links"
+	localVarPath := "/v4.0/cells/{name}/search/broken-links"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

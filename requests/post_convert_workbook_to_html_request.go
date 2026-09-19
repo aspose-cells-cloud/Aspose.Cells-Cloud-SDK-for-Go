@@ -97,7 +97,7 @@ func (request *PostConvertWorkbookToHtmlRequest) GetHeaderParameters() map[strin
 }
 
 func (request *PostConvertWorkbookToHtmlRequest) GetPath() string {
-	localVarPath := "/cells/convert/html"
+	localVarPath := "/v3.0/cells/convert/html"
 	return localVarPath
 }
 

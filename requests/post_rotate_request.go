@@ -103,7 +103,7 @@ func (request *PostRotateRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostRotateRequest) GetPath() string {
-	localVarPath := "/cells/rotate"
+	localVarPath := "/v3.0/cells/rotate"
 	return localVarPath
 }
 

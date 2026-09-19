@@ -115,7 +115,7 @@ func (request *ConvertWorksheetToCsvRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *ConvertWorksheetToCsvRequest) GetPath() string {
-	localVarPath := "/cells/convert/worksheet/csv"
+	localVarPath := "/v4.0/cells/convert/worksheet/csv"
 	return localVarPath
 }
 

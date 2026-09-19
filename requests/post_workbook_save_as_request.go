@@ -127,7 +127,7 @@ func (request *PostWorkbookSaveAsRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *PostWorkbookSaveAsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/SaveAs"
+	localVarPath := "/v3.0/cells/{name}/SaveAs"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

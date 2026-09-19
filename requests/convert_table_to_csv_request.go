@@ -121,7 +121,7 @@ func (request *ConvertTableToCsvRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *ConvertTableToCsvRequest) GetPath() string {
-	localVarPath := "/cells/convert/table/csv"
+	localVarPath := "/v4.0/cells/convert/table/csv"
 	return localVarPath
 }
 

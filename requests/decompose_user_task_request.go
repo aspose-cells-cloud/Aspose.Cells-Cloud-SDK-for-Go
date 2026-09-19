@@ -78,7 +78,7 @@ func (request *DecomposeUserTaskRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *DecomposeUserTaskRequest) GetPath() string {
-	localVarPath := "/cells/ai/task/decompose"
+	localVarPath := "/v4.0/cells/ai/task/decompose"
 	return localVarPath
 }
 

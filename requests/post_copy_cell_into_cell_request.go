@@ -109,7 +109,7 @@ func (request *PostCopyCellIntoCellRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *PostCopyCellIntoCellRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/{destCellName}/copy"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/{destCellName}/copy"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"destCellName"+"}", url.PathEscape(fmt.Sprintf("%v", request.destCellName)), -1)

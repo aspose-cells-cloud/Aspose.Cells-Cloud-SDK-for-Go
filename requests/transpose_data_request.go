@@ -109,7 +109,7 @@ func (request *TransposeDataRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *TransposeDataRequest) GetPath() string {
-	localVarPath := "/cells/transpose"
+	localVarPath := "/v4.0/cells/transpose"
 	return localVarPath
 }
 

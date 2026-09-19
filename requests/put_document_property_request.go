@@ -87,7 +87,7 @@ func (request *PutDocumentPropertyRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *PutDocumentPropertyRequest) GetPath() string {
-	localVarPath := "/cells/{name}/documentproperties"
+	localVarPath := "/v3.0/cells/{name}/documentproperties"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

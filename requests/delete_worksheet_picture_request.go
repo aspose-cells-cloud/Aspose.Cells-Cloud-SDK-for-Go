@@ -87,7 +87,7 @@ func (request *DeleteWorksheetPictureRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *DeleteWorksheetPictureRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/pictures/{pictureIndex}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/pictures/{pictureIndex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"pictureIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.pictureIndex)), -1)

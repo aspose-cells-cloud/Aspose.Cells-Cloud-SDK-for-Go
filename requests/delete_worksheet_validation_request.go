@@ -87,7 +87,7 @@ func (request *DeleteWorksheetValidationRequest) GetHeaderParameters() map[strin
 }
 
 func (request *DeleteWorksheetValidationRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/validations/{validationIndex}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/validations/{validationIndex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"validationIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.validationIndex)), -1)

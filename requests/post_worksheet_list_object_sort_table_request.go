@@ -95,7 +95,7 @@ func (request *PostWorksheetListObjectSortTableRequest) GetHeaderParameters() ma
 }
 
 func (request *PostWorksheetListObjectSortTableRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/listobjects/{listObjectIndex}/sort"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/listobjects/{listObjectIndex}/sort"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"listObjectIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.listObjectIndex)), -1)

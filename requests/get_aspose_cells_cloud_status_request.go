@@ -60,7 +60,7 @@ func (request *GetAsposeCellsCloudStatusRequest) GetHeaderParameters() map[strin
 }
 
 func (request *GetAsposeCellsCloudStatusRequest) GetPath() string {
-	localVarPath := "/cells"
+	localVarPath := "/v4.0/cells"
 	return localVarPath
 }
 

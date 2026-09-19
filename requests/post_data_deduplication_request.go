@@ -71,7 +71,7 @@ func (request *PostDataDeduplicationRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *PostDataDeduplicationRequest) GetPath() string {
-	localVarPath := "/cells/datadeduplication"
+	localVarPath := "/v3.0/cells/datadeduplication"
 	return localVarPath
 }
 

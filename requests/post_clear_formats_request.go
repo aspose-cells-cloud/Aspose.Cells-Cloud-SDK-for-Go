@@ -105,7 +105,7 @@ func (request *PostClearFormatsRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *PostClearFormatsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/clearformats"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/clearformats"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

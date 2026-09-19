@@ -97,7 +97,7 @@ func (request *DeleteMetadataRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *DeleteMetadataRequest) GetPath() string {
-	localVarPath := "/cells/metadata/delete"
+	localVarPath := "/v3.0/cells/metadata/delete"
 	return localVarPath
 }
 

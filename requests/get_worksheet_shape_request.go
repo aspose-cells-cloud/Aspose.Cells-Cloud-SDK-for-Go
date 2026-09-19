@@ -87,7 +87,7 @@ func (request *GetWorksheetShapeRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *GetWorksheetShapeRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/shapes/{shapeindex}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/shapes/{shapeindex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"shapeindex"+"}", url.PathEscape(fmt.Sprintf("%v", request.shapeindex)), -1)

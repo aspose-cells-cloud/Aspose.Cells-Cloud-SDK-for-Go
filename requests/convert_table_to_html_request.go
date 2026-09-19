@@ -121,7 +121,7 @@ func (request *ConvertTableToHtmlRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *ConvertTableToHtmlRequest) GetPath() string {
-	localVarPath := "/cells/convert/table/html"
+	localVarPath := "/v4.0/cells/convert/table/html"
 	return localVarPath
 }
 

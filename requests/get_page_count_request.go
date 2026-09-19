@@ -79,7 +79,7 @@ func (request *GetPageCountRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetPageCountRequest) GetPath() string {
-	localVarPath := "/cells/{name}/pagecount"
+	localVarPath := "/v3.0/cells/{name}/pagecount"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

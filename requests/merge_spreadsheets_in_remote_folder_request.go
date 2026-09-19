@@ -106,7 +106,7 @@ func (request *MergeSpreadsheetsInRemoteFolderRequest) GetHeaderParameters() map
 }
 
 func (request *MergeSpreadsheetsInRemoteFolderRequest) GetPath() string {
-	localVarPath := "/cells/merge/remote-spreadsheets"
+	localVarPath := "/v4.0/cells/merge/remote-spreadsheets"
 	return localVarPath
 }
 

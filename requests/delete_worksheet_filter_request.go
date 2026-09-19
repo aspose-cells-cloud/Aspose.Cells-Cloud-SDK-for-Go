@@ -91,7 +91,7 @@ func (request *DeleteWorksheetFilterRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *DeleteWorksheetFilterRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/autoFilter/filter"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/autoFilter/filter"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

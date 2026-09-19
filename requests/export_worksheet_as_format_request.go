@@ -119,7 +119,7 @@ func (request *ExportWorksheetAsFormatRequest) GetHeaderParameters() map[string]
 }
 
 func (request *ExportWorksheetAsFormatRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	return localVarPath

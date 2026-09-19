@@ -107,7 +107,7 @@ func (request *PostWorkbookImportJsonRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *PostWorkbookImportJsonRequest) GetPath() string {
-	localVarPath := "/cells/{name}/importjson"
+	localVarPath := "/v3.0/cells/{name}/importjson"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

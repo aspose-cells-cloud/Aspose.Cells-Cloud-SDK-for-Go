@@ -79,7 +79,7 @@ func (request *GetWorkbookTextItemsRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *GetWorkbookTextItemsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/textItems"
+	localVarPath := "/v3.0/cells/{name}/textItems"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

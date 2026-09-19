@@ -75,7 +75,7 @@ func (request *CreateFolderRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *CreateFolderRequest) GetPath() string {
-	localVarPath := "/cells/storage/folder/{path}"
+	localVarPath := "/v4.0/cells/storage/folder/{path}"
 	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(fmt.Sprintf("%v", request.path)), -1)
 	return localVarPath
 }

@@ -89,7 +89,7 @@ func (request *PostUngroupWorksheetColumnsRequest) GetHeaderParameters() map[str
 }
 
 func (request *PostUngroupWorksheetColumnsRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/cells/columns/ungroup"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/cells/columns/ungroup"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

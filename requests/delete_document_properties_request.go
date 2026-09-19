@@ -79,7 +79,7 @@ func (request *DeleteDocumentPropertiesRequest) GetHeaderParameters() map[string
 }
 
 func (request *DeleteDocumentPropertiesRequest) GetPath() string {
-	localVarPath := "/cells/{name}/documentproperties"
+	localVarPath := "/v3.0/cells/{name}/documentproperties"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

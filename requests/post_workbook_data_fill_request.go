@@ -99,7 +99,7 @@ func (request *PostWorkbookDataFillRequest) GetHeaderParameters() map[string]str
 }
 
 func (request *PostWorkbookDataFillRequest) GetPath() string {
-	localVarPath := "/cells/{name}/datafill"
+	localVarPath := "/v3.0/cells/{name}/datafill"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

@@ -85,7 +85,7 @@ func (request *GetWorksheetAutoFilterRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *GetWorksheetAutoFilterRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/autoFilter"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/autoFilter"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	return localVarPath

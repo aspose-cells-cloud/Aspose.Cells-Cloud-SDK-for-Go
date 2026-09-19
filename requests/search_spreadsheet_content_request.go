@@ -107,7 +107,7 @@ func (request *SearchSpreadsheetContentRequest) GetHeaderParameters() map[string
 }
 
 func (request *SearchSpreadsheetContentRequest) GetPath() string {
-	localVarPath := "/cells/search/content"
+	localVarPath := "/v4.0/cells/search/content"
 	return localVarPath
 }
 

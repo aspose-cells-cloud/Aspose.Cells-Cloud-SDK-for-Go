@@ -85,7 +85,7 @@ func (request *GetWorkbookNameRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetWorkbookNameRequest) GetPath() string {
-	localVarPath := "/cells/{name}/names/{nameName}"
+	localVarPath := "/v3.0/cells/{name}/names/{nameName}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"nameName"+"}", url.PathEscape(fmt.Sprintf("%v", request.nameName)), -1)
 	return localVarPath

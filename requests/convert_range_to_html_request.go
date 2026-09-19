@@ -121,7 +121,7 @@ func (request *ConvertRangeToHtmlRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *ConvertRangeToHtmlRequest) GetPath() string {
-	localVarPath := "/cells/convert/range/html"
+	localVarPath := "/v4.0/cells/convert/range/html"
 	return localVarPath
 }
 

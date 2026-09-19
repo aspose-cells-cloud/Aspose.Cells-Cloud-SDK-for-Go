@@ -111,7 +111,7 @@ func (request *SplitRemoteSpreadsheetRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *SplitRemoteSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/{name}/split/spreadsheet"
+	localVarPath := "/v4.0/cells/{name}/split/spreadsheet"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

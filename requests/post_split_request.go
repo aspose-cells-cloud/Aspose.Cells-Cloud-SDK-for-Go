@@ -107,7 +107,7 @@ func (request *PostSplitRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostSplitRequest) GetPath() string {
-	localVarPath := "/cells/split"
+	localVarPath := "/v3.0/cells/split"
 	return localVarPath
 }
 

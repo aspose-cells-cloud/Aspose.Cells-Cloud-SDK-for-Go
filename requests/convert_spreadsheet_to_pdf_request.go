@@ -109,7 +109,7 @@ func (request *ConvertSpreadsheetToPdfRequest) GetHeaderParameters() map[string]
 }
 
 func (request *ConvertSpreadsheetToPdfRequest) GetPath() string {
-	localVarPath := "/cells/convert/spreadsheet/pdf"
+	localVarPath := "/v4.0/cells/convert/spreadsheet/pdf"
 	return localVarPath
 }
 

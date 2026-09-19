@@ -60,7 +60,7 @@ func (request *GetPublicKeyRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetPublicKeyRequest) GetPath() string {
-	localVarPath := "/cells/publickey"
+	localVarPath := "/v4.0/cells/publickey"
 	return localVarPath
 }
 

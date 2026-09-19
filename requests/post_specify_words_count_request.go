@@ -71,7 +71,7 @@ func (request *PostSpecifyWordsCountRequest) GetHeaderParameters() map[string]st
 }
 
 func (request *PostSpecifyWordsCountRequest) GetPath() string {
-	localVarPath := "/cells/specifywordscount"
+	localVarPath := "/v3.0/cells/specifywordscount"
 	return localVarPath
 }
 

@@ -71,7 +71,7 @@ func (request *PostDataCleansingRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *PostDataCleansingRequest) GetPath() string {
-	localVarPath := "/cells/datacleansing"
+	localVarPath := "/v3.0/cells/datacleansing"
 	return localVarPath
 }
 

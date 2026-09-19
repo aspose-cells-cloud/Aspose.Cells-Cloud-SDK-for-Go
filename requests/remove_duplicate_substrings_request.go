@@ -119,7 +119,7 @@ func (request *RemoveDuplicateSubstringsRequest) GetHeaderParameters() map[strin
 }
 
 func (request *RemoveDuplicateSubstringsRequest) GetPath() string {
-	localVarPath := "/cells/content/remove/duplicate-substrings"
+	localVarPath := "/v4.0/cells/content/remove/duplicate-substrings"
 	return localVarPath
 }
 

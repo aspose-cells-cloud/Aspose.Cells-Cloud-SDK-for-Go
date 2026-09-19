@@ -97,7 +97,7 @@ func (request *SearchSpreadsheetBrokenLinksRequest) GetHeaderParameters() map[st
 }
 
 func (request *SearchSpreadsheetBrokenLinksRequest) GetPath() string {
-	localVarPath := "/cells/search/broken-links"
+	localVarPath := "/v4.0/cells/search/broken-links"
 	return localVarPath
 }
 

@@ -109,7 +109,7 @@ func (request *ReplaceSpreadsheetContentRequest) GetHeaderParameters() map[strin
 }
 
 func (request *ReplaceSpreadsheetContentRequest) GetPath() string {
-	localVarPath := "/cells/replace/content"
+	localVarPath := "/v4.0/cells/replace/content"
 	return localVarPath
 }
 

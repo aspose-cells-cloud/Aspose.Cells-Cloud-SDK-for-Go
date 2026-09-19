@@ -89,7 +89,7 @@ func (request *GetWorksheetsWithLocalSpreadsheetRequest) GetHeaderParameters() m
 }
 
 func (request *GetWorksheetsWithLocalSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/worksheets"
+	localVarPath := "/v4.0/cells/spreadsheet/worksheets"
 	return localVarPath
 }
 

@@ -97,7 +97,7 @@ func (request *PostConvertWorkbookToDocxRequest) GetHeaderParameters() map[strin
 }
 
 func (request *PostConvertWorkbookToDocxRequest) GetPath() string {
-	localVarPath := "/cells/convert/docx"
+	localVarPath := "/v3.0/cells/convert/docx"
 	return localVarPath
 }
 

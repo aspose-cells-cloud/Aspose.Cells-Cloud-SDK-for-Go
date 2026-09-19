@@ -91,7 +91,7 @@ func (request *GetWorksheetListObjectRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *GetWorksheetListObjectRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/listobjects/{listobjectindex}"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/listobjects/{listobjectindex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"listobjectindex"+"}", url.PathEscape(fmt.Sprintf("%v", request.listobjectindex)), -1)

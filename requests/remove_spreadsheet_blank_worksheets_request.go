@@ -97,7 +97,7 @@ func (request *RemoveSpreadsheetBlankWorksheetsRequest) GetHeaderParameters() ma
 }
 
 func (request *RemoveSpreadsheetBlankWorksheetsRequest) GetPath() string {
-	localVarPath := "/cells/remove/blank-worksheets"
+	localVarPath := "/v4.0/cells/remove/blank-worksheets"
 	return localVarPath
 }
 

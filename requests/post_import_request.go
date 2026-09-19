@@ -97,7 +97,7 @@ func (request *PostImportRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostImportRequest) GetPath() string {
-	localVarPath := "/cells/import"
+	localVarPath := "/v3.0/cells/import"
 	return localVarPath
 }
 

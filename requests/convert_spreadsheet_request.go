@@ -115,7 +115,7 @@ func (request *ConvertSpreadsheetRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *ConvertSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/convert/spreadsheet"
+	localVarPath := "/v4.0/cells/convert/spreadsheet"
 	return localVarPath
 }
 

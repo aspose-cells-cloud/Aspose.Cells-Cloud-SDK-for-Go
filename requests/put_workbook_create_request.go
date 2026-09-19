@@ -95,7 +95,7 @@ func (request *PutWorkbookCreateRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *PutWorkbookCreateRequest) GetPath() string {
-	localVarPath := "/cells/{name}"
+	localVarPath := "/v3.0/cells/{name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

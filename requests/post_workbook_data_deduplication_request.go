@@ -99,7 +99,7 @@ func (request *PostWorkbookDataDeduplicationRequest) GetHeaderParameters() map[s
 }
 
 func (request *PostWorkbookDataDeduplicationRequest) GetPath() string {
-	localVarPath := "/cells/{name}/datadeduplication"
+	localVarPath := "/v3.0/cells/{name}/datadeduplication"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

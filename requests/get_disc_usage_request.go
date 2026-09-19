@@ -66,7 +66,7 @@ func (request *GetDiscUsageRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *GetDiscUsageRequest) GetPath() string {
-	localVarPath := "/cells/storage/disc"
+	localVarPath := "/v4.0/cells/storage/disc"
 	return localVarPath
 }
 

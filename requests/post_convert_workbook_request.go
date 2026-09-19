@@ -76,7 +76,7 @@ func (request *PostConvertWorkbookRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *PostConvertWorkbookRequest) GetPath() string {
-	localVarPath := "/cells/convertWorkbook"
+	localVarPath := "/v3.0/cells/convertWorkbook"
 	return localVarPath
 }
 

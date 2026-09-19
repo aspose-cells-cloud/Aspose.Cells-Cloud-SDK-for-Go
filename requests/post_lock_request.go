@@ -86,7 +86,7 @@ func (request *PostLockRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostLockRequest) GetPath() string {
-	localVarPath := "/cells/lock"
+	localVarPath := "/v3.0/cells/lock"
 	return localVarPath
 }
 

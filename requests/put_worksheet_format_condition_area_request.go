@@ -93,7 +93,7 @@ func (request *PutWorksheetFormatConditionAreaRequest) GetHeaderParameters() map
 }
 
 func (request *PutWorksheetFormatConditionAreaRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{sheetName}/conditionalFormattings/{index}/area"
+	localVarPath := "/v3.0/cells/{name}/worksheets/{sheetName}/conditionalFormattings/{index}/area"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sheetName"+"}", url.PathEscape(fmt.Sprintf("%v", request.sheetName)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"index"+"}", url.PathEscape(fmt.Sprintf("%v", request.index)), -1)

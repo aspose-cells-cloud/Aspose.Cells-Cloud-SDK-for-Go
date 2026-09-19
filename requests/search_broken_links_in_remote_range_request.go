@@ -99,7 +99,7 @@ func (request *SearchBrokenLinksInRemoteRangeRequest) GetHeaderParameters() map[
 }
 
 func (request *SearchBrokenLinksInRemoteRangeRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"cellArea"+"}", url.PathEscape(fmt.Sprintf("%v", request.cellArea)), -1)

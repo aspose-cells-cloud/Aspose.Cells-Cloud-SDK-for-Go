@@ -71,7 +71,7 @@ func (request *PostDataTransformationRequest) GetHeaderParameters() map[string]s
 }
 
 func (request *PostDataTransformationRequest) GetPath() string {
-	localVarPath := "/cells/datatransformation"
+	localVarPath := "/v3.0/cells/datatransformation"
 	return localVarPath
 }
 

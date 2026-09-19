@@ -143,7 +143,7 @@ func (request *PutConvertWorkbookRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *PutConvertWorkbookRequest) GetPath() string {
-	localVarPath := "/cells/convert"
+	localVarPath := "/v3.0/cells/convert"
 	return localVarPath
 }
 

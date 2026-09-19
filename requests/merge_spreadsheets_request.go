@@ -109,7 +109,7 @@ func (request *MergeSpreadsheetsRequest) GetHeaderParameters() map[string]string
 }
 
 func (request *MergeSpreadsheetsRequest) GetPath() string {
-	localVarPath := "/cells/merge/spreadsheet"
+	localVarPath := "/v4.0/cells/merge/spreadsheet"
 	return localVarPath
 }
 

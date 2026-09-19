@@ -103,7 +103,7 @@ func (request *DeleteWorksheetFromSpreadsheetRequest) GetHeaderParameters() map[
 }
 
 func (request *DeleteWorksheetFromSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/delete/worksheet"
+	localVarPath := "/v4.0/cells/spreadsheet/delete/worksheet"
 	return localVarPath
 }
 

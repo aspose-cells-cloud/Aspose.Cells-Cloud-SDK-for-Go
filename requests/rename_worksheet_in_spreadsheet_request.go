@@ -109,7 +109,7 @@ func (request *RenameWorksheetInSpreadsheetRequest) GetHeaderParameters() map[st
 }
 
 func (request *RenameWorksheetInSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/spreadsheet/rename/worksheet"
+	localVarPath := "/v4.0/cells/spreadsheet/rename/worksheet"
 	return localVarPath
 }
 

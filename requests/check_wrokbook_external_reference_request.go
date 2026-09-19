@@ -71,7 +71,7 @@ func (request *CheckWrokbookExternalReferenceRequest) GetHeaderParameters() map[
 }
 
 func (request *CheckWrokbookExternalReferenceRequest) GetPath() string {
-	localVarPath := "/cells/checkexternalreference"
+	localVarPath := "/v3.0/cells/checkexternalreference"
 	return localVarPath
 }
 

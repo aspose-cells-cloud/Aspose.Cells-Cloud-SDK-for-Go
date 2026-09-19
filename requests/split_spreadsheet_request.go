@@ -113,7 +113,7 @@ func (request *SplitSpreadsheetRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *SplitSpreadsheetRequest) GetPath() string {
-	localVarPath := "/cells/split/spreadsheet"
+	localVarPath := "/v4.0/cells/split/spreadsheet"
 	return localVarPath
 }
 

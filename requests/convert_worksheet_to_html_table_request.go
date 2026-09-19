@@ -95,7 +95,7 @@ func (request *ConvertWorksheetToHtmlTableRequest) GetHeaderParameters() map[str
 }
 
 func (request *ConvertWorksheetToHtmlTableRequest) GetPath() string {
-	localVarPath := "/cells/convert/worksheet/html-table"
+	localVarPath := "/v4.0/cells/convert/worksheet/html-table"
 	return localVarPath
 }
 

@@ -125,7 +125,7 @@ func (request *AddTextRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *AddTextRequest) GetPath() string {
-	localVarPath := "/cells/content/add/text"
+	localVarPath := "/v4.0/cells/content/add/text"
 	return localVarPath
 }
 

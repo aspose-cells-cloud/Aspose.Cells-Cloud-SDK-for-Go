@@ -99,7 +99,7 @@ func (request *PostSearchRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostSearchRequest) GetPath() string {
-	localVarPath := "/cells/search"
+	localVarPath := "/v3.0/cells/search"
 	return localVarPath
 }
 

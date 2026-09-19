@@ -92,7 +92,7 @@ func (request *UploadFileRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *UploadFileRequest) GetPath() string {
-	localVarPath := "/cells/storage/file/{path}"
+	localVarPath := "/v4.0/cells/storage/file/{path}"
 	localVarPath = strings.Replace(localVarPath, "{"+"path"+"}", url.PathEscape(fmt.Sprintf("%v", request.path)), -1)
 	return localVarPath
 }

@@ -89,7 +89,7 @@ func (request *PostWorkbooksMergeRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *PostWorkbooksMergeRequest) GetPath() string {
-	localVarPath := "/cells/{name}/merge"
+	localVarPath := "/v3.0/cells/{name}/merge"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

@@ -89,7 +89,7 @@ func (request *SearchSpreadsheetAllTextItemsRequest) GetHeaderParameters() map[s
 }
 
 func (request *SearchSpreadsheetAllTextItemsRequest) GetPath() string {
-	localVarPath := "/cells/search/content/all-textitems"
+	localVarPath := "/v4.0/cells/search/content/all-textitems"
 	return localVarPath
 }
 

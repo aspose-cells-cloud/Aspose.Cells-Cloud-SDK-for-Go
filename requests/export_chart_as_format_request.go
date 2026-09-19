@@ -113,7 +113,7 @@ func (request *ExportChartAsFormatRequest) GetHeaderParameters() map[string]stri
 }
 
 func (request *ExportChartAsFormatRequest) GetPath() string {
-	localVarPath := "/cells/{name}/worksheets/{worksheet}/charts/{chartIndex}"
+	localVarPath := "/v4.0/cells/{name}/worksheets/{worksheet}/charts/{chartIndex}"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"worksheet"+"}", url.PathEscape(fmt.Sprintf("%v", request.worksheet)), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"chartIndex"+"}", url.PathEscape(fmt.Sprintf("%v", request.chartIndex)), -1)

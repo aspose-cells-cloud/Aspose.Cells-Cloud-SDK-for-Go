@@ -99,7 +99,7 @@ func (request *PostWorkbookDataCleansingRequest) GetHeaderParameters() map[strin
 }
 
 func (request *PostWorkbookDataCleansingRequest) GetPath() string {
-	localVarPath := "/cells/{name}/datacleansing"
+	localVarPath := "/v3.0/cells/{name}/datacleansing"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(fmt.Sprintf("%v", request.name)), -1)
 	return localVarPath
 }

@@ -107,7 +107,7 @@ func (request *PostClearObjectsRequest) GetHeaderParameters() map[string]string 
 }
 
 func (request *PostClearObjectsRequest) GetPath() string {
-	localVarPath := "/cells/clearobjects"
+	localVarPath := "/v3.0/cells/clearobjects"
 	return localVarPath
 }
 

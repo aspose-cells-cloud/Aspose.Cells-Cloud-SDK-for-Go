@@ -103,7 +103,7 @@ func (request *PostAssembleRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostAssembleRequest) GetPath() string {
-	localVarPath := "/cells/assemble"
+	localVarPath := "/v3.0/cells/assemble"
 	return localVarPath
 }
 

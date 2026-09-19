@@ -71,7 +71,7 @@ func (request *PostAddTextContentRequest) GetHeaderParameters() map[string]strin
 }
 
 func (request *PostAddTextContentRequest) GetPath() string {
-	localVarPath := "/cells/addtext"
+	localVarPath := "/v3.0/cells/addtext"
 	return localVarPath
 }
 

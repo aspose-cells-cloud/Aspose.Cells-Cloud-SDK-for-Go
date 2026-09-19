@@ -109,7 +109,7 @@ func (request *PostWatermarkRequest) GetHeaderParameters() map[string]string {
 }
 
 func (request *PostWatermarkRequest) GetPath() string {
-	localVarPath := "/cells/watermark"
+	localVarPath := "/v3.0/cells/watermark"
 	return localVarPath
 }
 
