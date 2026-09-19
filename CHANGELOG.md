@@ -1,5 +1,12 @@
 # Release History Version
 
+## Feature & Enhancements in Version v26.8.0
+
+| **Summary**                                   | **Category** |
+| :--------------------------------------------- | :----------- |
+| Enchent smart template feature.               | Improvement  |
+| A new AI data analysis API has been added.    | New Feature  |
+
 ## Feature & Enhancements in Version v26.7.0
 
 Full list of issues covering all changes in this release:

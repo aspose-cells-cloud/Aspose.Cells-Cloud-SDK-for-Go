@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "26.8"
+  version: "26.9"
   title: "Aspose.Cells Cloud APIs."
 host: "api.aspose.cloud"
 basePath: "/v4.0"
@@ -59,6 +59,27 @@ paths:
         type: "string"
         x-nullable: true
         x-exportParamName: "targetLanguage"
+      - name: "customendpoint"
+        in: "Query"
+        description: "Optional. Full Chat Completions endpoint URL."
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "customEndpoint"
+      - name: "customapikey"
+        in: "Query"
+        description: "Optional. API key for the custom AI service."
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "customApiKey"
+      - name: "custommodel"
+        in: "Query"
+        description: "Optional. Model name to use."
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "customModel"
       - name: "region"
         in: "Query"
         description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
@@ -94,6 +115,27 @@ paths:
         type: "string"
         x-nullable: true
         x-exportParamName: "targetLanguage"
+      - name: "customendpoint"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "customEndpoint"
+      - name: "customapikey"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "customApiKey"
+      - name: "custommodel"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "customModel"
       - name: "region"
         in: "Query"
         description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
@@ -4137,6 +4179,20 @@ paths:
       summary: ""
       operationId: "SmartMarkerTemplate"
       parameters:
+      - name: "datafile"
+        in: "FormData"
+        description: "Upload smartmarker template json data file."
+        required: true
+        type: "file"
+        x-nullable: false
+        x-exportParamName: "datafile"
+      - name: "templatefile"
+        in: "FormData"
+        description: "Upload smartmarker template file."
+        required: true
+        type: "file"
+        x-nullable: false
+        x-exportParamName: "templatefile"
       - name: "region"
         in: "Query"
         description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."

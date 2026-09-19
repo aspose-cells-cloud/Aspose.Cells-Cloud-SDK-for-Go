@@ -39,7 +39,7 @@ type CellsCloudOption struct {
 }
 
 func Version() {
-	fmt.Println("---Version: 26.8---")
+	fmt.Println("---Version: 26.9---")
 }
 
 func NewCellsApiService(appSid string, appKey string, opts ...string) *CellsApiService {

@@ -93,6 +93,9 @@ func (data *DecomposeUserTaskRequest) CreateRequestData( client *APIClient) (loc
 
 type TranslateSpreadsheetRequest struct {
 	TargetLanguage string `json:"target_language,omitempty" xml:"target_language"`
+	CustomEndpoint string `json:"custom_endpoint,omitempty" xml:"custom_endpoint"`
+	CustomApiKey string `json:"custom_api_key,omitempty" xml:"custom_api_key"`
+	CustomModel string `json:"custom_model,omitempty" xml:"custom_model"`
 	Region string `json:"region,omitempty" xml:"region"`
 	Password string `json:"password,omitempty" xml:"password"`
 	
@@ -120,6 +123,18 @@ func (data *TranslateSpreadsheetRequest) CreateRequestData( client *APIClient) (
     // query params : targetLanguage
     if data.TargetLanguage != "" {
         localVarQueryParams.Add("targetLanguage", parameterToString(data.TargetLanguage, ""))
+    }
+    // query params : customEndpoint
+    if data.CustomEndpoint != "" {
+        localVarQueryParams.Add("customEndpoint", parameterToString(data.CustomEndpoint, ""))
+    }
+    // query params : customApiKey
+    if data.CustomApiKey != "" {
+        localVarQueryParams.Add("customApiKey", parameterToString(data.CustomApiKey, ""))
+    }
+    // query params : customModel
+    if data.CustomModel != "" {
+        localVarQueryParams.Add("customModel", parameterToString(data.CustomModel, ""))
     }
     // query params : region
     if data.Region != "" {
@@ -158,6 +173,9 @@ func (data *TranslateSpreadsheetRequest) CreateRequestData( client *APIClient) (
 
 type TranslateTextFileRequest struct {
 	TargetLanguage string `json:"target_language,omitempty" xml:"target_language"`
+	CustomEndpoint string `json:"custom_endpoint,omitempty" xml:"custom_endpoint"`
+	CustomApiKey string `json:"custom_api_key,omitempty" xml:"custom_api_key"`
+	CustomModel string `json:"custom_model,omitempty" xml:"custom_model"`
 	Region string `json:"region,omitempty" xml:"region"`
 	Password string `json:"password,omitempty" xml:"password"`
 	
@@ -185,6 +203,18 @@ func (data *TranslateTextFileRequest) CreateRequestData( client *APIClient) (loc
     // query params : targetLanguage
     if data.TargetLanguage != "" {
         localVarQueryParams.Add("targetLanguage", parameterToString(data.TargetLanguage, ""))
+    }
+    // query params : customEndpoint
+    if data.CustomEndpoint != "" {
+        localVarQueryParams.Add("customEndpoint", parameterToString(data.CustomEndpoint, ""))
+    }
+    // query params : customApiKey
+    if data.CustomApiKey != "" {
+        localVarQueryParams.Add("customApiKey", parameterToString(data.CustomApiKey, ""))
+    }
+    // query params : customModel
+    if data.CustomModel != "" {
+        localVarQueryParams.Add("customModel", parameterToString(data.CustomModel, ""))
     }
     // query params : region
     if data.Region != "" {
@@ -5641,6 +5671,9 @@ type SmartMarkerTemplateRequest struct {
 	Region string `json:"region,omitempty" xml:"region"`
 	Password string `json:"password,omitempty" xml:"password"`
 	
+	Datafile string  `json:"datafile,omitempty" xml:"datafile"`
+	Templatefile string  `json:"templatefile,omitempty" xml:"templatefile"`
+	 
 
 	ExtendQueryParameterMap	map[string]string `json:"ExtendQueryParameterMap,omitempty" xml:"ExtendQueryParameterMap"`	
 }
@@ -5673,7 +5706,7 @@ func (data *SmartMarkerTemplateRequest) CreateRequestData( client *APIClient) (l
 			localVarQueryParams.Add(key, parameterToString(value, ""))
 		}
 	}
-	localVarHttpContentTypes := []string{"application/json"} 
+	localVarHttpContentTypes := []string{"multipart/form-data"} 
 
 	// set Content-Type header
 	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
@@ -5689,6 +5722,9 @@ func (data *SmartMarkerTemplateRequest) CreateRequestData( client *APIClient) (l
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
+			
+		if strings.TrimSpace(data.Datafile) != "" { localVarFormParams["@"+ filepath.Base(data.Datafile)] = []string {data.Datafile}} 
+		if strings.TrimSpace(data.Templatefile) != "" { localVarFormParams["@"+ filepath.Base(data.Templatefile)] = []string {data.Templatefile}} 
 	r, err := client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	return r,err
 }
