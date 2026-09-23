@@ -27,8 +27,8 @@ package models
 
 // Color
 type Color struct {
-	A []byte `json:"A,omitempty" xml:"A"`
-	R []byte `json:"R,omitempty" xml:"R"`
-	G []byte `json:"G,omitempty" xml:"G"`
-	B []byte `json:"B,omitempty" xml:"B"`
+	A *int32 `json:"A,omitempty" xml:"A"`
+	R *int32 `json:"R,omitempty" xml:"R"`
+	G *int32 `json:"G,omitempty" xml:"G"`
+	B *int32 `json:"B,omitempty" xml:"B"`
 }

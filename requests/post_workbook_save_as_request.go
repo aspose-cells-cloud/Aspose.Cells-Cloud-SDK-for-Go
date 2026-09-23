@@ -22,7 +22,7 @@ type PostWorkbookSaveAsRequest struct {
 	pageTallFitOnPerSheet *bool
 	pageWideFitOnPerSheet *bool
 	region                string
-	saveOptions           *models.SaveOptions
+	saveOptions           models.SaveOptionsLike
 	storageName           string
 
 	extraQueryParameters map[string]string
@@ -70,7 +70,7 @@ func NewPostWorkbookSaveAsRequest(name string, newfilename string, opts ...Optio
 	if val, ok := cfg.Params["region"].(string); ok {
 		req.region = val
 	}
-	if val, ok := cfg.Params["saveOptions"].(*models.SaveOptions); ok {
+	if val, ok := cfg.Params["saveOptions"].(models.SaveOptionsLike); ok {
 		req.saveOptions = val
 	}
 	if val, ok := cfg.Params["storageName"].(string); ok {

@@ -25,10 +25,26 @@
 
 package models
 
+import "encoding/json"
+
 // PivotColumn Represents pivot column for data table.
 type PivotColumn struct {
 	// Represents pivot column name.
 	PivotColumnName string `json:"PivotColumnName,omitempty" xml:"PivotColumnName"`
 	// Represents column name that sets the column's value to the value of the pivot column.
-	ValueColumnNames []string `json:"ValueColumnNames,omitempty" xml:"ValueColumnNames"`
+	ValueColumnNames   []string `json:"ValueColumnNames,omitempty" xml:"ValueColumnNames"`
+	AppliedOperateType string   `json:"AppliedOperateType,omitempty" xml:"AppliedOperateType"`
+}
+
+// MarshalJSON fills AppliedOperateType with this type's own name -- the
+// member the service's JSON converter dispatches on -- so callers passing a
+// concrete operation never have to set it themselves. An explicit value is
+// kept as-is.
+func (m PivotColumn) MarshalJSON() ([]byte, error) {
+	type plain PivotColumn
+	p := plain(m)
+	if p.AppliedOperateType == "" {
+		p.AppliedOperateType = "PivotColumn"
+	}
+	return json.Marshal(p)
 }

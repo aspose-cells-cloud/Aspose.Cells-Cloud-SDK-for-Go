@@ -45,23 +45,56 @@ cells.cloud-sdk-go-dev/
 python3 generate_models.py
 ```
 
-Reads `Models` array from the specification and generates Go struct files in `models/`. Each model type gets its own file.
+Reads the `Models` array from the specification and writes every type into the single file
+`models/model_cells.go`. That monolith is an intermediate artifact — run `split_models.py` next,
+which splits it into one file per model type and deletes it.
 
 Type mapping rules:
 
 | Spec DataType | Go Type |
 |--------------|---------|
 | `String` | `string` |
-| `Long` | `int64` |
-| `Integer` | `int32` |
-| `Boolean` | `bool` |
-| `Float`/`Double` | `float64` |
+| `Long` | `*int64` |
+| `Integer` | `*int32` |
+| `Boolean` | `*bool` |
+| `Float`/`Double` | `*float64` |
 | `DateTime` | `time.Time` |
-| `Byte` | `[]byte` |
+| `Byte` | `*int32` |
 | `Class` (with Reference) | `*ReferencedType` |
+| `Class` (with Reference, model is `IsAbstract`) | `ReferencedType` |
+| `Class` (with Reference, model has subclasses) | `ReferencedTypeLike` |
 | `Container` (with Reference) | `[]ReferencedType` |
 | `Object` | `map[string]interface{}` |
 | `Any` | `interface{}` |
+
+Scalar primitives are **pointers** because every generated field carries an unconditional
+`omitempty`: `nil` means "unset" and is dropped from the JSON, while a zero that was set explicitly
+is still emitted. Strings, `time.Time`, and slices stay value types.
+
+`Byte` is deliberately **not** `[]byte`. The specification uses it only for
+`Color.A/R/G/B`, which hold 0–255 colour components, not binary blobs — Go's `encoding/json`
+renders `[]byte` as a base64 *string*, so the old mapping put `{"R":"MA=="}` on the wire where the
+service expects a number.
+
+A `Class` reference to an **abstract** model (`IsAbstract: true`) is a different case: the model
+becomes a Go interface, and a pointer to an interface can never be satisfied, so the field is
+typed as the interface itself. An abstract parent is likewise not embedded, so a child declares
+the properties it inherits instead of skipping them — otherwise a discriminator such as
+`AppliedOperateType` disappears. Each such child gets a generated `MarshalJSON` that fills that
+discriminator in from its own type name (the service's converter routes by it and rejects
+non-members), so callers pass the data only. See
+[`references/model_generation_rules.md`](../references/model_generation_rules.md).
+
+A `Class` reference to a **concrete** model that has subclasses is the third case, and the one Go
+makes awkward: `ImportOption` is a struct with nine subclasses, so a `*ImportIntArrayOption` is not
+assignable to a `*ImportOption`. Each of the 19 such bases gets a generated family interface
+(`models.ImportOptionLike`, `models.ShapeLike`, …) whose marker method is declared on the base and
+promoted to every subclass by embedding. Request parameters take that interface rather than a
+pointer, so `requests.WithCommonParameter("importOption", &models.ImportIntArrayOption{…})` — a
+call that used to drop the value and put a null body on the wire — works. Model *properties* keep
+the concrete base type, because callers read them back. The subclasses of a concrete base are told
+apart by ordinary data properties (`ImportDataType`), which the caller sets; only an abstract
+parent has a derivable discriminator.
 
 ### Generate Request Files
 
@@ -89,7 +122,9 @@ Reads `TestingData/` JSON files and generates test functions in `integrationtest
 python3 split_models.py
 ```
 
-Splits a monolithic `models/model_cells.go` into individual files (one struct per file).
+Splits the monolithic `models/model_cells.go` produced by `generate_models.py` into individual
+files (one struct per file, in `models/`) and deletes the monolith. The two scripts together are
+the model-generation step; `models/model_cells.go` is never committed.
 
 ## Key Design Patterns
 
@@ -155,13 +190,14 @@ These are appended last in `GetQueryParameters()` and merge into the final reque
 | `bool` | `bool` (value) | `*bool` (pointer) |
 | `float64` | `float64` (value) | `*float64` (pointer) |
 | Struct/Class | `*models.Type` (pointer) | `*models.Type` (pointer) |
+| Struct/Class whose model has subclasses | `models.Type` (abstract) / `models.TypeLike` (concrete) | same |
 | Slice/Container | `[]models.Type` (value) | `[]models.Type` (value) |
 
 ## Adding New APIs
 
 1. Add the operation to `aspose.cells.cloud.specification.json`
 2. If new models are needed, add them to the `Models` array
-3. Run `python3 generate_models.py` to generate model files
+3. Run `python3 generate_models.py` then `python3 split_models.py` to generate model files
 4. Run `python3 generate_requests.py` to generate request files
 5. Add test data to `TestingData/` directory
 6. Run `python3 generate_tests.py` to generate test files

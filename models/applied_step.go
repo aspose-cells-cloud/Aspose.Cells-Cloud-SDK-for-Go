@@ -30,5 +30,5 @@ type AppliedStep struct {
 	// Data manipulation step name.
 	StepName string `json:"StepName,omitempty" xml:"StepName"`
 	// Data manipulation name.
-	AppliedOperate *AppliedOperate `json:"AppliedOperate,omitempty" xml:"AppliedOperate"`
+	AppliedOperate AppliedOperate `json:"AppliedOperate,omitempty" xml:"AppliedOperate"`
 }

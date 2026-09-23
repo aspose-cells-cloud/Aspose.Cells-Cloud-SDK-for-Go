@@ -25,6 +25,8 @@
 
 package models
 
+import "encoding/json"
+
 // UnpivotColumn Unpivot column.
 type UnpivotColumn struct {
 	// Indicates unpivot column names.
@@ -32,5 +34,19 @@ type UnpivotColumn struct {
 	// Indicates the column is used to store the name of unpivot columns.
 	ColumnMapName string `json:"ColumnMapName,omitempty" xml:"ColumnMapName"`
 	// Indicates the column is used to store the value of unpivot columns.
-	ValueMapName string `json:"ValueMapName,omitempty" xml:"ValueMapName"`
+	ValueMapName       string `json:"ValueMapName,omitempty" xml:"ValueMapName"`
+	AppliedOperateType string `json:"AppliedOperateType,omitempty" xml:"AppliedOperateType"`
+}
+
+// MarshalJSON fills AppliedOperateType with this type's own name -- the
+// member the service's JSON converter dispatches on -- so callers passing a
+// concrete operation never have to set it themselves. An explicit value is
+// kept as-is.
+func (m UnpivotColumn) MarshalJSON() ([]byte, error) {
+	type plain UnpivotColumn
+	p := plain(m)
+	if p.AppliedOperateType == "" {
+		p.AppliedOperateType = "UnpivotColumn"
+	}
+	return json.Marshal(p)
 }

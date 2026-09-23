@@ -41,3 +41,7 @@ type SaveOptions struct {
 	UpdateSmartArt            *bool  `json:"UpdateSmartArt,omitempty" xml:"UpdateSmartArt"`
 	EncryptDocumentProperties *bool  `json:"EncryptDocumentProperties,omitempty" xml:"EncryptDocumentProperties"`
 }
+
+// saveOptionsMarker closes the SaveOptionsLike family: only SaveOptions and the models
+// embedding it carry this promoted method, so no unrelated type satisfies SaveOptionsLike.
+func (m SaveOptions) saveOptionsMarker() {}

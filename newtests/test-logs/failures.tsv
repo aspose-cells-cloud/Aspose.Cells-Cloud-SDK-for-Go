@@ -1,0 +1,8 @@
+File	Test	Replay	Category	ApiVersions	Message
+api_cells_conversion30_test.go	TestConversion30_GetWorkbookFormat_tif	PASS(重跑通过)	偶发失败(重跑通过)	v3.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)
+api_cells_conversion30_test.go	TestConversion30_ConvertWorkbook_tif	FAIL	网络错误	v3.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)
+api_cells_lightcells_test.go	TestLightCells_PostSplit_html	FAIL	网络错误	v3.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)
+api_cells_lightcells_test.go	TestLightCells_PostSplit_xps	FAIL	网络错误	v3.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)
+api_cells_lightcells_test.go	TestLightCells_PostSplit_pptx	FAIL	网络错误	v3.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)
+api_cells_lightcells_test.go	TestLightCells_PostExport_html_worksheet	PASS(重跑通过)	偶发失败(重跑通过)	v3.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)
+api_cells_splitter_test.go	TestSplitter_SplitLocalFile	PASS(重跑通过)	偶发失败(重跑通过)	v4.0	sdk error [code=-1]: request execution failed: context deadline exceeded (Client.Timeout or context cancellation while reading body)

@@ -52,3 +52,7 @@ type ChartFrame struct {
 	// Gets or sets the y coordinate of the upper left corner in units of 1/4000 of the chart area.
 	Y *int32 `json:"Y,omitempty" xml:"Y"`
 }
+
+// chartFrameMarker closes the ChartFrameLike family: only ChartFrame and the models
+// embedding it carry this promoted method, so no unrelated type satisfies ChartFrameLike.
+func (m ChartFrame) chartFrameMarker() {}

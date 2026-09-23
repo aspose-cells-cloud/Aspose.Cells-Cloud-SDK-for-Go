@@ -32,3 +32,8 @@ type TaskRunResult struct {
 	// Represents out data file list.
 	OutFileList []DataSource `json:"OutFileList,omitempty" xml:"OutFileList"`
 }
+
+// taskRunResultMarker closes the TaskRunResultLike family: only TaskRunResult and the
+// models embedding it carry this promoted method, so no unrelated type satisfies
+// TaskRunResultLike.
+func (m TaskRunResult) taskRunResultMarker() {}

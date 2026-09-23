@@ -136,6 +136,11 @@ func TestDataProcessingController_PostDataTransformation(t *testing.T) {
 	dataTransformationRequestAppliedStepsAppliedStep0AppliedOperate.UnpivotColumnNames = dataTransformationRequestAppliedStepsAppliedStep0AppliedOperateUnpivotColumnNames
 	dataTransformationRequestAppliedStepsAppliedStep0 := &models.AppliedStep{}
 	dataTransformationRequestAppliedStepsAppliedStep0.StepName = "UnpivotColumn"
+	// UnpivotColumn satisfies the AppliedOperate interface, so the concrete operation
+	// is handed to the step as-is. Its AppliedOperateType discriminator -- the member
+	// the service's JSON converter dispatches on -- is filled in from the concrete
+	// type when the request is serialized.
+	dataTransformationRequestAppliedStepsAppliedStep0.AppliedOperate = dataTransformationRequestAppliedStepsAppliedStep0AppliedOperate
 	var dataTransformationRequestAppliedSteps = []models.AppliedStep{*dataTransformationRequestAppliedStepsAppliedStep0}
 	dataTransformationRequest := &models.DataTransformationRequest{}
 	dataTransformationRequest.LoadData = dataTransformationRequestLoadData

@@ -47,3 +47,8 @@ type PaginatedSaveOptions struct {
 	SortExternalNames                 *bool  `json:"SortExternalNames,omitempty" xml:"SortExternalNames"`
 	UpdateSmartArt                    *bool  `json:"UpdateSmartArt,omitempty" xml:"UpdateSmartArt"`
 }
+
+// paginatedSaveOptionsMarker closes the PaginatedSaveOptionsLike family: only
+// PaginatedSaveOptions and the models embedding it carry this promoted method, so no
+// unrelated type satisfies PaginatedSaveOptionsLike.
+func (m PaginatedSaveOptions) paginatedSaveOptionsMarker() {}

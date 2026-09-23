@@ -13,7 +13,7 @@ type PostImportDataRequest struct {
 
 	folder        string
 	FontsLocation string
-	importOption  *models.ImportOption
+	importOption  models.ImportOptionLike
 	region        string
 	storageName   string
 
@@ -37,7 +37,7 @@ func NewPostImportDataRequest(name string, opts ...Option) *PostImportDataReques
 	if val, ok := cfg.Params["FontsLocation"].(string); ok {
 		req.FontsLocation = val
 	}
-	if val, ok := cfg.Params["importOption"].(*models.ImportOption); ok {
+	if val, ok := cfg.Params["importOption"].(models.ImportOptionLike); ok {
 		req.importOption = val
 	}
 	if val, ok := cfg.Params["region"].(string); ok {

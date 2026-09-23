@@ -133,7 +133,9 @@ func TestConversion30_WorkbookSaveAs_pdf_OutResultPostExcelSaveAspdf(t *testing.
 
 	format := "pdf"
 	newfilename := "OutResult/PostExcelSaveAs.pdf"
-	saveOptions := &models.SaveOptions{}
+	// PdfSaveOptions is a member of the SaveOptions family, two levels below the base
+	// through PaginatedSaveOptions; the parameter accepts any member of the family.
+	saveOptions := &models.PdfSaveOptions{}
 	saveOptions.SaveFormat = format
 	request := requests.NewPostWorkbookSaveAsRequest(
 		remoteName,

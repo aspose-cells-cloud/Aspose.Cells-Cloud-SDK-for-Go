@@ -68,7 +68,10 @@ func TestShapesController_PutWorksheetShape(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	shapeDTO := &models.Shape{}
+	// ArcShape is one of the 22 subclasses of Shape; the parameter takes the family
+	// (the generated models.ShapeLike). The shape itself is described by the query
+	// parameters below, so the DTO only has to be a member of the family.
+	shapeDTO := &models.ArcShape{}
 	request := requests.NewPutWorksheetShapeRequest(
 		remoteName,
 		"Sheet1",

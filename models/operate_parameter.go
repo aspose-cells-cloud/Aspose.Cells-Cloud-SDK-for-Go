@@ -30,3 +30,8 @@ type OperateParameter struct {
 	// Represents task operate type.
 	OperateType string `json:"OperateType,omitempty" xml:"OperateType"`
 }
+
+// operateParameterMarker closes the OperateParameterLike family: only OperateParameter and
+// the models embedding it carry this promoted method, so no unrelated type satisfies
+// OperateParameterLike.
+func (m OperateParameter) operateParameterMarker() {}

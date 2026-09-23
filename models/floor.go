@@ -31,3 +31,7 @@ type Floor struct {
 	// Gets or sets the border .
 	Border *Line `json:"Border,omitempty" xml:"Border"`
 }
+
+// floorMarker closes the FloorLike family: only Floor and the models embedding it carry
+// this promoted method, so no unrelated type satisfies FloorLike.
+func (m Floor) floorMarker() {}

@@ -101,3 +101,7 @@ type Shape struct {
 	// Gets the hyperlink of the shape.
 	Hyperlink string `json:"Hyperlink,omitempty" xml:"Hyperlink"`
 }
+
+// shapeMarker closes the ShapeLike family: only Shape and the models embedding it carry
+// this promoted method, so no unrelated type satisfies ShapeLike.
+func (m Shape) shapeMarker() {}

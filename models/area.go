@@ -40,3 +40,7 @@ type Area struct {
 	// Returns or sets the degree of transparency of the area as a value from 0.0 (opaque) through 1.0 (clear).
 	Transparency *float64 `json:"Transparency,omitempty" xml:"Transparency"`
 }
+
+// areaMarker closes the AreaLike family: only Area and the models embedding it carry this
+// promoted method, so no unrelated type satisfies AreaLike.
+func (m Area) areaMarker() {}

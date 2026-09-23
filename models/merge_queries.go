@@ -25,6 +25,8 @@
 
 package models
 
+import "encoding/json"
+
 // MergeQueries Represents merge quesies.
 type MergeQueries struct {
 	// Indicates the name of the data query , it is matched in the data query set.
@@ -36,5 +38,19 @@ type MergeQueries struct {
 	// Represents index field  of DataB.
 	DataBIndexField string `json:"DataBIndexField,omitempty" xml:"DataBIndexField"`
 	// Represents ethods of data consolidation.
-	JoinType string `json:"JoinType,omitempty" xml:"JoinType"`
+	JoinType           string `json:"JoinType,omitempty" xml:"JoinType"`
+	AppliedOperateType string `json:"AppliedOperateType,omitempty" xml:"AppliedOperateType"`
+}
+
+// MarshalJSON fills AppliedOperateType with this type's own name -- the
+// member the service's JSON converter dispatches on -- so callers passing a
+// concrete operation never have to set it themselves. An explicit value is
+// kept as-is.
+func (m MergeQueries) MarshalJSON() ([]byte, error) {
+	type plain MergeQueries
+	p := plain(m)
+	if p.AppliedOperateType == "" {
+		p.AppliedOperateType = "MergeQueries"
+	}
+	return json.Marshal(p)
 }

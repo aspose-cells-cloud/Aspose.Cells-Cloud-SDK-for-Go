@@ -230,7 +230,7 @@ class Converter(object):
             "unresolved_op": [],
             "unresolved_model": [],
             "model_field_removed": [],
-            "model_field_unsettable": [],
+            "pointer_to_interface_field": [],
             "option_not_exposed": [],
             "test_not_portable": [],
         }
@@ -272,10 +272,10 @@ class Converter(object):
             if re.match(r"^\w+$", expr):
                 self.retarget[expr] = "[]interface{}"
             return expr
-        if target == "[]byte":
-            # models.Color.A/R/G/B are declared []byte in the new model even
-            # though the legacy ones were int64 -- see README "known differences".
-            return "[]byte{%s}" % self.strip_cast(expr)
+        # No []byte branch: the spec's `Byte` identifier (models.Color.A/R/G/B)
+        # now maps to *int32 and so is handled by the "*int32" case above, and no
+        # model or request field reachable from a legacy assignment is a []byte.
+        # File bytes travel through mustUploadFile(), never a field assignment.
         # models / slices / anything else: pass through unchanged
         return expr
 
@@ -473,9 +473,17 @@ class Converter(object):
                 self.stats["model_field_removed"].append("%s.%s" % (mtype, field))
                 continue
             if ftype.startswith("*") and ftype[1:] in self.models.interfaces:
-                # Pointer to an interface: nothing can ever satisfy it, so the
-                # legacy value has no place to go. See README "known differences".
-                self.stats["model_field_unsettable"].append(
+                # A *pointer* to an interface can never be satisfied, so this is no
+                # longer a known model difference to route around -- it means the
+                # model generator regressed. It emitted exactly this for
+                # AppliedStep.AppliedOperate until 2026-09-22; a Class-typed property
+                # referencing an abstract model must now name the interface itself.
+                # A *concrete* base with subclasses is a different case: a property
+                # keeps its `*models.Base` type on purpose (callers read those
+                # fields), while it is request *parameters* that take the generated
+                # `<Base>Like` family interface, so no `*XLike` ever appears.
+                # Record it loudly rather than silently dropping the assignment.
+                self.stats["pointer_to_interface_field"].append(
                     "%s.%s (%s)" % (mtype, field, ftype)
                 )
                 continue

@@ -34,3 +34,8 @@ type FormulaFormatCondition struct {
 	// Gets and sets the conditional format operator type.
 	Operator string `json:"Operator,omitempty" xml:"Operator"`
 }
+
+// formulaFormatConditionMarker closes the FormulaFormatConditionLike family: only
+// FormulaFormatCondition and the models embedding it carry this promoted method, so no
+// unrelated type satisfies FormulaFormatConditionLike.
+func (m FormulaFormatCondition) formulaFormatConditionMarker() {}

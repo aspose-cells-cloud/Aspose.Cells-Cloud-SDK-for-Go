@@ -16,7 +16,7 @@ type PutWorksheetShapeRequest struct {
 	folder          string
 	height          *int
 	left            *int
-	shapeDTO        *models.Shape
+	shapeDTO        models.ShapeLike
 	storageName     string
 	top             *int
 	upperLeftColumn *int
@@ -50,7 +50,7 @@ func NewPutWorksheetShapeRequest(name string, sheetName string, opts ...Option) 
 	if val, ok := cfg.Params["left"].(*int); ok {
 		req.left = val
 	}
-	if val, ok := cfg.Params["shapeDTO"].(*models.Shape); ok {
+	if val, ok := cfg.Params["shapeDTO"].(models.ShapeLike); ok {
 		req.shapeDTO = val
 	}
 	if val, ok := cfg.Params["storageName"].(string); ok {

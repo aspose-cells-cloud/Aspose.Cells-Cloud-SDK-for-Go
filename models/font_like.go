@@ -1,5 +1,5 @@
 /** --------------------------------------------------------------------------------------------------------------------
-* <copyright company="Aspose" file="model_cells.go">
+* <copyright company="Aspose" file="font_like.go">
 *   Copyright (c) 2026 Aspose.Cells Cloud
 * </copyright>
 * <summary>
@@ -25,6 +25,11 @@
 
 package models
 
-// Individual model types have been split into the model/ subdirectory.
-// Each type now lives in its own file for better maintainability.
-// See model/*.go for individual type definitions.
+// FontLike accepts Font itself or any model that embeds it -- its only subclass is
+// TextOptions. Go has no subclass relation between structs, so a child cannot be assigned
+// to a Font field or parameter; this interface is the spelling for "Font or any of its
+// subclasses". Embedding promotes the marker method, so every subclass already satisfies
+// it: hand it the concrete one, carrying the data the service routes on.
+type FontLike interface {
+	fontMarker()
+}

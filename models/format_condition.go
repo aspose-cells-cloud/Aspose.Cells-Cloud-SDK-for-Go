@@ -57,3 +57,8 @@ type FormatCondition struct {
 	// Get the conditional formatting's "Top10" instance.                         The default instance's rule highlights cells whose                         values fall in the top 10 bracket.                         Valid only for type is Top10.
 	Top10 *Top10 `json:"Top10,omitempty" xml:"Top10"`
 }
+
+// formatConditionMarker closes the FormatConditionLike family: only FormatCondition and the
+// models embedding it carry this promoted method, so no unrelated type satisfies
+// FormatConditionLike.
+func (m FormatCondition) formatConditionMarker() {}

@@ -68,3 +68,8 @@ type HtmlSaveOptions struct {
 	ParseHtmlTagInCell              *bool                `json:"ParseHtmlTagInCell,omitempty" xml:"ParseHtmlTagInCell"`
 	CellNameAttribute               string               `json:"CellNameAttribute,omitempty" xml:"CellNameAttribute"`
 }
+
+// htmlSaveOptionsMarker closes the HtmlSaveOptionsLike family: only HtmlSaveOptions and the
+// models embedding it carry this promoted method, so no unrelated type satisfies
+// HtmlSaveOptionsLike.
+func (m HtmlSaveOptions) htmlSaveOptionsMarker() {}

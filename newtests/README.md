@@ -86,9 +86,10 @@ generated option parameters take `*int`.
 
 ## Known differences from the legacy suite
 
-These are **deliberate**, and none of them are fixed here — they are defects in
-the new model, out of scope for a test port. Each is called out in a comment at
-the point of use.
+Each of these was a defect in the new model rather than a porting choice, so each
+is called out in a comment at the point of use. Items 2 and 3 were subsequently
+**fixed in the model generator** and now carry no workaround; what remains below
+is the record of what the port had to work around at the time.
 
 1. **13 tests are skipped** — `TestLightCells_PostAssemble_*` (9) and
    `TestLightCells_PostMerge_*` (4). Each uploads two workbooks at once
@@ -98,27 +99,91 @@ the point of use.
    multi-file assembly cannot be expressed. These tests are emitted with `t.Skip`
    and a comment rather than being silently reduced to one file. The test
    functions still exist, so the count stays at 509.
-2. **`AppliedStep.AppliedOperate` cannot be set.** It is declared
-   `*models.AppliedOperate` where `AppliedOperate` is an interface, so no value
-   can ever satisfy it. Affects
-   `TestDataProcessingController_PostDataTransformation`. The assignment is
-   dropped; the rest of the request is sent as before.
-3. **`UnpivotColumn.AppliedOperateType` no longer exists** in the new model, so
-   that one assignment is dropped. Affects the same test as above.
-4. **`models.Color.A/R/G/B` are declared `[]byte`** (they hold 0–255 colour
-   components). The legacy values were `int64`. The port writes
-   `[]byte{48}` so the value survives the declared type; the wire encoding may
-   still differ from what the server expects.
-5. **Upload failures now abort the test.** The legacy upload preamble discarded
+2. **A polymorphic operate could not be attached to its step.** The specification
+   models `AppliedStep.AppliedOperate` as an abstract `AppliedOperate` with three
+   concrete children (`UnpivotColumn`, `PivotColumn`, `MergeQueries`), and each
+   child inherits an `AppliedOperateType` that the service's own JSON converter
+   dispatches on. Two model defects made that unusable: the field was declared
+   `*models.AppliedOperate` — a *pointer to an interface*, which no concrete model
+   can ever satisfy — and because an abstract parent becomes an interface it is
+   not embedded, so the children silently lost `AppliedOperateType`. The legacy
+   `TestPostDataTransformation` is an empty stub, so the body here is hand-written;
+   it used to build a `UnpivotColumn` and drop it on the floor, and the request
+   failed with an opaque `HTTP 500 ... Object reference not set to an instance of
+   an object` (the service cannot deserialize the operate without its
+   discriminator). It is **fixed**, in three parts: the field is now the
+   `AppliedOperate` interface itself, so a `*UnpivotColumn` assigns to it
+   directly; the children declare their inherited `AppliedOperateType`; and each
+   such child fills that discriminator in from its own type name on
+   serialization, so the test just builds a `UnpivotColumn` and hands it over. See
+   `unittest/models_applied_operate_test.go` in the SDK repository for the pinned
+   wire shape, and note the value is a real enum — the service answers a
+   non-member with `Could not convert '...' to AppliedOperateType`.
+3. **`models.Color.A/R/G/B` were declared `[]byte`** (they hold 0–255 colour
+   components; the legacy values were `int64`). This was a defect in the model,
+   not a porting choice: `encoding/json` serializes `[]byte` as a base64
+   **string**, so a colour filter went out as `{"R":"MA=="}` where the service
+   expects a number. It is **fixed** — the generator's `Byte` mapping is now
+   `*int32` like `Integer` — so the port simply sets
+   `asposecellscloud.Int32Ptr(48)` and no longer needs a workaround. See
+   `unittest/models_color_test.go` in the SDK repository for the pinned
+   behaviour.
+4. **Upload failures now abort the test.** The legacy upload preamble discarded
    its error, so a missing remote file produced confusing downstream failures.
    `mustUploadFile` returning a non-nil error triggers `t.Fatal`.
-6. **Runtime differences are expected.** The legacy suite targeted v3.0; this one
+5. **Runtime differences are expected.** The legacy suite targeted v3.0; this one
    targets v4.0. The port guarantees that the code compiles and that the API
    calls are equivalent — it does not guarantee every test returns 2xx. Individual
    endpoint behaviour may legitimately differ between versions.
+6. **A subclass could not be passed where its base was expected.** The legacy
+   suite builds `&models.ImportOption{}` for `PostImportData`,
+   `&models.SaveOptions{}` for `PostWorkbookSaveAs` and `&models.Shape{}` for
+   `PutWorksheetShape`, and the generated requests asserted exactly those types
+   (`cfg.Params["importOption"].(*models.ImportOption)`). A subclass — the shape
+   the endpoints actually document, e.g. `ImportIntArrayOption` — failed the
+   assertion, so the value was **dropped**, the request went out with a null body,
+   and the service answered `HTTP 400 Error reading JObject from Json`. Go has no
+   subtype relation between structs, so the SDK **fixed** it by generating a family
+   interface per concrete base (`models.ImportOptionLike`, `models.ShapeLike`, …),
+   which the base and every subclass satisfy by the promoted marker method; the
+   parameters now take that interface. See
+   `unittest/requests_polymorphic_param_test.go` in the SDK repository. The three
+   tests here whose parameter is now a subclass (`TestWorkbookController_`
+   `PostImportData`, `TestShapesController_PutWorksheetShape`,
+   `TestConversion30_WorkbookSaveAs_pdf_...`) are deliberate: they are the live
+   coverage of the family, see Maintenance.
 
 ## Maintenance
 
 `newtests/` is generated output. Change `tools/convert_integrationtests.py` and
 regenerate rather than hand-editing these files — hand edits are lost on the next
 run.
+
+**Known hand-added setup:** three bodies have no counterpart in the legacy suite,
+so the converter cannot reproduce them. Re-add them after a regeneration:
+
+- the colour-filter setups in `api_cells_autofiltercontroller_test.go` and
+  `api_cells_rangescontroller_test.go` — regenerating emits `nil` for the
+  `ColorFilterRequest` argument instead, and the two tests silently stop covering
+  the colour path;
+- the family-typed parameters noted in point 6 — `TestWorkbookController_`
+  `PostImportData` hands over an `ImportIntArrayOption`, `TestShapesController_`
+  `PutWorksheetShape` an `ArcShape`, and `TestConversion30_WorkbookSaveAs_pdf_...`
+  a `PdfSaveOptions`. The legacy suite uses the base type for all three, so
+  regenerating emits `&models.ImportOption{}` / `&models.Shape{}` /
+  `&models.SaveOptions{}`: the tests still compile and pass, but the polymorphic
+  parameters stop being covered by a live run;
+- the `AppliedOperate` assignment in
+  `api_cells_dataprocessingcontroller_test.go` (`TestDataProcessingController_`
+  `PostDataTransformation`) — regenerating drops the operate, and the request goes
+  back to failing with `HTTP 500 Object reference not set to an instance of an
+  object`. Its discriminator no longer needs re-adding: `models.UnpivotColumn`
+  supplies it on serialization.
+
+**The converter does not run from this repository as-is.** It reads
+`aspose.cells.cloud.specification.json`, which is not checked in here (it lives in
+the SDK development repository, alongside `references/` and the port
+directories); points 2 and 3 above mean the script would also need the model
+generator's fix to be present in `models/` to emit correct code. Regenerating
+therefore means running it from the development repository — this copy of
+`newtests/` is the delivered output.

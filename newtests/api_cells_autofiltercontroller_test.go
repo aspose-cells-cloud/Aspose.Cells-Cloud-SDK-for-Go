@@ -222,9 +222,9 @@ func TestAutoFilterController_PutWorksheetColorFilter(t *testing.T) {
 	}
 
 	colorFilterForegroundColorColor := &models.Color{}
-	colorFilterForegroundColorColor.R = []byte{48}
-	colorFilterForegroundColorColor.G = []byte{48}
-	colorFilterForegroundColorColor.B = []byte{48}
+	colorFilterForegroundColorColor.R = asposecellscloud.Int32Ptr(48)
+	colorFilterForegroundColorColor.G = asposecellscloud.Int32Ptr(48)
+	colorFilterForegroundColorColor.B = asposecellscloud.Int32Ptr(48)
 	colorFilterForegroundColor := &models.CellsColor{}
 	colorFilterForegroundColor.Type = "Automatic"
 	colorFilterForegroundColor.Color = colorFilterForegroundColorColor

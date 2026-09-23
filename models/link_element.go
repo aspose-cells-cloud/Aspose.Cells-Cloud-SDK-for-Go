@@ -30,3 +30,7 @@ type LinkElement struct {
 	// The class has a property named "link" of type Link, which has a public get and set accessors.
 	Link *Link `json:"link,omitempty" xml:"link"`
 }
+
+// linkElementMarker closes the LinkElementLike family: only LinkElement and the models
+// embedding it carry this promoted method, so no unrelated type satisfies LinkElementLike.
+func (m LinkElement) linkElementMarker() {}

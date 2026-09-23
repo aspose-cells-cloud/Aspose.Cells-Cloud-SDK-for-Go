@@ -48,3 +48,7 @@ type Font struct {
 	// Gets or sets the font underline type.
 	Underline string `json:"Underline,omitempty" xml:"Underline"`
 }
+
+// fontMarker closes the FontLike family: only Font and the models embedding it carry this
+// promoted method, so no unrelated type satisfies FontLike.
+func (m Font) fontMarker() {}

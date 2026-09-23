@@ -41,3 +41,7 @@ type ImportOption struct {
 	// applicable.
 	ConvertNumericData *bool `json:"ConvertNumericData,omitempty" xml:"ConvertNumericData"`
 }
+
+// importOptionMarker closes the ImportOptionLike family: only ImportOption and the models
+// embedding it carry this promoted method, so no unrelated type satisfies ImportOptionLike.
+func (m ImportOption) importOptionMarker() {}

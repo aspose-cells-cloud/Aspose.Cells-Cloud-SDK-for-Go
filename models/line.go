@@ -66,3 +66,7 @@ type Line struct {
 	// Gets or sets the weight of the line in unit of points.
 	WeightPt *float64 `json:"WeightPt,omitempty" xml:"WeightPt"`
 }
+
+// lineMarker closes the LineLike family: only Line and the models embedding it carry this
+// promoted method, so no unrelated type satisfies LineLike.
+func (m Line) lineMarker() {}

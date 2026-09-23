@@ -40,3 +40,7 @@ type StorageFile struct {
 	// File or folder path.
 	Path string `json:"Path,omitempty" xml:"Path"`
 }
+
+// storageFileMarker closes the StorageFileLike family: only StorageFile and the models
+// embedding it carry this promoted method, so no unrelated type satisfies StorageFileLike.
+func (m StorageFile) storageFileMarker() {}

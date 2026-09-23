@@ -9,7 +9,7 @@ import (
 )
 
 type PostWorksheetShapeRequest struct {
-	dto        *models.Shape
+	dto        models.ShapeLike
 	name       string
 	shapeindex int
 	sheetName  string
@@ -20,7 +20,7 @@ type PostWorksheetShapeRequest struct {
 	extraQueryParameters map[string]string
 }
 
-func NewPostWorksheetShapeRequest(dto *models.Shape, name string, shapeindex int, sheetName string, opts ...Option) *PostWorksheetShapeRequest {
+func NewPostWorksheetShapeRequest(dto models.ShapeLike, name string, shapeindex int, sheetName string, opts ...Option) *PostWorksheetShapeRequest {
 	req := &PostWorksheetShapeRequest{
 		dto:        dto,
 		name:       name,

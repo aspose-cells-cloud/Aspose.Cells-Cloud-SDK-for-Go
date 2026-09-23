@@ -30,3 +30,8 @@ type CellsCloudResponse struct {
 	Code   *int32 `json:"Code,omitempty" xml:"Code"`
 	Status string `json:"Status,omitempty" xml:"Status"`
 }
+
+// cellsCloudResponseMarker closes the CellsCloudResponseLike family: only
+// CellsCloudResponse and the models embedding it carry this promoted method, so no
+// unrelated type satisfies CellsCloudResponseLike.
+func (m CellsCloudResponse) cellsCloudResponseMarker() {}

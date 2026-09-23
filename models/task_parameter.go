@@ -28,3 +28,8 @@ package models
 // TaskParameter Represents task parameter.
 type TaskParameter struct {
 }
+
+// taskParameterMarker closes the TaskParameterLike family: only TaskParameter and the
+// models embedding it carry this promoted method, so no unrelated type satisfies
+// TaskParameterLike.
+func (m TaskParameter) taskParameterMarker() {}

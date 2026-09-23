@@ -603,6 +603,11 @@ func TestWorkbookController_PostImportData(t *testing.T) {
 		int64(2),
 		int64(3),
 		int64(4)}
+	// ImportIntArrayOption is one of the nine subclasses ImportOption has in the
+	// specification, and the request parameter accepts the whole family (the
+	// generated models.ImportOptionLike), so the concrete option is handed over
+	// as-is. ImportDataType names the payload here: unlike the abstract
+	// AppliedOperate family, the service has to be told which subclass this is.
 	importOption := &models.ImportIntArrayOption{}
 	importOption.DestinationWorksheet = "Sheet1"
 	importOption.FirstColumn = asposecellscloud.Int32Ptr(1)

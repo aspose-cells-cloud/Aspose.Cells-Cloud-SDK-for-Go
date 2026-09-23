@@ -40,3 +40,7 @@ type FillFormat struct {
 	// Gets and sets the picture image data.
 	ImageData string `json:"ImageData,omitempty" xml:"ImageData"`
 }
+
+// fillFormatMarker closes the FillFormatLike family: only FillFormat and the models
+// embedding it carry this promoted method, so no unrelated type satisfies FillFormatLike.
+func (m FillFormat) fillFormatMarker() {}

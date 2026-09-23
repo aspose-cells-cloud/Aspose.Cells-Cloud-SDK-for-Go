@@ -10,7 +10,7 @@ import (
 
 type PutWorksheetConditionalFormattingRequest struct {
 	cellArea        string
-	formatcondition *models.FormatCondition
+	formatcondition models.FormatConditionLike
 	name            string
 	sheetName       string
 
@@ -20,7 +20,7 @@ type PutWorksheetConditionalFormattingRequest struct {
 	extraQueryParameters map[string]string
 }
 
-func NewPutWorksheetConditionalFormattingRequest(cellArea string, formatcondition *models.FormatCondition, name string, sheetName string, opts ...Option) *PutWorksheetConditionalFormattingRequest {
+func NewPutWorksheetConditionalFormattingRequest(cellArea string, formatcondition models.FormatConditionLike, name string, sheetName string, opts ...Option) *PutWorksheetConditionalFormattingRequest {
 	req := &PutWorksheetConditionalFormattingRequest{
 		cellArea:        cellArea,
 		formatcondition: formatcondition,

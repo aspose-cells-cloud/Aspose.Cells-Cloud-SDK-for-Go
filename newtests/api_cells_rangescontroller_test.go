@@ -250,9 +250,9 @@ func TestRangesController_PostWorksheetCellsRangeOutlineBorder(t *testing.T) {
 	}
 
 	rangeOperateborderColor := &models.Color{}
-	rangeOperateborderColor.R = []byte{48}
-	rangeOperateborderColor.G = []byte{48}
-	rangeOperateborderColor.B = []byte{48}
+	rangeOperateborderColor.R = asposecellscloud.Int32Ptr(48)
+	rangeOperateborderColor.G = asposecellscloud.Int32Ptr(48)
+	rangeOperateborderColor.B = asposecellscloud.Int32Ptr(48)
 	rangeOperateRange := &models.Range{}
 	rangeOperateRange.ColumnCount = asposecellscloud.Int32Ptr(1)
 	rangeOperateRange.ColumnWidth = asposecellscloud.Float64Ptr(10.0)
