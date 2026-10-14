@@ -67,5 +67,10 @@ target/
 .idea
 integrationtests/
 test-reports/
-TestData
-output
+TestData/
+output/
+newtests/
+tests/
+tools/
+unittest/
+
