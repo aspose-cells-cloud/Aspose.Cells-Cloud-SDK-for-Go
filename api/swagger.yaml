@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "26.9"
+  version: "26.10.5"
   title: "Aspose.Cells Cloud APIs."
 host: "api.aspose.cloud"
 basePath: "/v4.0"
@@ -255,7 +255,7 @@ paths:
         type: "string"
         x-nullable: false
         x-exportParamName: "password"
-  /cells/calculate/aggergate/color:
+  /cells/calculate/aggregate/color:
     put:
       tags:
       - "Cells"
@@ -293,6 +293,62 @@ paths:
       - name: "colorposition"
         in: "Query"
         description: "Indicates the content to sum and count based on background color and/or font color."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "colorPosition"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/calculate/aggergate/color:
+    put:
+      tags:
+      - "Cells"
+      summary: "Deprecated: Use String) instead.This endpoint exists only for backward compatibility with clients that used the misspelledroute calculate/aggergate/color. It will be removed in a future major version."
+      operationId: "AggregateCellsByColor_Deprecated"
+      parameters:
+      - name: "spreadsheet"
+        in: "FormData"
+        description: "Upload spreadsheet file."
+        required: true
+        type: "file"
+        x-nullable: false
+        x-exportParamName: "Spreadsheet"
+      - name: "worksheet"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "worksheet"
+      - name: "range"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "range"
+      - name: "operation"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "operation"
+      - name: "colorposition"
+        in: "Query"
+        description: ""
         required: false
         type: "string"
         x-nullable: false
@@ -371,7 +427,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: ""
+      summary: "Calculates a formula expression and returns the result."
       operationId: "CalculationFormula"
       parameters:
       - name: "spreadsheet"
@@ -383,14 +439,14 @@ paths:
         x-exportParamName: "Spreadsheet"
       - name: "worksheet"
         in: "Query"
-        description: ""
+        description: "The worksheet name where the formula will be evaluated."
         required: true
         type: "string"
         x-nullable: true
         x-exportParamName: "worksheet"
       - name: "formula"
         in: "Query"
-        description: ""
+        description: "The formula expression to calculate (e.g., "SUM(A1:A10)" or "=A1+B1")."
         required: true
         type: "string"
         x-nullable: true
@@ -3819,7 +3875,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Get all merged cell area form a local spreadsheet worksheet."
+      summary: "Get all merged cell areas from a local spreadsheet worksheet."
       operationId: "GetMergedCellsInWorksheet"
       parameters:
       - name: "spreadsheet"
@@ -3831,7 +3887,7 @@ paths:
         x-exportParamName: "Spreadsheet"
       - name: "worksheet"
         in: "Query"
-        description: ""
+        description: "The worksheet name to query for merged cells."
         required: true
         type: "string"
         x-nullable: true
@@ -3854,7 +3910,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: ""
+      summary: "Accepts all tracked changes (revisions) in the local spreadsheet."
       operationId: "AcceptAllRevisions"
       parameters:
       - name: "spreadsheet"
@@ -3903,19 +3959,19 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: ""
+      summary: "Accepts all tracked changes (revisions) in a remote spreadsheet."
       operationId: "AcceptAllRevisionsInRemoteSpreadsheet"
       parameters:
       - name: "name"
         in: "Path"
-        description: ""
+        description: "The name of the workbook file."
         required: true
         type: "string"
         x-nullable: false
         x-exportParamName: "name"
       - name: "folder"
         in: "Query"
-        description: ""
+        description: "The folder path where the workbook is stored."
         required: false
         type: "string"
         x-nullable: true
@@ -3966,7 +4022,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Structurally convert the core metadata, worksheets, tables, pivot tables, charts, shapes, and other information of an Excel workbook into a JObject type JSON object, for scenarios such as data export, API responses, and log recording."
+      summary: "Extracts the structural information of a local spreadsheet as a JSON object."
       operationId: "GetSpreadsheetStructure"
       parameters:
       - name: "spreadsheet"
@@ -3994,19 +4050,19 @@ paths:
     get:
       tags:
       - "Cells"
-      summary: "Structurally convert the core metadata, worksheets, tables, pivot tables, charts, shapes, and other information of an Excel workbook into a JObject type JSON object, for scenarios such as data export, API responses, and log recording."
+      summary: "Extracts the structural information of a remote spreadsheet as a JSON object."
       operationId: "GetStructureInRemoteSpreadsheet"
       parameters:
       - name: "name"
         in: "Path"
-        description: ""
+        description: "The name of the workbook file."
         required: true
         type: "string"
         x-nullable: false
         x-exportParamName: "name"
       - name: "folder"
         in: "Query"
-        description: ""
+        description: "The folder path where the workbook is stored."
         required: false
         type: "string"
         x-nullable: true
@@ -4134,7 +4190,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: ""
+      summary: "Adds digital signatures to Excel spreadsheets using X.509 certificates (.pfx files) for document authentication and integrity verification."
       operationId: "SpreadsheetDigitalsignature"
       parameters:
       - name: "spreadsheet"
@@ -4146,7 +4202,7 @@ paths:
         x-exportParamName: "Spreadsheet"
       - name: "password"
         in: "Query"
-        description: ""
+        description: "The password for the digital certificate (.pfx file)."
         required: true
         type: "string"
         x-nullable: true
@@ -4176,7 +4232,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: ""
+      summary: "Generates reports using Smart Marker template technology with JSON data."
       operationId: "SmartMarkerTemplate"
       parameters:
       - name: "datafile"
@@ -4208,7 +4264,7 @@ paths:
         x-nullable: false
         x-exportParamName: "password"
   /cells/{name}/search/content/all-textitems:
-    put:
+    get:
       tags:
       - "Cells"
       summary: "Get all text items in the remote spreadsheet."
@@ -4224,6 +4280,48 @@ paths:
       - name: "folder"
         in: "Query"
         description: "The folder path where the workbook is stored."
+        required: true
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/search/content/all-textitems:
+    put:
+      tags:
+      - "Cells"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchAllTextItemsInRemoteSpreadsheet_LegacyPut"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "folder"
+        in: "Query"
+        description: ""
         required: true
         type: "string"
         x-nullable: true
@@ -4334,7 +4432,7 @@ paths:
         x-nullable: false
         x-exportParamName: "password"
   /cells/{name}/search/content:
-    put:
+    get:
       tags:
       - "Cells"
       summary: "Search text in the remoted spreadsheet."
@@ -4389,8 +4487,64 @@ paths:
         type: "string"
         x-nullable: false
         x-exportParamName: "password"
-  /cells/{name}/worksheets/{worksheet}/search/content:
+  /cells/{name}/search/content:
     put:
+      tags:
+      - "Cells"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchContentInRemoteSpreadsheet_LegacyPut"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "searchtext"
+        in: "Query"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "searchText"
+      - name: "ignoringcase"
+        in: "Query"
+        description: ""
+        required: false
+        type: "boolean"
+        x-nullable: false
+        x-exportParamName: "ignoringCase"
+      - name: "folder"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/worksheets/{worksheet}/search/content:
+    get:
       tags:
       - "Cells"
       summary: "Search text in the worksheet of remoted spreadsheet."
@@ -4419,7 +4573,140 @@ paths:
         x-exportParamName: "searchText"
       - name: "ignoringcase"
         in: "Query"
-        description: "Ignore the text of the search."
+        description: "Ignore the text case of the search. Default is true."
+        required: false
+        type: "boolean"
+        x-nullable: false
+        x-exportParamName: "ignoringCase"
+      - name: "folder"
+        in: "Query"
+        description: "The folder path where the workbook is stored."
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/worksheets/{worksheet}/search/content:
+    put:
+      tags:
+      - "Cells"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchContentInRemoteWorksheet_LegacyPut"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "worksheet"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "worksheet"
+      - name: "searchtext"
+        in: "Query"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "searchText"
+      - name: "ignoringcase"
+        in: "Query"
+        description: ""
+        required: false
+        type: "boolean"
+        x-nullable: false
+        x-exportParamName: "ignoringCase"
+      - name: "folder"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/content:
+    get:
+      tags:
+      - "Cells"
+      summary: "Search text in the range of remoted spreadsheet."
+      operationId: "SearchContentInRemoteRange"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: "Specify the search workbook file name."
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "worksheet"
+        in: "Path"
+        description: "Specify the search worksheet name."
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "worksheet"
+      - name: "cellarea"
+        in: "Path"
+        description: "Specify the search cell area (e.g., "A1:C10")."
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "cellArea"
+      - name: "searchtext"
+        in: "Query"
+        description: "Specify the search content."
+        required: true
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "searchText"
+      - name: "ignoringcase"
+        in: "Query"
+        description: "Ignore the text case of the search. Default is true."
         required: false
         type: "boolean"
         x-nullable: false
@@ -4456,47 +4743,47 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Search text in the range of remoted spreadsheet."
-      operationId: "SearchContentInRemoteRange"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchContentInRemoteRange_LegacyPut"
       parameters:
       - name: "name"
         in: "Path"
-        description: "Specify the search workbook file name."
+        description: ""
         required: true
         type: "string"
         x-nullable: false
         x-exportParamName: "name"
       - name: "worksheet"
         in: "Path"
-        description: "Specify the search worksheet name."
+        description: ""
         required: true
         type: "string"
         x-nullable: false
         x-exportParamName: "worksheet"
       - name: "cellarea"
         in: "Path"
-        description: "Specify the search cell area."
+        description: ""
         required: true
         type: "string"
         x-nullable: false
         x-exportParamName: "cellArea"
       - name: "searchtext"
         in: "Query"
-        description: "Specify the search content."
+        description: ""
         required: true
         type: "string"
         x-nullable: true
         x-exportParamName: "searchText"
       - name: "ignoringcase"
         in: "Query"
-        description: "Ignore the text of the search."
+        description: ""
         required: false
         type: "boolean"
         x-nullable: false
         x-exportParamName: "ignoringCase"
       - name: "folder"
         in: "Query"
-        description: "The folder path where the workbook is stored."
+        description: ""
         required: false
         type: "string"
         x-nullable: true
@@ -4810,7 +5097,7 @@ paths:
         x-nullable: false
         x-exportParamName: "password"
   /cells/{name}/search/broken-links:
-    put:
+    get:
       tags:
       - "Cells"
       summary: "Search broken links in the remoted spreadsheet."
@@ -4865,8 +5152,64 @@ paths:
         type: "string"
         x-nullable: false
         x-exportParamName: "password"
-  /cells/{name}/worksheets/{worksheet}/search/broken-links:
+  /cells/{name}/search/broken-links:
     put:
+      tags:
+      - "Cells"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchBrokenLinksInRemoteSpreadsheet_LegacyPut"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "worksheet"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "worksheet"
+      - name: "cellarea"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "cellArea"
+      - name: "folder"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/worksheets/{worksheet}/search/broken-links:
+    get:
       tags:
       - "Cells"
       summary: "Search broken links in the worksheet of remoted spreadsheet."
@@ -4914,8 +5257,57 @@ paths:
         type: "string"
         x-nullable: false
         x-exportParamName: "password"
-  /cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links:
+  /cells/{name}/worksheets/{worksheet}/search/broken-links:
     put:
+      tags:
+      - "Cells"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchBrokenLinksInRemoteWorksheet_LegacyPut"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "worksheet"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "worksheet"
+      - name: "folder"
+        in: "Query"
+        description: ""
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links:
+    get:
       tags:
       - "Cells"
       summary: "Search broken links in the range of remoted spreadsheet."
@@ -4945,6 +5337,62 @@ paths:
       - name: "folder"
         in: "Query"
         description: "The folder path where the workbook is stored."
+        required: false
+        type: "string"
+        x-nullable: true
+        x-exportParamName: "folder"
+      - name: "storagename"
+        in: "Query"
+        description: "(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "storageName"
+      - name: "region"
+        in: "Query"
+        description: "Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "region"
+      - name: "password"
+        in: "Query"
+        description: "The password for opening spreadsheet file."
+        required: false
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "password"
+  /cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/broken-links:
+    put:
+      tags:
+      - "Cells"
+      summary: "Deprecated PUT route for String).This endpoint exists only for backward compatibility with clients that used the PUT verb on this read-only route.It will be removed in a future major version."
+      operationId: "SearchBrokenLinksInRemoteRange_LegacyPut"
+      parameters:
+      - name: "name"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "name"
+      - name: "worksheet"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "worksheet"
+      - name: "cellarea"
+        in: "Path"
+        description: ""
+        required: true
+        type: "string"
+        x-nullable: false
+        x-exportParamName: "cellArea"
+      - name: "folder"
+        in: "Query"
+        description: ""
         required: false
         type: "string"
         x-nullable: true
@@ -6416,7 +6864,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Delete all blank rows that do not contain any data or other objects."
+      summary: "Delete all blank columns that do not contain any data or other objects."
       operationId: "RemoveSpreadsheetBlankColumns"
       parameters:
       - name: "spreadsheet"
@@ -6696,7 +7144,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Switch rows and columns in the spreadsheet."
+      summary: "Transposes data in the specified range, switching rows and columns."
       operationId: "TransposeData"
       parameters:
       - name: "spreadsheet"
@@ -6708,14 +7156,14 @@ paths:
         x-exportParamName: "Spreadsheet"
       - name: "worksheet"
         in: "Query"
-        description: "The worksheet name."
+        description: "The worksheet name containing the data to transpose."
         required: true
         type: "string"
         x-nullable: true
         x-exportParamName: "worksheet"
       - name: "cellarea"
         in: "Query"
-        description: "A specified data range"
+        description: "The cell range to transpose (e.g., "A1:C10")."
         required: true
         type: "string"
         x-nullable: true
@@ -6752,7 +7200,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Switch rows and columns in the spreadsheet."
+      summary: "Unpivots data from the specified range, converting columns to rows."
       operationId: "UnpivotRange"
       parameters:
       - name: "spreadsheet"
@@ -6764,21 +7212,21 @@ paths:
         x-exportParamName: "Spreadsheet"
       - name: "worksheet"
         in: "Query"
-        description: "The worksheet name."
+        description: "The worksheet name containing the data to unpivot."
         required: true
         type: "string"
         x-nullable: true
         x-exportParamName: "worksheet"
       - name: "cellarea"
         in: "Query"
-        description: "A specified data range"
+        description: "The cell range to unpivot (e.g., "A1:D10")."
         required: true
         type: "string"
         x-nullable: true
         x-exportParamName: "cellArea"
       - name: "skipemptyvalue"
         in: "Query"
-        description: ""
+        description: "If true, empty cells are skipped in the output. Default is true."
         required: false
         type: "boolean"
         x-nullable: false
@@ -6815,7 +7263,7 @@ paths:
     put:
       tags:
       - "Cells"
-      summary: "Switch rows and columns in the spreadsheet."
+      summary: "Unpivots data from the specified table, converting columns to rows."
       operationId: "UnpivotTable"
       parameters:
       - name: "spreadsheet"
@@ -6827,21 +7275,21 @@ paths:
         x-exportParamName: "Spreadsheet"
       - name: "worksheet"
         in: "Query"
-        description: "The worksheet name."
+        description: "The worksheet name containing the table to unpivot."
         required: true
         type: "string"
         x-nullable: true
         x-exportParamName: "worksheet"
       - name: "index"
         in: "Query"
-        description: "A specified data range"
+        description: "The zero-based index of the table (ListObject) to unpivot."
         required: true
         type: "integer"
         x-nullable: true
         x-exportParamName: "index"
       - name: "skipemptyvalue"
         in: "Query"
-        description: ""
+        description: "If true, empty cells are skipped in the output. Default is true."
         required: false
         type: "boolean"
         x-nullable: false
@@ -22784,6 +23232,15 @@ definitions:
         type: "long"
         description: ""
       Path:
+        type: "string"
+        description: ""
+  SharedDriveInfo:
+    type: "object"    
+    properties:
+      Id:
+        type: "string"
+        description: ""
+      Name:
         type: "string"
         description: ""
   AggregateOperation:

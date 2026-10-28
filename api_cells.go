@@ -39,7 +39,7 @@ type CellsCloudOption struct {
 }
 
 func Version() {
-	fmt.Println("---Version: 26.9---")
+	fmt.Println("---Version: 26.10.5---")
 }
 
 func NewCellsApiService(appSid string, appKey string, opts ...string) *CellsApiService {
@@ -289,6 +289,34 @@ func (a *CellsApiService) CategorizeSpreadsheet(data *CategorizeSpreadsheetReque
 
 
 func (a *CellsApiService) AggregateCellsByColor(data *AggregateCellsByColorRequest  ) (  AggregateResultByColorResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue AggregateResultByColorResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
+func (a *CellsApiService) AggregateCellsByColor_Deprecated(data *AggregateCellsByColor_DeprecatedRequest  ) (  AggregateResultByColorResponse,  *http.Response, error) {
 	var (
 	localVarReturnValue AggregateResultByColorResponse 
 
@@ -2918,6 +2946,34 @@ func (a *CellsApiService) SearchAllTextItemsInRemoteSpreadsheet(data *SearchAllT
 }
 
 
+func (a *CellsApiService) SearchAllTextItemsInRemoteSpreadsheet_LegacyPut(data *SearchAllTextItemsInRemoteSpreadsheet_LegacyPutRequest  ) (  SearchResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue SearchResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
 func (a *CellsApiService) SearchSpreadsheetAllTextItems(data *SearchSpreadsheetAllTextItemsRequest  ) (  SearchResponse,  *http.Response, error) {
 	var (
 	localVarReturnValue SearchResponse 
@@ -3002,6 +3058,34 @@ func (a *CellsApiService) SearchContentInRemoteSpreadsheet(data *SearchContentIn
 }
 
 
+func (a *CellsApiService) SearchContentInRemoteSpreadsheet_LegacyPut(data *SearchContentInRemoteSpreadsheet_LegacyPutRequest  ) (  SearchResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue SearchResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
 func (a *CellsApiService) SearchContentInRemoteWorksheet(data *SearchContentInRemoteWorksheetRequest  ) (  SearchResponse,  *http.Response, error) {
 	var (
 	localVarReturnValue SearchResponse 
@@ -3030,7 +3114,63 @@ func (a *CellsApiService) SearchContentInRemoteWorksheet(data *SearchContentInRe
 }
 
 
+func (a *CellsApiService) SearchContentInRemoteWorksheet_LegacyPut(data *SearchContentInRemoteWorksheet_LegacyPutRequest  ) (  SearchResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue SearchResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
 func (a *CellsApiService) SearchContentInRemoteRange(data *SearchContentInRemoteRangeRequest  ) (  SearchResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue SearchResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
+func (a *CellsApiService) SearchContentInRemoteRange_LegacyPut(data *SearchContentInRemoteRange_LegacyPutRequest  ) (  SearchResponse,  *http.Response, error) {
 	var (
 	localVarReturnValue SearchResponse 
 
@@ -3242,6 +3382,34 @@ func (a *CellsApiService) SearchBrokenLinksInRemoteSpreadsheet(data *SearchBroke
 }
 
 
+func (a *CellsApiService) SearchBrokenLinksInRemoteSpreadsheet_LegacyPut(data *SearchBrokenLinksInRemoteSpreadsheet_LegacyPutRequest  ) (  BrokenLinksResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue BrokenLinksResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
 func (a *CellsApiService) SearchBrokenLinksInRemoteWorksheet(data *SearchBrokenLinksInRemoteWorksheetRequest  ) (  BrokenLinksResponse,  *http.Response, error) {
 	var (
 	localVarReturnValue BrokenLinksResponse 
@@ -3270,7 +3438,63 @@ func (a *CellsApiService) SearchBrokenLinksInRemoteWorksheet(data *SearchBrokenL
 }
 
 
+func (a *CellsApiService) SearchBrokenLinksInRemoteWorksheet_LegacyPut(data *SearchBrokenLinksInRemoteWorksheet_LegacyPutRequest  ) (  BrokenLinksResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue BrokenLinksResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
 func (a *CellsApiService) SearchBrokenLinksInRemoteRange(data *SearchBrokenLinksInRemoteRangeRequest  ) (  BrokenLinksResponse,  *http.Response, error) {
+	var (
+	localVarReturnValue BrokenLinksResponse 
+
+	)
+
+    r, err := data.CreateRequestData(a.client);
+    if err != nil {
+        return  localVarReturnValue,  nil, err
+    }
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue,  localVarHttpResponse, err
+	}
+	defer localVarHttpResponse.Body.Close()
+	if localVarHttpResponse.StatusCode >= 300 {
+		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
+		return localVarReturnValue,   localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+	}
+		if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&localVarReturnValue); err != nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+ 
+	return localVarReturnValue,  localVarHttpResponse, err
+}
+
+
+func (a *CellsApiService) SearchBrokenLinksInRemoteRange_LegacyPut(data *SearchBrokenLinksInRemoteRange_LegacyPutRequest  ) (  BrokenLinksResponse,  *http.Response, error) {
 	var (
 	localVarReturnValue BrokenLinksResponse 
 

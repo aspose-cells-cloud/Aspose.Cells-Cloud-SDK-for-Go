@@ -14,7 +14,7 @@ Search text in the range of remoted spreadsheet.
 ### **Endpoint** 
 
 ```
-PUT http://api.aspose.cloud/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/content
+GET http://api.aspose.cloud/v4.0/cells/{name}/worksheets/{worksheet}/ranges/{cellArea}/search/content
 ```
 ### **Function Description**
 This method searches for specified text within a range of spreadsheet file stored in remote cloud storage. It supports searching through all sheets and cells of the workbook, identifying occurrences of the search term directly within the cloud environment. The operation is performed remotely, eliminating the need to download the file to the local machine. Ensure that you have valid cloud storage credentials and accessible file paths or identifiers for the target spreadsheet. If the source file cannot be accessed, permissions are insufficient, or if an error occurs during the search process (such as an unsupported file format), an appropriate exception will be thrown. Depending on the implementation, the method may return the locations of the matches (e.g., sheet name, cell coordinates). Users should specify the exact search criteria, including case sensitivity and whole word matching options, to refine search results.## **Error Handling**- **400 Bad Request**: Invalid url.- **401 Unauthorized**:  Authentication has failed, or no credentials were provided.- **404 Not Found**: Source file not accessible.- **500 Server Error** The spreadsheet has encountered an anomaly in obtaining data.## **Key Features and Benefits**- **Remote Range Search**: Searches for specified text within a specific range of a spreadsheet file stored in remote cloud storage.- **Comprehensive Search**: Supports searching through all cells within the specified range, identifying occurrences of the search term.- **Cloud-Based Processing**: Performs the search operation entirely within the cloud environment, eliminating the need to download the file to the local machine.
@@ -25,9 +25,9 @@ This method searches for specified text within a range of spreadsheet file store
 | :- | :- | :- |:- | 
 |name|String|Path|Specify the search workbook file name.|
 |worksheet|String|Path|Specify the search worksheet name.|
-|cellArea|String|Path|Specify the search cell area.|
+|cellArea|String|Path|Specify the search cell area (e.g., "A1:C10").|
 |searchText|String|Query|Specify the search content.|
-|ignoringCase|Boolean|Query|Ignore the text of the search.|
+|ignoringCase|Boolean|Query|Ignore the text case of the search. Default is true.|
 |folder|String|Query|The folder path where the workbook is stored.|
 |storageName|String|Query|(Optional) The name of the storage if using custom cloud storage. Use default storage if omitted.|
 |region|String|Query|Spreadsheet region/language setting (e.g., `en-US`, `fr-FR`). Influences number formatting, date parsing, and locale‑specific behavior.|

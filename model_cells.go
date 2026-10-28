@@ -104,6 +104,13 @@ type GoogleDriveStorageFile struct {
 }
 
 
+type SharedDriveInfo struct {
+ 
+    Id string `json:"Id,omitempty" xml:"Id"`
+    Name string `json:"Name,omitempty" xml:"Name"`
+}
+
+
 type AggregateResultByColor struct {
  
     AggregateOperation int `json:"AggregateOperation,omitempty" xml:"AggregateOperation"`

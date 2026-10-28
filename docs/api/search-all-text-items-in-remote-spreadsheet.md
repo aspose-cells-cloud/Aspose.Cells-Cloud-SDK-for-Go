@@ -14,7 +14,7 @@ Get all text items in the remote spreadsheet.
 ### **Endpoint** 
 
 ```
-PUT http://api.aspose.cloud/v4.0/cells/{name}/search/content/all-textitems
+GET http://api.aspose.cloud/v4.0/cells/{name}/search/content/all-textitems
 ```
 ### **Function Description**
 This method searches for all text item within a remote spreadsheet file. It supports searching through all sheets and cells of the workbook, identifying occurrences of the search term. The operation is performed cloudly, requiring no cloud storage. Ensure that you have the necessary permissions to read the source file. If the source file cannot be accessed or if an error occurs during the search process (such as an unsupported file format), an appropriate exception will be thrown. The method may return the locations of the matches (e.g., sheet name, cell coordinates) depending on implementation details. ## **Error Handling**- **400 Bad Request**: Invalid url.- **401 Unauthorized**:  Authentication has failed, or no credentials were provided.- **404 Not Found**: Source file not accessible.- **500 Server Error** The spreadsheet has encountered an anomaly in obtaining data.
