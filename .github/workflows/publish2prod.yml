@@ -1,0 +1,50 @@
+name: Release Go Module
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Tidy dependencies
+        run: go mod tidy
+
+      - name: Build check
+        run: go build ./...
+
+      - name: Run Example
+        run: |
+          cd examples
+          go mod tidy
+          go build .
+          go run .
+
+      - name: Trigger Go module proxy indexing
+        run: |
+          MODULE=$(go list -m)
+          VERSION=${GITHUB_REF#refs/tags/}
+          curl -sSf "https://proxy.golang.org/${MODULE}/@v/${VERSION}.info"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
