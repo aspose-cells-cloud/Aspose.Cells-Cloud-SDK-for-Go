@@ -1,42 +1,38 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
-name: Go
+name: Run Go SDK Examples
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
-
   build:
     runs-on: windows-latest
     env:
       ProductClientId: ${{ secrets.PRODUCTCLIENTID }}
       ProductClientSecret: ${{ secrets.PRODUCTCLIENTSECRET }}
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
 
-    - name: Build Aspose.Cells Cloud SDK Library
-      run: go build -v .
+      - name: Build Aspose.Cells Cloud SDK Library
+        run: go build -v .
 
-    - name: Run Examples
-      run: |
-        cd examples
-        go run .\Example_QuickStart.go
-        go run .\Example_BatchProcessing.go
-        go run .\Example_CloudStorageManagement.go
-        go run .\Example_ConvertExcel.go
-        go run .\Example_MergeExcelFiles.go
-        go run .\Example_SplitExcelFiles.go
-        go run .\Example_CreateReportFiles.go
-        go run .\Example_Management.go
-        go run .\Example_ExcelSplit.go
-        go run .\Example_TextProcessing.go
+      - name: Run Examples
+        run: |
+          cd examples
+          go run .\Example_QuickStart.go
+          go run .\Example_BatchProcessing.go
+          go run .\Example_CloudStorageManagement.go
+          go run .\Example_ConvertExcel.go
+          go run .\Example_MergeExcelFiles.go
+          go run .\Example_SplitExcelFiles.go
+          go run .\Example_CreateReportFiles.go
+          go run .\Example_Management.go
+          go run .\Example_ExcelSplit.go
+          go run .\Example_TextProcessing.go
