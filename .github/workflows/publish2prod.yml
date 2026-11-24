@@ -32,9 +32,16 @@ jobs:
       - name: Run Example
         run: |
           cd examples
-          go mod tidy
-          go build .
-          go run .
+          go run .\Example_QuickStart.go
+          go run .\Example_BatchProcessing.go
+          go run .\Example_CloudStorageManagement.go
+          go run .\Example_ConvertExcel.go
+          go run .\Example_MergeExcelFiles.go
+          go run .\Example_SplitExcelFiles.go
+          go run .\Example_CreateReportFiles.go
+          go run .\Example_Management.go
+          go run .\Example_ExcelSplit.go
+          go run .\Example_TextProcessing.go
 
       - name: Trigger Go module proxy indexing
         run: |
