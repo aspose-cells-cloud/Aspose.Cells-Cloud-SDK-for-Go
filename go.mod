@@ -1,3 +1,3 @@
-module github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26
+module asposecellscloud
 
-go 1.15
+go 1.16

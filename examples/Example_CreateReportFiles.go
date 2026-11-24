@@ -1,136 +1,177 @@
+//go:build ignore
+
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/models"
+	"asposecellscloud/requests"
 )
 
-func main() {
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
-	reportTemplate := "ProductSalteReportTemplate.xlsx"
-	reportName := "ProductSaleReport.xlsx"
-	sheetName := "SalesData"
-	reportSheetName := "Sales Report"
-	reportDataFile := "ReportData.xml"
-	remoteFolder := "GoSDK"
-	_, httpResponse, err := instance.PutWorkbookCreate(&PutWorkbookCreateRequest{Name: reportTemplate, Folder: remoteFolder, IsWriteOver: true})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Create template file.\n")
-	}
-	_, httpResponse, err = instance.PutAddNewWorksheet(&PutAddNewWorksheetRequest{Name: reportTemplate, Folder: remoteFolder, SheetName: "Sheet1"})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Add Sheet1.\n")
-	}
-	_, httpResponse, err = instance.UploadFile(&UploadFileRequest{UploadFiles: reportDataFile, Path: remoteFolder + "/" + reportDataFile})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Update data file.\n")
-	}
-	_, httpResponse, err = instance.PostWorksheetCellSetValue(&PostWorksheetCellSetValueRequest{Name: reportTemplate, Folder: remoteFolder, SheetName: "Sheet1", CellName: "A1", Value: "Product Category", Type_: "string"})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Set A1 Value.\n")
-	}
-	_, httpResponse, err = instance.PostWorksheetCellSetValue(&PostWorksheetCellSetValueRequest{Name: reportTemplate, Folder: remoteFolder, SheetName: "Sheet1", CellName: "B1", Value: "Sales", Type_: "string"})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Set B1 Value.\n")
-	}
-	_, httpResponse, err = instance.PostWorksheetCellSetValue(&PostWorksheetCellSetValueRequest{Name: reportTemplate, Folder: remoteFolder, SheetName: "Sheet1", CellName: "A2", Value: "&=ProductSaleRecord.ProductCategory", Type_: "string"})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Set A2 Value.\n")
-	}
-	_, httpResponse, err = instance.PostWorksheetCellSetValue(&PostWorksheetCellSetValueRequest{Name: reportTemplate, Folder: remoteFolder, SheetName: "Sheet1", CellName: "B2", Value: "&=ProductSaleRecord.Sales", Type_: "string"})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Set B2 Value.\n")
-	}
-	_, httpResponse, err = instance.PostWorkbookGetSmartMarkerResult(&PostWorkbookGetSmartMarkerResultRequest{Name: reportTemplate, Folder: remoteFolder, XmlFile: remoteFolder + "/" + reportDataFile, OutPath: remoteFolder + "/" + reportName})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Smart Marker Successful.\n")
-	}
-	_, httpResponse, err = instance.PostWorksheetCellsRangeStyle(&PostWorksheetCellsRangeStyleRequest{Name: reportName, Folder: remoteFolder, SheetName: "Sheet1", RangeOperate: &RangeSetStyleRequest{Range_: &Range{FirstColumn: 1, ColumnCount: 1, FirstRow: 1, RowCount: 4}, Style: &Style{Number: 8}}})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Set range style.\n")
-	}
-	_, httpResponse, err = instance.PutWorksheetListObject(&PutWorksheetListObjectRequest{Name: reportName, Folder: remoteFolder, SheetName: "Sheet1", StartRow: 0, StartColumn: 0, EndColumn: 1, EndRow: 4, HasHeaders: true})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Add a list object.\n")
-	}
-	_, httpResponse, err = instance.PostRenameWorksheet(&PostRenameWorksheetRequest{Name: reportName, Folder: remoteFolder, SheetName: "Sheet1", Newname: sheetName})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Create simple report.\n")
-	}
-	_, httpResponse, err = instance.PutAddNewWorksheet(&PutAddNewWorksheetRequest{Name: reportName, Folder: remoteFolder, SheetName: reportSheetName})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Add Sale Report Sheet.\n")
-	}
-	_, httpResponse, err = instance.PutChangeVisibilityWorksheet(&PutChangeVisibilityWorksheetRequest{Name: reportName, Folder: remoteFolder, SheetName: sheetName, IsVisible: false})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Set Sheet visibility.\n")
-	}
+const remoteFolder = "GoSDK"
 
-	_, httpResponse, err = instance.PutWorksheetChart(&PutWorksheetChartRequest{
-		Name: reportName, Folder: remoteFolder, SheetName: reportSheetName, ChartType: "Pie", IsVertical: true,
-		Title:        "Aspose Chart",
-		UpperLeftRow: 5, UpperLeftColumn: 3, LowerRightColumn: 9, LowerRightRow: 15, Area: sheetName + "!A1:B5"})
+func main() {
+	ctx := context.Background()
+
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	const (
+		reportTemplate  = "ProductSalteReportTemplate.xlsx"
+		reportName      = "ProductSaleReport.xlsx"
+		sheetName       = "SalesData"
+		reportSheetName = "Sales Report"
+		reportDataFile  = "ReportData.xml"
+	)
+
+	// Create the template file.
+	_, err := asposecellscloud.DoChecked(ctx, client,
+		requests.NewPutWorkbookCreateRequest(reportTemplate,
+			requests.WithCommonParameter("folder", remoteFolder),
+			requests.WithCommonParameter("isWriteOver", asposecellscloud.BoolPtr(true)),
+		))
+	must(err)
+	fmt.Println("Create template file.")
+
+	// Add Sheet1.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPutAddNewWorksheetRequest(reportTemplate, "Sheet1",
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	fmt.Println("Add Sheet1.")
+
+	// Upload the report data file.
+	uploadFile(ctx, client, reportDataFile, remoteFolder+"/"+reportDataFile)
+	fmt.Println("Update data file.")
+
+	// Fill the smart marker cells.
+	setCell := func(cellName, value string) {
+		_, err := asposecellscloud.DoChecked(ctx, client,
+			requests.NewPostWorksheetCellSetValueRequest(cellName, reportTemplate, "Sheet1",
+				requests.WithCommonParameter("folder", remoteFolder),
+				requests.WithCommonParameter("value", value),
+				requests.WithCommonParameter("type", "string"),
+			))
+		must(err)
+		fmt.Printf("Set %s Value.\n", cellName)
+	}
+	setCell("A1", "Product Category")
+	setCell("B1", "Sales")
+	setCell("A2", "&=ProductSaleRecord.ProductCategory")
+	setCell("B2", "&=ProductSaleRecord.Sales")
+
+	// Generate the report from the smart markers.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPostWorkbookGetSmartMarkerResultRequest(reportTemplate,
+			requests.WithCommonParameter("folder", remoteFolder),
+			requests.WithCommonParameter("xmlFile", remoteFolder+"/"+reportDataFile),
+			requests.WithCommonParameter("outPath", remoteFolder+"/"+reportName),
+		))
+	must(err)
+	fmt.Println("Smart Marker Successful.")
+
+	// Apply a number format to the data range.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPostWorksheetCellsRangeStyleRequest(reportName,
+			&models.RangeSetStyleRequest{
+				Range: &models.Range{
+					FirstColumn: asposecellscloud.Int32Ptr(1),
+					ColumnCount: asposecellscloud.Int32Ptr(1),
+					FirstRow:    asposecellscloud.Int32Ptr(1),
+					RowCount:    asposecellscloud.Int32Ptr(4),
+				},
+				Style: &models.Style{Number: asposecellscloud.Int32Ptr(8)},
+			},
+			"Sheet1",
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	fmt.Println("Set range style.")
+
+	// Add a list object for the data range.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPutWorksheetListObjectRequest(reportName, "Sheet1",
+			requests.WithCommonParameter("folder", remoteFolder),
+			requests.WithCommonParameter("startRow", intPtr(0)),
+			requests.WithCommonParameter("startColumn", intPtr(0)),
+			requests.WithCommonParameter("endColumn", intPtr(1)),
+			requests.WithCommonParameter("endRow", intPtr(4)),
+			requests.WithCommonParameter("hasHeaders", asposecellscloud.BoolPtr(true)),
+		))
+	must(err)
+	fmt.Println("Add a list object.")
+
+	// Rename Sheet1 to SalesData.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPostRenameWorksheetRequest(reportName, sheetName, "Sheet1",
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	fmt.Println("Create simple report.")
+
+	// Add the report sheet.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPutAddNewWorksheetRequest(reportName, reportSheetName,
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	fmt.Println("Add Sale Report Sheet.")
+
+	// Hide the data sheet.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPutChangeVisibilityWorksheetRequest(false, reportName, sheetName,
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	fmt.Println("Set Sheet visibility.")
+
+	// Add a chart in the report sheet.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewPutWorksheetChartRequest("Pie", reportName, reportSheetName,
+			requests.WithCommonParameter("folder", remoteFolder),
+			requests.WithCommonParameter("isVertical", asposecellscloud.BoolPtr(true)),
+			requests.WithCommonParameter("title", "Aspose Chart"),
+			requests.WithCommonParameter("upperLeftRow", intPtr(5)),
+			requests.WithCommonParameter("upperLeftColumn", intPtr(3)),
+			requests.WithCommonParameter("lowerRightColumn", intPtr(9)),
+			requests.WithCommonParameter("lowerRightRow", intPtr(15)),
+			requests.WithCommonParameter("area", sheetName+"!A1:B5"),
+		))
+	must(err)
+	fmt.Println("Add Chart in Sheet.")
+}
+
+// intPtr returns a pointer to v. Generated request parameters model optional
+// integers as *int so that "unset" differs from zero.
+func intPtr(v int) *int { return &v }
+
+// uploadFile uploads a local file to the given path in cloud storage.
+func uploadFile(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient, localPath, remotePath string) {
+	data, err := os.ReadFile(localPath)
+	must(err)
+
+	req := requests.NewUploadFileRequest(remotePath, "")
+	req.SetUploadFilesBytes(data, "UploadFiles")
+
+	_, err = asposecellscloud.DoChecked(ctx, client, req)
+	must(err)
+}
+
+func must(err error) {
 	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		print("Add Chart in Sheet.\n")
+		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
 }

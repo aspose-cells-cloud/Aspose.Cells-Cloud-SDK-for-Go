@@ -1,23 +1,39 @@
+//go:build ignore
+
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/converter"
+	"asposecellscloud/datasource"
 )
 
 func main() {
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
-	_, httpResponse, err := instance.ConvertSpreadsheet(&ConvertSpreadsheetRequest{Spreadsheet: "EmployeeSalesSummary.xlsx", Format: "pdf"}, []CellsCloudOption{{OptionName: "LocalOutPath", OptionValue: "EmployeeSalesSummary.pdf"}}...)
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	// Convert a local spreadsheet to PDF and write the result to a local file.
+	err := converter.Convert(
+		context.Background(),
+		client,
+		datasource.FilePathSource("EmployeeSalesSummary.xlsx"),
+		datasource.FilePathSink("EmployeeSalesSummary.pdf"),
+		converter.FormatPDF,
+	)
 	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print("E")
-	} else {
-		fmt.Print("T")
+		fmt.Println("Error:", err)
+		return
 	}
-	Version()
+	fmt.Println("T")
 }

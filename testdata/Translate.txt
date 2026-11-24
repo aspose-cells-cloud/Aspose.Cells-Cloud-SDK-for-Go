@@ -1,1 +1,0 @@
-Hello, this is a test file for testing the translation function of a txt file.

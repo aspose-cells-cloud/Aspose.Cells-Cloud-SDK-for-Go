@@ -1,61 +1,119 @@
+//go:build ignore
+
 package main
 
 import (
-	"encoding/base64"
+	"archive/zip"
+	"context"
 	"fmt"
+	"io"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/dataprocessing"
+	"asposecellscloud/datasource"
+	"asposecellscloud/requests"
 )
 
-func main() {
-	EmployeeSalesSummaryXlsx := "EmployeeSalesSummary.xlsx"
-	CompanySalesXlsx := "CompanySales.xlsx"
-	RemoteFolder := "GoSDK"
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
+const remoteFolder = "GoSDK"
 
-	//Splitting an Excel or other spreadsheet file to another format files online.
-	_, httpResponse, err := instance.UploadFile(&UploadFileRequest{UploadFiles: EmployeeSalesSummaryXlsx, Path: RemoteFolder + "/" + EmployeeSalesSummaryXlsx})
-	httpResponse, err = instance.CreateFolder(&CreateFolderRequest{Path: RemoteFolder + "/Output"})
-	_, httpResponse, err = instance.PostWorkbookSplit(&PostWorkbookSplitRequest{Name: EmployeeSalesSummaryXlsx, Folder: RemoteFolder, OutFolder: RemoteFolder + "/Output", Format: "pdf", To: 3})
+func main() {
+	ctx := context.Background()
+
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	const (
+		employeeSalesSummary = "EmployeeSalesSummary.xlsx"
+		companySales         = "CompanySales.xlsx"
+	)
+
+	// Split a spreadsheet in cloud storage and write the generated files to a
+	// cloud output folder.
+	uploadFile(ctx, client, employeeSalesSummary, remoteFolder+"/"+employeeSalesSummary)
+
+	_, err := asposecellscloud.DoChecked(ctx, client,
+		requests.NewCreateFolderRequest(remoteFolder+"/Output"))
+	must(err)
+
+	wf := &asposecellscloud.WorkbookRef{Name: employeeSalesSummary, Folder: remoteFolder}
+	_, err = dataprocessing.SplitRemoteSpreadsheet(ctx, client, wf, remoteFolder+"/Output",
+		dataprocessing.WithOutFormat("pdf"),
+		dataprocessing.WithTo(3),
+	)
+	must(err)
+	fmt.Println("Successful split Excel files.")
+
+	// Split a local Excel file to PNG files.
+	splitLocal(ctx, client, companySales, "png", "CompanySales_png.zip", 3)
+	// Split a local Excel file to PDF files.
+	splitLocal(ctx, client, companySales, "pdf", "CompanySales_pdf.zip", 3)
+}
+
+// splitLocal splits a local spreadsheet into one file per worksheet, saves the
+// returned zip archive and extracts every generated file.
+func splitLocal(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient, input, format, zipPath string, to int) {
+	must(dataprocessing.SplitSpreadsheet(ctx, client,
+		datasource.FilePathSource(input),
+		datasource.FilePathSink(zipPath),
+		dataprocessing.WithOutFormat(format),
+		dataprocessing.WithTo(to),
+	))
+	fmt.Printf("Successful split %s. Begin to write every file.\n", input)
+
+	must(unzip(zipPath))
+}
+
+// unzip extracts every entry of the archive at zipPath into the current
+// directory.
+func unzip(zipPath string) error {
+	reader, err := zip.OpenReader(zipPath)
 	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		println("Successful split Excel files.")
+		return err
 	}
-	// Split two local Excel files to another format files.
-	filesResult, mergedHttpResponse, mergedError := instance.PostSplit(&PostSplitRequest{LocalPath: CompanySalesXlsx, OutFormat: "png", To: 3})
-	if mergedError != nil {
-		fmt.Print(mergedError)
-	} else if mergedHttpResponse.StatusCode < 200 || mergedHttpResponse.StatusCode > 299 {
-		fmt.Print(mergedHttpResponse.StatusCode)
-	} else {
-		println("Successful split Excel files. Begin to write every files.")
-		for _, fileInfo := range filesResult.Files {
-			print(fileInfo.Filename)
-			decodedData, _ := base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-			file, _ := os.OpenFile(fileInfo.Filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-			file.Write(decodedData)
-			defer file.Close()
+	defer reader.Close()
+
+	for _, file := range reader.File {
+		rc, err := file.Open()
+		if err != nil {
+			return err
+		}
+
+		content, err := io.ReadAll(rc)
+		rc.Close()
+		if err != nil {
+			return err
+		}
+
+		if err := os.WriteFile(file.Name, content, file.Mode()); err != nil {
+			return err
 		}
 	}
-	// Split a local Excel files to another format files.
-	filesResult, mergedHttpResponse, mergedError = instance.PostSplit(&PostSplitRequest{LocalPath: CompanySalesXlsx, OutFormat: "pdf", To: 3})
-	if mergedError != nil {
-		fmt.Print(mergedError)
-	} else if mergedHttpResponse.StatusCode < 200 || mergedHttpResponse.StatusCode > 299 {
-		fmt.Print(mergedHttpResponse.StatusCode)
-	} else {
-		println("Successful split an Excel files. Begin to write every files.")
-		for _, fileInfo := range filesResult.Files {
-			decodedData, _ := base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-			file, _ := os.OpenFile(fileInfo.Filename, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-			file.Write(decodedData)
-			defer file.Close()
-		}
+	return nil
+}
+
+// uploadFile uploads a local file to the given path in cloud storage.
+func uploadFile(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient, localPath, remotePath string) {
+	data, err := os.ReadFile(localPath)
+	must(err)
+
+	req := requests.NewUploadFileRequest(remotePath, "")
+	req.SetUploadFilesBytes(data, "UploadFiles")
+
+	_, err = asposecellscloud.DoChecked(ctx, client, req)
+	must(err)
+}
+
+func must(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
 }

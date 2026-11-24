@@ -1,41 +1,77 @@
+//go:build ignore
+
 package main
 
 import (
-	"encoding/base64"
+	"context"
 	"fmt"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/dataprocessing"
+	"asposecellscloud/datasource"
+	"asposecellscloud/requests"
 )
 
+const remoteFolder = "GoSDK"
+
 func main() {
-	EmployeeSalesSummaryXlsx := "EmployeeSalesSummary.xlsx"
-	CompanySalesXlsx := "CompanySales.xlsx"
-	RemoteFolder := "GoSDK"
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
-	//Merge an Excel or other spreadsheet file into an existing Excel file online.
-	_, httpResponse, err := instance.UploadFile(&UploadFileRequest{UploadFiles: CompanySalesXlsx, Path: RemoteFolder + "/" + CompanySalesXlsx})
-	_, httpResponse, err = instance.UploadFile(&UploadFileRequest{UploadFiles: EmployeeSalesSummaryXlsx, Path: RemoteFolder + "/" + EmployeeSalesSummaryXlsx})
-	_, httpResponse, err = instance.PostWorkbooksMerge(&PostWorkbooksMergeRequest{Name: CompanySalesXlsx, Folder: RemoteFolder, MergeWith: RemoteFolder + "/" + EmployeeSalesSummaryXlsx})
+	ctx := context.Background()
+
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	const (
+		employeeSalesSummary = "EmployeeSalesSummary.xlsx"
+		companySales         = "CompanySales.xlsx"
+	)
+
+	uploadFile(ctx, client, companySales, remoteFolder+"/"+companySales)
+	uploadFile(ctx, client, employeeSalesSummary, remoteFolder+"/"+employeeSalesSummary)
+
+	// Merge a spreadsheet file into another cloud workbook in place.
+	_, err := asposecellscloud.DoChecked(ctx, client,
+		requests.NewPostWorkbooksMergeRequest(
+			remoteFolder+"/"+employeeSalesSummary,
+			companySales,
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	fmt.Println("Successful merge Excel files.")
+
+	// Merge the worksheets of a local spreadsheet into a single consolidated
+	// workbook. The v4.0 local merge endpoint merges the worksheets of one
+	// workbook; the legacy map-of-local-files form is no longer supported.
+	must(dataprocessing.MergeSpreadsheet(ctx, client,
+		datasource.FilePathSource(companySales),
+		datasource.FilePathSink("MergedExcel.xlsx"),
+		dataprocessing.WithOutFormat("xlsx"),
+		dataprocessing.WithMergeInOneSheet(true),
+	))
+}
+
+// uploadFile uploads a local file to the given path in cloud storage.
+func uploadFile(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient, localPath, remotePath string) {
+	data, err := os.ReadFile(localPath)
+	must(err)
+
+	req := requests.NewUploadFileRequest(remotePath, "")
+	req.SetUploadFilesBytes(data, "UploadFiles")
+
+	_, err = asposecellscloud.DoChecked(ctx, client, req)
+	must(err)
+}
+
+func must(err error) {
 	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		println("Successful merge Excel files.")
-	}
-	// Merged multiple local Excel files, each containing unique data or sheets, into a single consolidated Excel file.
-	fileInfo, mergedHttpResponse, mergedError := instance.PostMerge(&PostMergeRequest{File: map[string]string{CompanySalesXlsx: CompanySalesXlsx, EmployeeSalesSummaryXlsx: EmployeeSalesSummaryXlsx}, MergeToOneSheet: true})
-	if mergedError != nil {
-		fmt.Print(mergedError)
-	} else if mergedHttpResponse.StatusCode < 200 || mergedHttpResponse.StatusCode > 299 {
-		fmt.Print(mergedHttpResponse.StatusCode)
-	} else {
-		decodedData, _ := base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-		file, _ := os.OpenFile("MergedExcel.xlsx", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-		file.Write(decodedData)
-		defer file.Close()
+		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
 }

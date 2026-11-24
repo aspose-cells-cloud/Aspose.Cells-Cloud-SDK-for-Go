@@ -1,124 +1,139 @@
+//go:build ignore
+
 package main
 
 import (
-	"encoding/base64"
+	"context"
 	"fmt"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/converter"
+	"asposecellscloud/datasource"
+	"asposecellscloud/models"
+	"asposecellscloud/requests"
 )
 
+const remoteFolder = "GoSDK"
+
 func main() {
-	employeeSalesSummaryXlsx := "EmployeeSalesSummary.xlsx"
-	remoteFolder := "GoSDK"
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
+	ctx := context.Background()
+	input := "EmployeeSalesSummary.xlsx"
 
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	// -------------------------------------------------------------------------
 	// Local file processing
-	// Convert a local Excel file to another format file directly, save to local file.
-	// Complete in one step.
-	_, httpResponse, err := instance.ConvertSpreadsheet(&ConvertSpreadsheetRequest{Spreadsheet: "EmployeeSalesSummary.xlsx", Format: "pdf"}, []CellsCloudOption{{OptionName: "LocalOutPath", OptionValue: "EmployeeSalesSummary.pdf"}}...)
-	// Completed in two steps
-	// Convert a local Excel file to byte data.
-	convertedData, httpResponse, err := instance.ConvertSpreadsheet(&ConvertSpreadsheetRequest{Spreadsheet: employeeSalesSummaryXlsx, Format: "pdf"})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		// 2 Save result to specified path.
-		file, _ := os.OpenFile("EmployeeSalesSummary1.pdf", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-		file.Write(convertedData)
-		defer file.Close()
-	}
+	// -------------------------------------------------------------------------
 
+	// Convert a local Excel file to another format file directly and save it
+	// to a local file. This completes in one step.
+	must(converter.Convert(ctx, client,
+		datasource.FilePathSource(input),
+		datasource.FilePathSink("EmployeeSalesSummary.pdf"),
+		converter.FormatPDF,
+	))
+
+	// The same conversion completed in two steps: convert a local Excel file
+	// to byte data, then save the bytes yourself.
+	sink := &datasource.BytesSink{}
+	must(converter.Convert(ctx, client,
+		datasource.FilePathSource(input),
+		sink,
+		converter.FormatPDF,
+	))
+	must(os.WriteFile("EmployeeSalesSummary1.pdf", sink.Bytes(), 0644))
+
+	// -------------------------------------------------------------------------
 	// Cloud file processing
-	// Convert Cloud file to PDF
+	// -------------------------------------------------------------------------
+
 	// 1. Upload a local Excel file to Cells Cloud Storage.
-	_, httpResponse, err = instance.UploadFile(&UploadFileRequest{UploadFiles: employeeSalesSummaryXlsx, Path: remoteFolder + "/" + employeeSalesSummaryXlsx})
-	// 2. Convert an Excel file of Cells Cloud to another format file.
-	// 2.1 Save an Excel file of Cells Cloud as another format file of Cells Cloud.
-	_, httpResponse, err = instance.SaveSpreadsheetAs(&SaveSpreadsheetAsRequest{Name: employeeSalesSummaryXlsx, Format: "pdf", Folder: remoteFolder,
-		SaveOptionsData: &SaveOptionsData{Filename: "EmployeeSalesSummaryXlsx.pdf"}})
-	if err != nil {
-		println("Save as 1")
-		fmt.Print(err)
-		println("Save as 2")
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
+	uploadFile(ctx, client, input, remoteFolder+"/"+input)
+
+	// 2.1 Save an Excel file of Cells Cloud as another format file of Cells
+	// Cloud.
+	_, err := asposecellscloud.DoChecked(ctx, client,
+		requests.NewSaveSpreadsheetAsRequest("pdf", input,
+			requests.WithCommonParameter("folder", remoteFolder),
+			requests.WithCommonParameter("saveOptionsData", &models.SaveOptionsData{Filename: "EmployeeSalesSummaryXlsx.pdf"}),
+		))
+	must(err)
+
+	wf := &asposecellscloud.WorkbookRef{Name: input, Folder: remoteFolder}
+
+	// 2.2 Export a worksheet of a cloud Excel file to another format file
+	// directly.
+	must(converter.Worksheet(ctx, client, wf, "Sales",
+		datasource.FilePathSink("EmployeeSalesSummary_Sales.pdf"),
+		converter.FormatPDF,
+	))
+
+	// 2.3 Export a worksheet of a cloud Excel file as PNG.
+	must(converter.Worksheet(ctx, client, wf, "Sales",
+		datasource.FilePathSink("EmployeeSalesSummary_Sale_1.png"),
+		converter.FormatPNG,
+	))
+
+	// 2.4 Export a specified cells area (B5:L36) of a worksheet as PNG.
+	resp, err := asposecellscloud.DoChecked(ctx, client,
+		requests.NewExportRangeAsFormatRequest("png", input, "B5:L36", "Sales",
+			requests.WithCommonParameter("folder", remoteFolder),
+		))
+	must(err)
+	must(os.WriteFile("EmployeeSalesSummary_Sale_Area.png", resp.Body, 0644))
+
+	// Get the conversion result: export a cloud workbook as PDF.
+	must(converter.Workbook(ctx, client, wf,
+		datasource.FilePathSink("EmployeeSalesSummary2.pdf"),
+		converter.FormatPDF,
+	))
+
+	// Convert a local Excel file directly to the other supported formats. The
+	// result is written to a local file in each case.
+	localConversions := []struct {
+		outPath string
+		format  string
+	}{
+		{"EmployeeSalesSummary3.pdf", converter.FormatPDF},
+		{"EmployeeSalesSummary.json", converter.FormatJSON},
+		{"EmployeeSalesSummary.docx", converter.FormatDocx},
+		{"EmployeeSalesSummary.png", converter.FormatPNG},
+		{"EmployeeSalesSummary.pptx", converter.FormatPptx},
+		{"EmployeeSalesSummary.html", converter.FormatHTML},
 	}
-
-	// 2.2 Export a worksheet of a cloud Excel file to another format file directly. Set query parameters : print_headings, one_page_per_sheet
-	convertedData, httpResponse, err = instance.ExportWorksheetAsFormat(&ExportWorksheetAsFormatRequest{Name: employeeSalesSummaryXlsx, Worksheet: "Sales", Folder: remoteFolder, Format: "pdf"}, []CellsCloudOption{{OptionName: "LocalOutPath", OptionValue: "EmployeeSalesSummary_Sales.pdf"}}...)
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		file, _ := os.OpenFile("EmployeeSalesSummary_Sale.png", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-		file.Write(convertedData)
-		defer file.Close()
+	for _, c := range localConversions {
+		must(converter.Convert(ctx, client,
+			datasource.FilePathSource(input),
+			datasource.FilePathSink(c.outPath),
+			c.format,
+		))
 	}
+}
 
-	// 2.3 Export a cloud Excel file's specified worksheet page index directly to another format file. Set query parameters : print_headings, one_page_per_sheet
-	convertedData, _, _ = instance.ExportWorksheetAsFormat(&ExportWorksheetAsFormatRequest{Name: employeeSalesSummaryXlsx, Worksheet: "Sales", Folder: remoteFolder, Format: "png"})
-	file, _ := os.OpenFile("EmployeeSalesSummary_Sale_1.png", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(convertedData)
-	defer file.Close()
-	// 2.4 Export a cloud Excel file's specified worksheet cells area directly to another format file. Set query parameters : print_headings, one_page_per_sheet
-	convertedData, _, _ = instance.ExportRangeAsFormat(&ExportRangeAsFormatRequest{Name: employeeSalesSummaryXlsx, Worksheet: "Sales", Folder: remoteFolder, Format: "png", Range_: "B5:L36"})
-	file, _ = os.OpenFile("EmployeeSalesSummary_Sale_Area.png", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(convertedData)
-	defer file.Close()
+// uploadFile uploads a local file to the given path in cloud storage.
+func uploadFile(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient, localPath, remotePath string) {
+	data, err := os.ReadFile(localPath)
+	must(err)
 
-	// Get convert result
-	convertedData, httpResponse, err = instance.GetWorkbook(&GetWorkbookRequest{Name: employeeSalesSummaryXlsx, Format: "pdf", Folder: remoteFolder})
+	req := requests.NewUploadFileRequest(remotePath, "")
+	req.SetUploadFilesBytes(data, "UploadFiles")
+
+	_, err = asposecellscloud.DoChecked(ctx, client, req)
+	must(err)
+}
+
+func must(err error) {
 	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print(httpResponse.StatusCode)
-	} else {
-		file, _ := os.OpenFile("EmployeeSalesSummary2.pdf", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-		file.Write(convertedData)
-		defer file.Close()
+		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
-	// Convert a local Excel file to pdf file directly. The return value is a file info object, which includes of file name, file content(base64string), and file size.
-	var fileInfo FileInfo
-	fileInfo, httpResponse, err = instance.PostConvertWorkbookToPDF(&PostConvertWorkbookToPDFRequest{LocalPath: employeeSalesSummaryXlsx})
-	decodedData, err := base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-	file, _ = os.OpenFile("EmployeeSalesSummary3.pdf", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(decodedData)
-	defer file.Close()
-	//Convert a local Excel file to pdf file directly. The return value is a file info object, which includes of file name, file content(base64string), and file size.
-	fileInfo, httpResponse, err = instance.PostConvertWorkbookToJson(&PostConvertWorkbookToJsonRequest{LocalPath: employeeSalesSummaryXlsx})
-	decodedData, err = base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-	file, _ = os.OpenFile("EmployeeSalesSummary.json", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(decodedData)
-	defer file.Close()
-	//Convert a local Excel file to docx file directly. The return value is a file info object, which includes of file name, file content(base64string), and file size.
-	fileInfo, httpResponse, err = instance.PostConvertWorkbookToDocx(&PostConvertWorkbookToDocxRequest{LocalPath: employeeSalesSummaryXlsx})
-	decodedData, err = base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-	file, _ = os.OpenFile("EmployeeSalesSummary.docx", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(decodedData)
-	defer file.Close()
-	//Convert a local Excel file to png file directly. The return value is a file info object, which includes of file name, file content(base64string), and file size.
-	fileInfo, httpResponse, err = instance.PostConvertWorkbookToPNG(&PostConvertWorkbookToPNGRequest{LocalPath: employeeSalesSummaryXlsx})
-	decodedData, err = base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-	file, _ = os.OpenFile("EmployeeSalesSummary.png", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(decodedData)
-	defer file.Close()
-	// Convert a local Excel file to pptx file directly. The return value is a file info object, which includes of file name, file content(base64string), and file size.
-	fileInfo, httpResponse, err = instance.PostConvertWorkbookToPptx(&PostConvertWorkbookToPptxRequest{LocalPath: employeeSalesSummaryXlsx})
-	decodedData, err = base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-	file, _ = os.OpenFile("EmployeeSalesSummary.pptx", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(decodedData)
-	defer file.Close()
-	// Convert a local Excel file to html file directly. The return value is a file info object, which includes of file name, file content(base64string), and file size.
-	fileInfo, httpResponse, err = instance.PostConvertWorkbookToHtml(&PostConvertWorkbookToHtmlRequest{LocalPath: employeeSalesSummaryXlsx})
-	decodedData, err = base64.StdEncoding.DecodeString(string(fileInfo.FileContent))
-	file, _ = os.OpenFile("EmployeeSalesSummary.html", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	file.Write(decodedData)
-	defer file.Close()
-
 }

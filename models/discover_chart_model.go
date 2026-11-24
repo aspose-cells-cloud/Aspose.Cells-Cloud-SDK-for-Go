@@ -1,0 +1,44 @@
+/** --------------------------------------------------------------------------------------------------------------------
+* <copyright company="Aspose" file="DiscoverChart">
+*   Copyright (c) 2026 Aspose.Cells Cloud
+* </copyright>
+* <summary>
+*   Permission is hereby granted, free of charge, to any person obtaining a copy
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is
+*  furnished to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in all
+*  copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+*  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+*  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+*  SOFTWARE.
+* </summary>
+-------------------------------------------------------------------------------------------------------------------- **/
+
+package models
+
+import ()
+
+// DiscoverChart Represents a chart, which is a chart created based on data analysis of a table.
+type DiscoverChart struct {
+	// Represents chart name.
+	Name string `json:"Name,omitempty" xml:"Name"`
+	// Represents worksheet name which is where the chart is located.
+	SheetName string `json:"SheetName,omitempty" xml:"SheetName"`
+	// Represents chart title.
+	Title string `json:"Title,omitempty" xml:"Title"`
+	// Represents chart type.
+	Type string `json:"Type,omitempty" xml:"Type"`
+	// Represents chart data range.
+	DataRange string `json:"DataRange,omitempty" xml:"DataRange"`
+	// Represents chart thumbnail. Base64String
+	Thumbnail string `json:"Thumbnail,omitempty" xml:"Thumbnail"`
+}

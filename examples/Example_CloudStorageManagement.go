@@ -1,51 +1,113 @@
+//go:build ignore
+
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/models"
+	"asposecellscloud/requests"
 )
 
-func main() {
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
-	RemoteFolder := "SDKGo"
-	CompanySalesXlsx := "CompanySales.xlsx"
-	EmployeeSalesSummaryXlsx := "EmployeeSalesSummary.xlsx"
+const remoteFolder = "SDKGo"
 
-	// Check if file exists.
-	objectExists, httpResponse, err := instance.ObjectExists(&ObjectExistsRequest{Path: RemoteFolder})
-	if err != nil {
-		fmt.Print(err)
-	} else if httpResponse.StatusCode < 200 || httpResponse.StatusCode > 299 {
-		fmt.Print("E")
-	} else {
-		if !objectExists.Exists {
-			httpResponse, err = instance.CreateFolder(&CreateFolderRequest{Path: RemoteFolder})
-		}
+func main() {
+	ctx := context.Background()
+
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	const (
+		companySales         = "CompanySales.xlsx"
+		employeeSalesSummary = "EmployeeSalesSummary.xlsx"
+	)
+
+	// Check if the folder exists, and create it when it does not.
+	resp, err := asposecellscloud.DoChecked(ctx, client,
+		requests.NewObjectExistsRequest(remoteFolder))
+	must(err)
+
+	var exists models.ObjectExist
+	must(resp.GetJSON(&exists))
+	if exists.Exists == nil || !*exists.Exists {
+		_, err = asposecellscloud.DoChecked(ctx, client,
+			requests.NewCreateFolderRequest(remoteFolder))
+		must(err)
 	}
+
 	// Upload source files.
-	_, httpResponse, err = instance.UploadFile(&UploadFileRequest{UploadFiles: CompanySalesXlsx, Path: RemoteFolder + "/" + CompanySalesXlsx})
-	_, httpResponse, err = instance.UploadFile(&UploadFileRequest{UploadFiles: EmployeeSalesSummaryXlsx, Path: RemoteFolder + "/" + EmployeeSalesSummaryXlsx})
-	// Create folder on cloud storage.
-	httpResponse, err = instance.CreateFolder(&CreateFolderRequest{Path: RemoteFolder + "/CellsCloud"})
-	// Move file to other folder on cloud storage.
-	httpResponse, err = instance.MoveFile(&MoveFileRequest{SrcPath: RemoteFolder + "/" + CompanySalesXlsx, DestPath: RemoteFolder + "/CellsCloud/" + CompanySalesXlsx})
-	// Copy a file to other file on cloud storage.
-	httpResponse, err = instance.CopyFile(&CopyFileRequest{SrcPath: RemoteFolder + "/" + EmployeeSalesSummaryXlsx, DestPath: RemoteFolder + "/CellsCloud/" + EmployeeSalesSummaryXlsx})
-	// Move folder on cloud storage.
-	httpResponse, err = instance.MoveFolder(&MoveFolderRequest{SrcPath: RemoteFolder + "/CellsCloud", DestPath: RemoteFolder + "/CellsCloud2"})
-	// Get files list in a folder.
-	fileList, _, _ := instance.GetFilesList(&GetFilesListRequest{Path: RemoteFolder + "/CellsCloud2"})
+	uploadFile(ctx, client, companySales, remoteFolder+"/"+companySales)
+	uploadFile(ctx, client, employeeSalesSummary, remoteFolder+"/"+employeeSalesSummary)
+
+	// Create a folder on cloud storage.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewCreateFolderRequest(remoteFolder+"/CellsCloud"))
+	must(err)
+
+	// Move a file to another folder on cloud storage.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewMoveFileRequest(remoteFolder+"/CellsCloud/"+companySales, remoteFolder+"/"+companySales))
+	must(err)
+
+	// Copy a file to another file on cloud storage.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewCopyFileRequest(remoteFolder+"/CellsCloud/"+employeeSalesSummary, remoteFolder+"/"+employeeSalesSummary))
+	must(err)
+
+	// Move a folder on cloud storage.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewMoveFolderRequest(remoteFolder+"/CellsCloud2", remoteFolder+"/CellsCloud"))
+	must(err)
+
+	// Get the files list in a folder.
+	resp, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewGetFilesListRequest(
+			requests.WithCommonParameter("path", remoteFolder+"/CellsCloud2"),
+		))
+	must(err)
+
+	var fileList models.FilesList
+	must(resp.GetJSON(&fileList))
 	for index, storageFile := range fileList.Value {
-		print("Get File")
-		print(index)
-		println(storageFile.Name)
+		fmt.Printf("Get File %d %s\n", index, storageFile.Name)
 	}
-	// Delete folder on cloud storage.
-	httpResponse, err = instance.DeleteFolder(&DeleteFolderRequest{Path: RemoteFolder + "/CellsCloud2"})
-	// Delete file on cloud storage.
-	httpResponse, err = instance.DeleteFile(&DeleteFileRequest{Path: RemoteFolder + "/" + CompanySalesXlsx})
+
+	// Delete the folder on cloud storage.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewDeleteFolderRequest(remoteFolder+"/CellsCloud2"))
+	must(err)
+
+	// Delete the file on cloud storage.
+	_, err = asposecellscloud.DoChecked(ctx, client,
+		requests.NewDeleteFileRequest(remoteFolder+"/"+companySales))
+	must(err)
+}
+
+// uploadFile uploads a local file to the given path in cloud storage.
+func uploadFile(ctx context.Context, client *asposecellscloud.AsposeCellsCloudClient, localPath, remotePath string) {
+	data, err := os.ReadFile(localPath)
+	must(err)
+
+	req := requests.NewUploadFileRequest(remotePath, "")
+	req.SetUploadFilesBytes(data, "UploadFiles")
+
+	_, err = asposecellscloud.DoChecked(ctx, client, req)
+	must(err)
+}
+
+func must(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
 }

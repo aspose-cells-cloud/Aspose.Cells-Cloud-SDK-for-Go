@@ -26,13 +26,14 @@ jobs:
       - name: Run Examples
         run: |
           cd examples
-          go run .\Example_QuickStart.go
-          go run .\Example_BatchProcessing.go
-          go run .\Example_CloudStorageManagement.go
-          go run .\Example_ConvertExcel.go
-          go run .\Example_MergeExcelFiles.go
-          go run .\Example_SplitExcelFiles.go
-          go run .\Example_CreateReportFiles.go
-          go run .\Example_Management.go
-          go run .\Example_ExcelSplit.go
-          go run .\Example_TextProcessing.go
+          Get-ChildItem Example_*.go | ForEach-Object { Write-Host "== $($_.Name) =="; go run $_.Name }
+          # go run .\Example_QuickStart.go
+          # go run .\Example_BatchProcessing.go
+          # go run .\Example_CloudStorageManagement.go
+          # go run .\Example_ConvertExcel.go
+          # go run .\Example_MergeExcelFiles.go
+          # go run .\Example_SplitExcelFiles.go
+          # go run .\Example_CreateReportFiles.go
+          # go run .\Example_Management.go
+          # go run .\Example_ExcelSplit.go
+          # go run .\Example_TextProcessing.go

@@ -1,5 +1,4 @@
-```markdown
-![](https://img.shields.io/badge/aspose.cells%20Cloud%20SDK-v26.10.0-green?style=for-the-badge&logo=go)[![Product Page](https://img.shields.io/badge/Product-0288d1?style=for-the-badge&logo=Google-Chrome&logoColor=white)](https://products.aspose.cloud/cells/go/) [![Documentation](https://img.shields.io/badge/Documentation-388e3c?style=for-the-badge&logo=Hugo&logoColor=white)](https://docs.aspose.cloud/cells/) [![API Ref](https://img.shields.io/badge/Reference-f39c12?style=for-the-badge&logo=html5&logoColor=white)](https://reference.aspose.cloud/cells/) [![Examples](https://img.shields.io/badge/Examples-1565c0?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-go/tree/master/examples) [![Blog](https://img.shields.io/badge/Blog-d32f2f?style=for-the-badge&logo=WordPress&logoColor=white)](https://blog.aspose.cloud/categories/aspose.cells-cloud-product-family/) [![Support](https://img.shields.io/badge/Support-7b1fa2?style=for-the-badge&logo=Discourse&logoColor=white)](https://forum.aspose.cloud/c/cells/7) [![License](https://img.shields.io/github/license/aspose-cells-cloud/aspose-cells-cloud-go?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-go/blob/master/LICENSE)
+![](https://img.shields.io/badge/aspose.cells%20Cloud%20SDK-v26.11.0-green?style=for-the-badge&logo=go)[![Product Page](https://img.shields.io/badge/Product-0288d1?style=for-the-badge&logo=Google-Chrome&logoColor=white)](https://products.aspose.cloud/cells/go/) [![Documentation](https://img.shields.io/badge/Documentation-388e3c?style=for-the-badge&logo=Hugo&logoColor=white)](https://docs.aspose.cloud/cells/) [![API Ref](https://img.shields.io/badge/Reference-f39c12?style=for-the-badge&logo=html5&logoColor=white)](https://reference.aspose.cloud/cells/) [![Examples](https://img.shields.io/badge/Examples-1565c0?style=for-the-badge&logo=Github&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-go/tree/master/examples) [![Blog](https://img.shields.io/badge/Blog-d32f2f?style=for-the-badge&logo=WordPress&logoColor=white)](https://blog.aspose.cloud/categories/aspose.cells-cloud-product-family/) [![Support](https://img.shields.io/badge/Support-7b1fa2?style=for-the-badge&logo=Discourse&logoColor=white)](https://forum.aspose.cloud/c/cells/7) [![License](https://img.shields.io/github/license/aspose-cells-cloud/aspose-cells-cloud-go?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-go/blob/master/LICENSE)
 
 [Aspose.Cells Cloud SDK for Go](https://products.aspose.cloud/cells/go) is a cloud-native REST API that enables Go developers to **create**, **read**, **edit**, **convert**, and **repair** spreadsheet files—including **Excel** (**XLS**, **XLSX**, **XLSB**, **XLSM**), **OpenDocument Spreadsheet (ODS**), **CSV**, **TSV**, **JSON**, **HTML**, **PDF**, and **more—without requiring Microsoft Excel or Office to be installed**.
 
@@ -13,6 +12,8 @@ Built on the **Aspose.Cells Cloud Web API**, this MIT-licensed SDK supports adva
 
 It seamlessly integrates with **AWS**, **Microsoft Azure**, and **Google Cloud**, ensuring **high availability**, **scalability**, **and data integrity**. Ideal for serverless apps, microservices, and cloud automation workflows.
 
+**Starting from version v26.11.0, the Aspose.Cells Cloud SDK uses a new model.**
+
 ## Quick Start Guide
 
 To get started with Aspose.Cells Cloud for Go, follow these steps:
@@ -24,21 +25,55 @@ To get started with Aspose.Cells Cloud for Go, follow these steps:
 package main
 
 import (
- "os"
- . "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"context"
+	"fmt"
+	"os"
 
+	"asposecellscloud"
+	"asposecellscloud/converter"
+	"asposecellscloud/datasource"
+	"asposecellscloud/models"
+	"asposecellscloud/requests"
 )
 
+const remoteFolder = "GoSDK"
+
 func main() {
- instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
- request := PutConvertWorkbookRequest{File: map[string]string{"Book1.xlsx": "TestData/Book1.xlsx"}, Format: "pdf"}
- data, _, err := instance.PutConvertWorkbook(&request)
- if err == nil {
-  file, _ := os.OpenFile("Book1.pdf", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-  file.Write(data)
-  defer file.Close()
- }
+	ctx := context.Background()
+	input := "EmployeeSalesSummary.xlsx"
+
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	// -------------------------------------------------------------------------
+	// Local file processing
+	// -------------------------------------------------------------------------
+
+	// Convert a local Excel file to another format file directly and save it
+	// to a local file. This completes in one step.
+	must(converter.Convert(ctx, client,
+		datasource.FilePathSource(input),
+		datasource.FilePathSink("EmployeeSalesSummary.pdf"),
+		converter.FormatPDF,
+	))
+
 }
+
+func must(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+}
+
+
 ```
 
 - Initialize project go.mod , fetch the dependencies for your project, and run your created application..
@@ -115,16 +150,17 @@ go run main.go
 - Import/Export: Facilitates importing data from various sources into spreadsheets and exporting spreadsheet data to other formats.
 - Security Management: Offers a range of security features like data encryption, access control, and permission management to safeguard the security and integrity of spreadsheet data.
 
-## Feature & Enhancements in Version v26.10.0
+## Feature & Enhancements in Version v26.11.0
 
-| **Summary**                                                                                                   | **Category** |
-| :------------------------------------------------------------------------------------------------------------ | :----------- |
-| Refactor SearchController.cs: replace 7 remote read endpoints with [HttpGet] and remove deprecated forwarder | Improvement  |
-| Fix typo in CalculateController.cs: correct route 'aggergate' to 'aggregate' | Bug  |
-| Fix operationName copy-paste errors in ManagementController.cs | Bug  |
-| Mark StatisticalController.cs as obsolete | Improvement  |
-| Security & Stability Fixes for Aspose.Cells Cloud API | Improvement  |
-| Add Exception Chain Support to CellsApiException and HttpWebException | New Feature  |
+| **ID**           | **Summary**                                                                  | **Category** |
+| :--------------- | :--------------------------------------------------------------------------- | :----------- |
+| CELLSCLOUD-14291 | Single-property delete returns 200 and removes nothing                       | Bug          |
+| CELLSCLOUD-14292 | htmlstring has no request body in the spec                                   | Bug          |
+| CELLSCLOUD-14293 | Secondary-axis routes answer 200 but the value read back is not the one sent | Bug          |
+| CELLSCLOUD-14294 | A string auto-filter is saved as the literal text Aspose.Cells.FilterValue   | Bug          |
+| CELLSCLOUD-14307 | Support converting worksheet page                                            | New Feature  |
+| CELLSCLOUD-14326 | Improve SmartMarkerTemplate API in Aspose.Cells Cloud                        | Improvement  |
+| CELLSCLOUD-14327 | Add new feature: support generate report                                     | New Feature  |
 
 ## Available SDKs
 
@@ -147,4 +183,3 @@ The Aspose.Cells Cloud SDK is available in multiple popular programming language
 [![Ruby](https://img.shields.io/badge/Ruby-CC342D.svg?style=for-the-badge&logo=ruby&logoColor=white)](https://github.com/aspose-cells-cloud/aspose-cells-cloud-ruby) [![Ruby](https://img.shields.io/badge/Gem-aspose__cells__cloud-red?logo=ruby&style=for-the-badge)](https://rubygems.org/gems/aspose_cells_cloud)
 
 ## [Release history version](CHANGELOG.md)
-```

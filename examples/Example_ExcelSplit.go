@@ -1,57 +1,78 @@
+//go:build ignore
+
 package main
 
 import (
 	"archive/zip"
-	"bytes"
+	"context"
+	"fmt"
 	"io"
 	"os"
 
-	. "github.com/aspose-cells-cloud/aspose-cells-cloud-go/v26"
+	"asposecellscloud"
+	"asposecellscloud/dataprocessing"
+	"asposecellscloud/datasource"
 )
 
 func main() {
-	EmployeeSalesSummaryXlsx := "EmployeeSalesSummary.xlsx"
-	// If no environment variables are configured, please obtain the ClientId and ClientSecret from https://dashboard.aspose.cloud/#/applications and replace the following values:
-	// instance  := NewCellsApiService('YourClientId','YourClientSecret')
-	instance := NewCellsApiService(os.Getenv("ProductClientId"), os.Getenv("ProductClientSecret"))
+	ctx := context.Background()
 
-	//Splitting an Excel or other spreadsheet file to another format files online.
-	zipData, _, err := instance.SplitSpreadsheet(&SplitSpreadsheetRequest{Spreadsheet: EmployeeSalesSummaryXlsx, From: 0, To: 2}, CellsCloudOption{OptionName: "LocalOutPath", OptionValue: "splittedFiles.zip"})
+	// If no environment variables are configured, obtain the ClientId and
+	// ClientSecret from https://dashboard.aspose.cloud/#/applications and pass
+	// them to NewAsposeCellsCloudClient explicitly:
+	//   asposecellscloud.NewAsposeCellsCloudClient("YourClientId", "YourClientSecret", "")
+	client := asposecellscloud.NewAsposeCellsCloudClient(
+		os.Getenv("ProductClientId"),
+		os.Getenv("ProductClientSecret"),
+		os.Getenv("CellsCloudApiBaseUrl"),
+	)
+
+	// Split a local spreadsheet into one file per worksheet. The v4.0 endpoint
+	// returns a zip archive containing the generated files.
+	const zipPath = "splittedFiles.zip"
+	err := dataprocessing.SplitSpreadsheet(ctx, client,
+		datasource.FilePathSource("EmployeeSalesSummary.xlsx"),
+		datasource.FilePathSink(zipPath),
+		dataprocessing.WithOutFormat("xlsx"),
+		dataprocessing.WithFrom(0),
+		dataprocessing.WithTo(2),
+	)
 	if err != nil {
-		print("Error:", err.Error())
-	} else {
-		// err = os.WriteFile("splittedFiles.zip", zipData, 0644)
-		// if err != nil {
-		// 	print("Error:", err.Error())
-		// 	return
-		// }
-		println("Successful split Excel files.")
+		fmt.Println("Error:", err)
+		os.Exit(1)
 	}
+	fmt.Println("Successful split Excel files.")
 
-	reader := bytes.NewReader(zipData)
-	zipReader, err := zip.NewReader(reader, int64(len(zipData)))
+	if err := unzip(zipPath); err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+}
+
+// unzip extracts every entry of the archive at zipPath into the current
+// directory.
+func unzip(zipPath string) error {
+	reader, err := zip.OpenReader(zipPath)
 	if err != nil {
-		return
+		return err
 	}
+	defer reader.Close()
 
-	for _, file := range zipReader.File {
+	for _, file := range reader.File {
 		rc, err := file.Open()
 		if err != nil {
-			print("Error:", err.Error())
-			return
+			return err
 		}
 
 		content, err := io.ReadAll(rc)
 		rc.Close()
 		if err != nil {
-			print("Error:", err.Error())
-			return
+			return err
 		}
-		err = os.WriteFile(file.Name, content, file.Mode())
-		if err != nil {
-			print("Error:", err.Error())
-			return
+
+		if err := os.WriteFile(file.Name, content, file.Mode()); err != nil {
+			return err
 		}
 	}
-
+	return nil
 }
