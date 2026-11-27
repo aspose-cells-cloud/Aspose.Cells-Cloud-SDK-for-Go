@@ -12,7 +12,7 @@ Built on the **Aspose.Cells Cloud Web API**, this MIT-licensed SDK supports adva
 
 It seamlessly integrates with **AWS**, **Microsoft Azure**, and **Google Cloud**, ensuring **high availability**, **scalability**, **and data integrity**. Ideal for serverless apps, microservices, and cloud automation workflows.
 
-**Starting from version v26.11.0, the Aspose.Cells Cloud SDK uses a new model.**
+**Starting with version v26.11.0, the Aspose.Cells Cloud SDK adopts a new model.**
 
 ## Quick Start Guide
 
